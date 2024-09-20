@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+	<file source-language="en" datatype="plaintext" original="messages">
+		<header/>
+		<body>
+			<trans-unit id="internal_news_notify_note">
+				<source><![CDATA[The next date for the internal news "%s" is today: %s]]></source>
+			</trans-unit>
+			<trans-unit id="widgets.internalNews.news.title">
+				<source>Internal News</source>
+			</trans-unit>
+			<trans-unit id="widgets.internalNews.news.description">
+				<source>Provides an overview over all internal news</source>
+			</trans-unit>
+			<trans-unit id="widgets.internalNews.news.button.create">
+				<source>New</source>
+			</trans-unit>
+			<trans-unit id="widgets.internalNews.news.button.list">
+				<source>List</source>
+			</trans-unit>
+			<trans-unit id="toolbaritem.title">
+				<source>Internal News</source>
+			</trans-unit>
+			<trans-unit id="toolbaritem.description">
+				<source><![CDATA[Here you can find the latest internal news. Find all news within the internal news widget on your <a href="%s">dashboard</a>.]]></source>
+			</trans-unit>
+			<trans-unit id="emtpy">
+				<source>No internal news available</source>
+			</trans-unit>
+			<trans-unit id="nextDates">
+				<source>Next dates</source>
+			</trans-unit>
+			<trans-unit id="widget.title">
+				<source>Internal News</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,26 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers">
+
+<p class="h3 dropdown-headline">
+    <core:icon identifier="internal-news-news" size="small"/>
+    <f:translate key="toolbaritem.title" extensionName="XimaTypo3InternalNews"/>
+</p>
+<p class="dropdown-item-text">
+    <f:format.raw><f:translate key="toolbaritem.description" extensionName="XimaTypo3InternalNews" arguments="{0: '{be:moduleLink(route:\'dashboard\')}'}"/></f:format.raw>
+</p>
+<ul class="dropdown-list internal-news--toolbar">
+    <f:if condition="{data}">
+        <f:then>
+            <f:for each="{data}" as="record">
+                <f:render partial="Item" arguments="{record: record}"/>
+            </f:for>
+        </f:then>
+        <f:else>
+            <div style="min-height: 200px;position:relative;">
+                <p>
+                    <f:translate key="empty" extensionName="XimaTypo3InternalNews"/>
+                </p>
+            </div>
+        </f:else>
+    </f:if>
+</ul>

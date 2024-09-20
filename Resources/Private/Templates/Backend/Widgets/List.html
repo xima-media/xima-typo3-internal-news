@@ -1,0 +1,39 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:dashboard="http://typo3.org/ns/TYPO3/CMS/Dashboard/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<div class="widget-content-title d-flex" style="gap:10px;">
+    <core:icon identifier="internal-news-news" size="small"/>
+    <span><f:translate key="widget.title" extensionName="XimaTypo3InternalNews"/></span>
+</div>
+<div class="widget-content-main"
+     style="--mask: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 0) 100% 90% / 100% 100% repeat-x;-webkit-mask: var(--mask);mask: var(--mask);">
+    <f:if condition="{records}">
+        <f:then>
+            <ul class="internal-news--wrapper">
+            <f:for each="{records}" as="record">
+                <f:render partial="Item" arguments="{record: record}"/>
+            </f:for>
+            </ul>
+        </f:then>
+        <f:else>
+            <div class="row widget-no-items-found">
+                <div class="col-xs-12">
+                    <p><f:translate key="empty" extensionName="XimaTypo3InternalNews"/></p>
+                </div>
+            </div>
+        </f:else>
+    </f:if>
+</div>
+
+<div class="widget-content-footer d-flex" style="gap:1em;">
+    <f:if condition="{buttons}">
+        <f:for each="{buttons}" as="button">
+            <dashboard:widget.button button="{button}" class="widget-cta flex-grow-1">
+                <f:translate key="{button.title}" extensionName="XimaTypo3ContentPlanner"/>
+            </dashboard:widget.button>
+        </f:for>
+    </f:if>
+</div>
+</html>

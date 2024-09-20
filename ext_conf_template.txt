@@ -1,0 +1,2 @@
+# cat=basic//100; type=string; label=Time threshold for date notification (in seconds): Time threshold for date notification (in seconds). If the date of a news is within this threshold (and the notify option is enabled), a notification will be displayed.
+notifyTimeThreshold = 21600

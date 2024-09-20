@@ -1,0 +1,20 @@
+<html xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:be.pageRenderer
+    includeJavaScriptModules="{
+        0: '@xima/ximatypo3internalnews/backend.js'
+    }"
+    includeCssFiles="{
+        0: 'EXT:xima_typo3_internal_news/Resources/Public/Stylesheets/Backend.css'
+    }"
+/>
+<span class="toolbar-item-icon" title="Internal News">
+    <core:icon identifier="internal-news-news" size="small" alternativeMarkupIdentifier="inline"/>
+</span>
+<span class="toolbar-item-title">
+    <f:translate key="toolbaritem.title" extensionName="XimaTypo3InternalNews"/>
+</span>
+<f:if condition="{count}">
+    <span class="toolbar-item-badge badge badge-secondary" id="internal-news--counter">{count}</span>
+</f:if>
+

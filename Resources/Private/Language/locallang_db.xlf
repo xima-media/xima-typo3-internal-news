@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+	<file source-language="en" datatype="plaintext" original="messages">
+		<header/>
+		<body>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news">
+				<source>Internal News</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.top">
+				<source>Breaking News</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.top.description">
+				<source>Use this option to force the display of this news as modal for the user on the first occurrence</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.files">
+				<source>Files</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.dates">
+				<source>Dates</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.be_group">
+				<source>Backend User Groups</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.be_group.description">
+				<source>Restrict the access for this news to dedicated backend user groups</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.type">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.type.description">
+				<source>Select a single date or a recurring date</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.notify">
+				<source>Notify</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.notify.description">
+				<source>Select this option to show a notification hint to backend user when the selected date is reached on the configured period.</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.notify_type">
+				<source>Notify Type</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.notify_type.description">
+				<source>Select the notification type, which will affect the color of the notification hint.</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.notify_message">
+				<source>Notify Message</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.notify_message.description">
+				<source>Please provide a short message for the notification preview.</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.single_date">
+				<source>Single Date</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.single_date.description">
+				<source>Select a single date for the internal news</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.recurrence">
+				<source>Recurrence</source>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.recurrence.description">
+				<source>Use a recurrence rule to dynamically generate date instances. The Single Date will be used as referenced start date. Use a website tool like https://icalendar.org/rrule-tool.html to build the needed rule string.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

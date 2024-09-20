@@ -1,0 +1,32 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+    Xima\XimaTypo3InternalNews\:
+        resource: '../Classes/*'
+        exclude: '../Classes/Domain/Model/*'
+    Xima\XimaTypo3InternalNews\Widgets\Provider\CreateInternalNewsButtonProvider:
+        arguments:
+            $title: 'LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:widgets.internalNews.news.button.create'
+
+    Xima\XimaTypo3InternalNews\Widgets\Provider\ListInternalNewsButtonProvider:
+        arguments:
+            $title: 'LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:widgets.internalNews.news.button.list'
+    dashboard.widget.InternalNews-news:
+        class: 'Xima\XimaTypo3InternalNews\Widgets\InternalNewsWidget'
+        arguments:
+            $dataProvider: '@Xima\XimaTypo3InternalNews\Widgets\Provider\InternalNewsDataProvider'
+            $buttons:
+                - '@Xima\XimaTypo3InternalNews\Widgets\Provider\CreateInternalNewsButtonProvider'
+                - '@Xima\XimaTypo3InternalNews\Widgets\Provider\ListInternalNewsButtonProvider'
+            $options:
+                refreshAvailable: true
+        tags:
+            -   name: dashboard.widget
+                identifier: 'internalNews-news'
+                groupNames: 'news'
+                title: 'LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:widgets.internalNews.news.title'
+                description: 'LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:widgets.internalNews.news.description'
+                iconIdentifier: 'internal-news-news'
+                height: 'medium'
