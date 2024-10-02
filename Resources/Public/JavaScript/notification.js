@@ -13,7 +13,6 @@ class InternalNewsNotification {
         const resolved = await response.resolve();
         if (resolved.notifies) {
           resolved.notifies.forEach(item => {
-            console.log(TYPO3.lang);
             let actions = [
               {
                 label: TYPO3.lang['internal_news.more'],
