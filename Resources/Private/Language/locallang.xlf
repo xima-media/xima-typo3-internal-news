@@ -33,6 +33,15 @@
 			<trans-unit id="widget.title">
 				<source>Internal News</source>
 			</trans-unit>
+			<trans-unit id="button.more">
+				<source>More</source>
+			</trans-unit>
+			<trans-unit id="button.hide">
+				<source>Hide</source>
+			</trans-unit>
+			<trans-unit id="button.close">
+				<source>Close</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

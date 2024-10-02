@@ -13,9 +13,10 @@ class InternalNewsNotification {
         const resolved = await response.resolve();
         if (resolved.notifies) {
           resolved.notifies.forEach(item => {
+            console.log(TYPO3.lang);
             let actions = [
               {
-                label: 'More',
+                label: TYPO3.lang['internal_news.more'],
                 action: new ImmediateAction(() => {
                   InternalNewsUtils.fetchNews(item.newsId);
                 })
@@ -23,7 +24,7 @@ class InternalNewsNotification {
             ];
             if (resolved.enableNotifySessionHide) {
               actions.push({
-                label: 'Hide',
+                label: TYPO3.lang['internal_news.hide'],
                 action: new ImmediateAction(() => {
                   Client.set(`internal_news_notify--${item.id}`, true);
                 })

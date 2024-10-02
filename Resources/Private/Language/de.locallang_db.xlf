@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="messages" >
+		<header/>
+		<body>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news">
+				<source />
+				<target>Interne News</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.title">
+				<source />
+				<target>Titel</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.top">
+				<source />
+				<target>Breaking News</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.top.description">
+				<source />
+				<target>Use this option to force the display of this news as modal for the user on the first occurrence</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.description">
+				<source />
+				<target>Beschreibung</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.files">
+				<source />
+				<target>Dateien</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.image">
+				<source />
+				<target>Bild</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.dates">
+				<source />
+				<target>Termine</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.be_group">
+				<source />
+				<target>Backend Nutzer Gruppen</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.be_group.description">
+				<source />
+				<target>Verwenden Sie diese Option, um zu erzwingen, dass diese Nachricht beim ersten Auftreten als modale Nachricht angezeigt wird.</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date">
+				<source />
+				<target>Termin</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.title">
+				<source />
+				<target>Titel</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.type">
+				<source />
+				<target>Typ</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.type.description">
+				<source />
+				<target>Wählen Sie ein einzelnes Datum oder ein wiederkehrendes Datum.</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.notify">
+				<source />
+				<target>Benachrichtigung</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.notify.description">
+				<source />
+				<target>Wählen Sie diese Option, um dem Backend-Benutzer einen Hinweis zu geben, wenn das ausgewählte Datum im konfigurierten Zeitraum erreicht wird.</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.notify_type">
+				<source />
+				<target>Benachrichtigungstyp</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.notify_type.description">
+				<source />
+				<target>Wählen Sie den Benachrichtigungstyp aus, der die Farbe des Benachrichtigungshinweises beeinflusst.</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.notify_message">
+				<source />
+				<target>Benachrichtigungstext</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.notify_message.description">
+				<source />
+				<target>Bitte geben Sie eine kurze Nachricht für die Benachrichtigungsvorschau ein.</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.single_date">
+				<source />
+				<target>Datum</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.single_date.description">
+				<source />
+				<target>Wählen Sie ein Datum für die internen Nachrichten.</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.recurrence">
+				<source />
+				<target>Wiederholung</target>
+			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_date.recurrence.description">
+				<source />
+				<target>Verwenden Sie eine Wiederholungsregel, um dynamisch Datumsinstanzen zu erzeugen. Das Einzeldatum wird als referenziertes Startdatum verwendet. Verwenden Sie ein Website-Tool wie https://icalendar.org/rrule-tool.html, um den benötigten Regelstring zu erstellen.</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="messages" >
+		<header/>
+		<body>
+			<trans-unit id="internal_news_notify_note">
+				<source />
+				<target><![CDATA[The next date for the internal news "%s" is today: %s]]></target>
+			</trans-unit>
+			<trans-unit id="widgets.internalNews.news.title">
+				<source />
+				<target>Interne News</target>
+			</trans-unit>
+			<trans-unit id="widgets.internalNews.news.description">
+				<source />
+				<target>Bietet einen Überblick über alle internen Nachrichten</target>
+			</trans-unit>
+			<trans-unit id="widgets.internalNews.news.button.create">
+				<source />
+				<target>Neu</target>
+			</trans-unit>
+			<trans-unit id="widgets.internalNews.news.button.list">
+				<source />
+				<target>Liste</target>
+			</trans-unit>
+			<trans-unit id="toolbaritem.title">
+				<source />
+				<target>Interne News</target>
+			</trans-unit>
+			<trans-unit id="toolbaritem.description">
+				<source />
+				<target><![CDATA[Hier finden Sie die neuesten internen Nachrichten. Alle Neuigkeiten finden Sie im internen News-Widget auf Ihrem <a href="%s">Dashboard</a>.]]></target>
+			</trans-unit>
+			<trans-unit id="emtpy">
+				<source />
+				<target>Keine internen News verfügbar</target>
+			</trans-unit>
+			<trans-unit id="nextDates">
+				<source />
+				<target>Nächste Termine</target>
+			</trans-unit>
+			<trans-unit id="widget.title">
+				<source />
+				<target>Interne News</target>
+			</trans-unit>
+			<trans-unit id="button.more">
+				<source />
+				<target>Mehr</target>
+			</trans-unit>
+			<trans-unit id="button.hide">
+				<source />
+				<target>Verbergen</target>
+			</trans-unit>
+			<trans-unit id="button.close">
+				<source />
+				<target>Schließen</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
