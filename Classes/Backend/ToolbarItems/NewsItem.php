@@ -10,7 +10,10 @@ use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
 
 class NewsItem implements ToolbarItemInterface
 {
-    public function __construct(private readonly NewsRepository $newsRepository)
+    protected array $configuration;
+    public function __construct(
+        private readonly NewsRepository $newsRepository
+    )
     {
     }
 
@@ -66,7 +69,7 @@ class NewsItem implements ToolbarItemInterface
             GeneralUtility::getFileAbsFileName('EXT:' . Configuration::EXT_KEY . '/Resources/Private/Partials/'),
         ]);
         return $view->assignMultiple([
-            'data' => $this->newsRepository->findAllByCurrentUser(),
+            'data' => $this->newsRepository->findAllByCurrentUser(3),
         ])->render();
     }
 

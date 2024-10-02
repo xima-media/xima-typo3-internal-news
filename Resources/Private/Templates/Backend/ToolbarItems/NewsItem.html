@@ -2,12 +2,14 @@
 
 <f:be.pageRenderer
     includeJavaScriptModules="{
-        0: '@xima/ximatypo3internalnews/backend.js'
+        0: '@xima/ximatypo3internalnews/toolbar.js',
+        1: '@xima/ximatypo3internalnews/notification.js'
     }"
     includeCssFiles="{
         0: 'EXT:xima_typo3_internal_news/Resources/Public/Stylesheets/Backend.css'
     }"
 />
+
 <span class="toolbar-item-icon" title="Internal News">
     <core:icon identifier="internal-news-news" size="small" alternativeMarkupIdentifier="inline"/>
 </span>
@@ -17,4 +19,3 @@
 <f:if condition="{count}">
     <span class="toolbar-item-badge badge badge-secondary" id="internal-news--counter">{count}</span>
 </f:if>
-

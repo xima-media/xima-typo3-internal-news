@@ -1,0 +1,34 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers">
+
+
+<h2>{record.title}</h2>
+<small>{record.tstamp -> f:format.date(format: 'd.m.Y H:i')}</small>
+<div class="internal-news--description">{record.description -> f:format.raw()}</div>
+<f:if condition="{record.nextDates}">
+    <div class="internal-news--next-dates">
+        <h4>
+            <f:translate key="nextDates" extensionName="XimaTypo3InternalNews"/>
+        </h4>
+        <ul>
+            <f:for each="{record.nextDates}" as="nextDate">
+                <li>
+                                <span class="badge">
+                                    {nextDate.date -> f:format.date(format: 'd.m.Y H:i')}
+                                </span>
+                    {nextDate.title}
+                    <f:if condition="{nextDate.notify}">
+                        <core:icon identifier="content-info" size="small"/>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+    </div>
+</f:if>
+<div class="internal-news--image-container">
+    <f:if condition="{record.image}">
+        <div class="internal-news--image">
+            <f:image image="{record.image}" alt="{record.title}" width="760px"/>
+        </div>
+    </f:if>
+</div>

@@ -18,7 +18,7 @@ class DateService
     {
         $nextDate = null;
         foreach ($news->getDates() as $date) {
-            $nextDate = self::getDates($date, true, true)[0];
+            $nextDate = self::getDates($news, $date, true, true)[0];
         }
 
         return $nextDate;
@@ -29,7 +29,7 @@ class DateService
         $nextDates = [];
         foreach ($news->getDates() as $date) {
             // merge arrays
-            $nextDates = array_merge($nextDates, self::getDates($date, true));
+            $nextDates = array_merge($nextDates, self::getDates($news, $date, true));
         }
         usort($nextDates, function ($a, $b) {
             return $a['date'] <=> $b['date'];
@@ -37,23 +37,27 @@ class DateService
         return $nextDates;
     }
 
-    public static function getDates(Date $date, bool $respectNotify = false, bool $onlyNextDate = false): array
+    public static function getNotifyDatesByNewsList(array $newsList): array
+    {
+        $notifyDates = [];
+        foreach ($newsList as $news) {
+            foreach ($news->getDates() as $date) {
+                $notifyDates = array_merge($notifyDates, self::getDates($news, $date, true, true));
+            }
+        }
+        usort($notifyDates, function ($a, $b) {
+            return $a['date'] <=> $b['date'];
+        });
+        return $notifyDates;
+    }
+
+    public static function getDates(News $news, Date $date, bool $respectNotify = false, bool $forceNotify = false, bool $onlyNextDate = false): array
     {
         $dates = [];
         switch ($date->getType()) {
             case 'single_date':
-                if ($date->getSingleDate() > new \DateTime()) {
-                    $newDate = [
-                        'date' => $date->getSingleDate(),
-                        'title' => $date->getTitle(),
-                        'type' => $date->getType(),
-                    ];
-                    if ($respectNotify && $date->isNotify() && self::checkNotifyIsReached($date->getSingleDate())) {
-                        $newDate['notify'] = true;
-                        $newDate['notifyType'] = $date->getNotifyType() ?: 'info';
-                        $newDate['notifyMessage'] = ($date->getNotifyMessage() ?: $GLOBALS['LANG']->sL('LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:internal_news_notify_note')) . ' (' . $date->getSingleDate()->format('d.m.Y H:i') . ')';
-                    }
-                    $dates[] = $newDate;
+                if ($date->getSingleDate() > new \DateTime() && (!$forceNotify || self::checkNotifyIsReached($date->getSingleDate()))) {
+                    $dates[] = self::createDateEntry($news, $date, $date->getSingleDate(), $respectNotify);;
                     if ($onlyNextDate) {
                         break;
                     }
@@ -63,18 +67,8 @@ class DateService
                 $transformer = new ArrayTransformer();
                 $rule = new Rule($date->getRecurrence(), $date->getSingleDate(), null, (new \DateTimeZone('Europe/Berlin'))->getName());
                 foreach ($transformer->transform($rule) as $recurrence) {
-                    if ($recurrence->getStart() > new \DateTime()) {
-                        $newDate = [
-                            'date' => $recurrence->getStart(),
-                            'title' => $date->getTitle(),
-                            'type' => $date->getType(),
-                        ];
-                        if ($respectNotify && $date->isNotify() && self::checkNotifyIsReached($recurrence->getStart())) {
-                            $newDate['notify'] = true;
-                            $newDate['notifyType'] = $date->getNotifyType() ?: 'info';
-                            $newDate['notifyMessage'] = ($date->getNotifyMessage() ?: $GLOBALS['LANG']->sL('LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:internal_news_notify_note')) . ' (' . $recurrence->getStart()->format('d.m.Y H:i') . ')';
-                        }
-                        $dates[] = $newDate;
+                    if ($recurrence->getStart() > new \DateTime() && (!$forceNotify || self::checkNotifyIsReached($recurrence->getStart()))) {
+                        $dates[] = self::createDateEntry($news, $date, $recurrence->getStart(), $respectNotify);
                         if ($onlyNextDate) {
                             break 2;
                         }
@@ -83,6 +77,22 @@ class DateService
                 break;
         }
         return $dates;
+    }
+
+    private static function createDateEntry(News $news, Date $date, \DateTimeInterface $startDate, bool $respectNotify): array{
+        $newDate = [
+            'id' => $date->getUid(),
+            'date' => $startDate,
+            'title' => $date->getTitle(),
+            'type' => $date->getType(),
+            'newsId' => $news->getUid(),
+        ];
+        if ($respectNotify && $date->isNotify() && self::checkNotifyIsReached($startDate)) {
+            $newDate['notify'] = true;
+            $newDate['notifyType'] = $date->getNotifyType() ?: 'info';
+            $newDate['notifyMessage'] = ($date->getNotifyMessage() ?: $GLOBALS['LANG']->sL('LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:internal_news_notify_note')) . ' (' . $startDate->format('d.m.Y H:i') . ')';
+        }
+        return $newDate;
     }
 
     private static function checkNotifyIsReached(\DateTimeInterface $date): bool
@@ -96,7 +106,7 @@ class DateService
             return false;
         }
 
-        $thresholdDate= $thresholdDate->modify('-' . $threshold . ' seconds');
+        $thresholdDate = $thresholdDate->modify('-' . $threshold . ' seconds');
         if ($thresholdDate < new \DateTime()) {
             return true;
         }

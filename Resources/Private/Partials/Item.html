@@ -3,14 +3,8 @@
 <f:variable name="nextDate" value="{record.nextDate}"/>
 <li
     class="internal-news internal-news--{record.uid}"
-    data-title="{record.title}"
-    data-description="{record.description}"
+    data-news-id="{record.uid}"
     data-top="{record.topAndNew}"
-    data-date="{nextDate.date -> f:format.date(format: 'd.m.Y H:i')}"
-    data-date-title="{nextDate.title}"
-    data-date-notify="{nextDate.notify}"
-    data-date-notify-type="{nextDate.notifyType}"
-    data-date-note="{nextDate.notifyMessage}"
 >
     <div class="internal-news--header">
         <a href="#">
@@ -18,39 +12,13 @@
         </a>
         <small>{record.tstamp -> f:format.date(format: 'd.m.Y H:i')}</small>
     </div>
-    <div class="internal-news--inner">
-        <div class="internal-news--body">
-            <h2>{record.title}</h2>
-            <small>{record.tstamp -> f:format.date(format: 'd.m.Y H:i')}</small>
-            <div class="internal-news--description-preview" style="display: none;">{record.description ->
-                f:format.raw() -> f:format.crop(maxCharacters: 100)}
-            </div>
-            <div class="internal-news--description">{record.description -> f:format.raw()}</div>
-            <f:if condition="{record.nextDates}">
-                <div class="internal-news--next-dates">
-                    <h4><f:translate key="nextDates" extensionName="XimaTypo3InternalNews"/></h4>
-                    <ul>
-                        <f:for each="{record.nextDates}" as="nextDate">
-                            <li>
-                                <span class="badge">
-                                    {nextDate.date -> f:format.date(format: 'd.m.Y H:i')}
-                                </span>
-                                {nextDate.title}
-                                <f:if condition="{nextDate.notify}">
-                                    <core:icon identifier="content-info" size="small"/>
-                                </f:if>
-                            </li>
-                        </f:for>
-                    </ul>
-                </div>
-            </f:if>
+    <div class="internal-news--body">
+        <div class="internal-news--description">{record.description ->
+            f:format.raw() -> f:format.crop(maxCharacters: 100)}
         </div>
         <div class="internal-news--image-container">
             <f:if condition="{record.image}">
-                <div class="internal-news--image">
-                    <f:image image="{record.image}" alt="{record.title}" width="760px"/>
-                </div>
-                <div class="internal-news--image-preview" style="display:none;">
+                <div class="internal-news--image-preview">
                     <f:image image="{record.image}" alt="{record.title}" width="100px"/>
                 </div>
             </f:if>
@@ -65,7 +33,7 @@
             </div>
         </f:if>
         <a href="#" class="internal-news--more">
-            <core:icon identifier="actions-arrow-right-alt" size="small" />
+            <core:icon identifier="actions-arrow-right-alt" size="small"/>
         </a>
     </div>
 </li>

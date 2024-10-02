@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Xima\XimaTypo3InternalNews\Utilities;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Xima\XimaTypo3InternalNews\Domain\Model\News;
 use Xima\XimaTypo3InternalNews\Domain\Repository\DateRepository;
 use Xima\XimaTypo3InternalNews\Service\DateService;
 
@@ -17,7 +18,7 @@ class UserFunc
             return;
         }
 
-        $dates = DateService::getDates($record);
+        $dates = DateService::getDates(GeneralUtility::makeInstance(News::class), $record);
         $label = ($dates[0]['type'] === 'single_date' ? '📅 ': '🗓️ ') . $parameters['row']['title'];
 
         $rawDates = [];

@@ -24,28 +24,25 @@ ul.internal-news--wrapper {
     justify-content: space-between;
     align-items: center;
 }
-.internal-news--inner {
+
+.internal-news .internal-news--image-preview{
     display: flex;
+}
+
+.internal-news--body {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.internal-news--description {
+    flex-grow: 1;
 }
 
 small {
     color: #666;
     margin-bottom: 1em;
     display: block;
-}
-
-.internal-news h2,
-.internal-news .internal-news--image,
-.internal-news .internal-news--next-dates,
-.internal-news .internal-news--description,
-.internal-news .internal-news--inner small {
-    display: none;
-}
-
-.internal-news .internal-news--next-date,
-.internal-news .internal-news--description-preview,
-.internal-news .internal-news--image-preview{
-    display: flex !important;
 }
 
 .internal-news--next-date {

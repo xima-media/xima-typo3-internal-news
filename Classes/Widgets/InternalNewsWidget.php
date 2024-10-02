@@ -62,7 +62,7 @@ class InternalNewsWidget implements WidgetInterface, AdditionalCssInterface, Jav
     public function getJavaScriptModuleInstructions(): array
     {
         return [
-            JavaScriptModuleInstruction::create('@xima/ximatypo3internalnews/backend.js'),
+            JavaScriptModuleInstruction::create('@xima/ximatypo3internalnews/widget.js'),
         ];
     }
 }
