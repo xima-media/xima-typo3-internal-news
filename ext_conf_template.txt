@@ -2,3 +2,5 @@
 notifyTimeThreshold = 21600
 # cat=basic//101; type=boolean; label=Enable function to hide notification within session
 enableNotifySessionHide = 1
+# cat=basic//102; type=integer; label=Count of dates to display in the news detail view within the date list
+dateListCount = 20

@@ -22,8 +22,7 @@ final class DateController extends ActionController
     public function __construct(
         private readonly NewsRepository $newsRepository,
         private readonly ExtensionConfiguration $extensionConfiguration
-    )
-    {
+    ) {
         $this->configuration = $this->extensionConfiguration->get(Configuration::EXT_KEY);
     }
 
@@ -50,7 +49,10 @@ final class DateController extends ActionController
         $view->setLayoutRootPaths(['EXT:' . Configuration::EXT_KEY . '/Resources/Private/Layouts']);
 
         $view->setTemplate('News');
-        $view->assign('record', $news);
+        $view->assignMultiple([
+            'record' => $news,
+            'dateListCount' => ((int)$this->configuration['dateListCount'] ?? 20),
+        ]);
         return new JsonResponse(['result' => $view->render()]);
     }
 }
