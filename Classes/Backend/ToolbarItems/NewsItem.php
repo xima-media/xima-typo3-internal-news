@@ -13,8 +13,7 @@ class NewsItem implements ToolbarItemInterface
     protected array $configuration;
     public function __construct(
         private readonly NewsRepository $newsRepository
-    )
-    {
+    ) {
     }
 
     /**

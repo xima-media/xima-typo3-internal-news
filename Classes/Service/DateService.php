@@ -57,7 +57,7 @@ class DateService
         switch ($date->getType()) {
             case 'single_date':
                 if ($date->getSingleDate() > new \DateTime() && (!$forceNotify || self::checkNotifyIsReached($date->getSingleDate()))) {
-                    $dates[] = self::createDateEntry($news, $date, $date->getSingleDate(), $respectNotify);;
+                    $dates[] = self::createDateEntry($news, $date, $date->getSingleDate(), $respectNotify);
                     if ($onlyNextDate) {
                         break;
                     }
@@ -79,7 +79,8 @@ class DateService
         return $dates;
     }
 
-    private static function createDateEntry(News $news, Date $date, \DateTimeInterface $startDate, bool $respectNotify): array{
+    private static function createDateEntry(News $news, Date $date, \DateTimeInterface $startDate, bool $respectNotify): array
+    {
         $newDate = [
             'id' => $date->getUid(),
             'date' => $startDate,
