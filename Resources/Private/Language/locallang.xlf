@@ -4,7 +4,7 @@
 		<header/>
 		<body>
 			<trans-unit id="internal_news_notify_note">
-				<source><![CDATA[The next date for the internal news "%s" is today: %s]]></source>
+				<source><![CDATA[The next date for the internal news is starting soon]]></source>
 			</trans-unit>
 			<trans-unit id="widgets.internalNews.news.title">
 				<source>Internal News</source>
