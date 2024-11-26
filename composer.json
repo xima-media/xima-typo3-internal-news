@@ -1,16 +1,16 @@
 {
 	"name": "xima/xima-typo3-internal-news",
 	"description": "This extension provides an internal news system for TYPO3.",
-	"type": "typo3-cms-extension",
 	"license": [
 		"GPL-2.0-or-later"
 	],
+	"type": "typo3-cms-extension",
 	"require": {
-		"typo3/cms-core": "^12.0 || ^13.0",
+		"simshaun/recurr": "^5.0",
 		"typo3/cms-backend": "^12.0 || ^13.0",
-		"typo3/cms-dashboard": "^12.0 || ^13.0",
 		"typo3/cms-beuser": "^12.0 || ^13.0",
-		"simshaun/recurr": "^5.0"
+		"typo3/cms-core": "^12.0 || ^13.0",
+		"typo3/cms-dashboard": "^12.0 || ^13.0"
 	},
 	"require-dev": {
 		"armin/editorconfig-cli": "^2.0",
@@ -31,20 +31,20 @@
 			"Xima\\XimaTypo3InternalNews\\": "Classes/"
 		}
 	},
-	"extra": {
-		"typo3/cms": {
-			"extension-key": "xima_typo3_internal_news"
-		}
-	},
 	"config": {
-		"sort-packages": true,
-		"lock": false,
 		"allow-plugins": {
 			"ergebnis/composer-normalize": true,
 			"helhum/dotenv-connector": true,
 			"php-http/discovery": true,
 			"typo3/class-alias-loader": true,
 			"typo3/cms-composer-installers": true
+		},
+		"lock": false,
+		"sort-packages": true
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "xima_typo3_internal_news"
 		}
 	},
 	"scripts": {
