@@ -5,7 +5,7 @@
 		<body>
 			<trans-unit id="internal_news_notify_note">
 				<source />
-				<target><![CDATA[Der nächste Termin für die interne Nachricht startet demnächst]]></target>
+				<target><![CDATA[The next date for the internal news "%s" is today: %s]]></target>
 			</trans-unit>
 			<trans-unit id="widgets.internalNews.news.title">
 				<source />
@@ -31,7 +31,7 @@
 				<source />
 				<target><![CDATA[Hier finden Sie die neuesten internen Nachrichten. Alle Neuigkeiten finden Sie im internen News-Widget auf Ihrem <a href="%s">Dashboard</a>.]]></target>
 			</trans-unit>
-			<trans-unit id="emtpy">
+			<trans-unit id="empty">
 				<source />
 				<target>Keine internen News verfügbar</target>
 			</trans-unit>
