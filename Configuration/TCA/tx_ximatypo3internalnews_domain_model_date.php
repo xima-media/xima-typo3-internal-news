@@ -24,11 +24,11 @@ return [
     'types' => [
         '0' => [
             'showitem' => '
-         --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
+        --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
             --palette--;;datePalette,
-         --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
+        --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
             hidden,
-      ',
+    ',
         ],
     ],
     'palettes' => [

@@ -18,8 +18,8 @@ class News extends AbstractEntity
     protected string $description = '';
     protected FileReference|null $image = null;
     /**
-     * @var ObjectStorage<\Xima\XimaTypo3InternalNews\Domain\Model\Date>
-     */
+    * @var ObjectStorage<\Xima\XimaTypo3InternalNews\Domain\Model\Date>
+    */
     protected ObjectStorage $dates;
     protected News|null $news = null;
 
@@ -69,16 +69,16 @@ class News extends AbstractEntity
     }
 
     /**
-     * @return \Xima\XimaTypo3InternalNews\Domain\Model\News|null
-     */
+    * @return \Xima\XimaTypo3InternalNews\Domain\Model\News|null
+    */
     public function getNews(): ?News
     {
         return $this->news;
     }
 
     /**
-     * @param \Xima\XimaTypo3InternalNews\Domain\Model\News|null $news
-     */
+    * @param \Xima\XimaTypo3InternalNews\Domain\Model\News|null $news
+    */
     public function setNews(?News $news): void
     {
         $this->news = $news;
