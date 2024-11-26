@@ -103,7 +103,7 @@ class DateService
 
         $thresholdDate = clone $date;
 
-        if (!method_exists($date, 'modify')) {
+        if (!method_exists($thresholdDate, 'modify')) {
             return false;
         }
 

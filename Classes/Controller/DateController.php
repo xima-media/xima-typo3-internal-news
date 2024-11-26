@@ -51,7 +51,7 @@ final class DateController extends ActionController
         $view->setTemplate('News');
         $view->assignMultiple([
             'record' => $news,
-            'dateListCount' => ((int)$this->configuration['dateListCount'] ?? 20),
+            'dateListCount' => (array_key_exists('dateListCount', $this->configuration) ? (int)$this->configuration['dateListCount'] : 20),
         ]);
         return new JsonResponse(['result' => $view->render()]);
     }

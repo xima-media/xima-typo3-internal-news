@@ -1,11 +1,2 @@
 parameters:
-    ignoreErrors:
-        -
-            message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
-            count: 1
-            path: Classes/Controller/DateController.php
-
-        -
-            message: "#^Call to an undefined method DateTimeInterface\\:\\:modify\\(\\)\\.$#"
-            count: 1
-            path: Classes/Service/DateService.php
+	ignoreErrors: []
