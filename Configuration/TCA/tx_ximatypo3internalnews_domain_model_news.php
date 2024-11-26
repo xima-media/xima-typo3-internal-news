@@ -21,7 +21,7 @@ return [
         'default_sortby' => 'ORDER BY title',
         'sortby' => 'sorting',
         'typeicon_classes' => [
-            'default' => 'internal-news-news',
+            'default' => 'internal-news-news-color',
         ],
         'searchFields' => 'title, description',
     ],

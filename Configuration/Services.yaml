@@ -28,5 +28,5 @@ services:
                 groupNames: 'news'
                 title: 'LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:widgets.internalNews.news.title'
                 description: 'LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:widgets.internalNews.news.description'
-                iconIdentifier: 'internal-news-news'
+                iconIdentifier: 'internal-news-news-color'
                 height: 'medium'
