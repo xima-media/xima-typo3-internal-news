@@ -15,7 +15,7 @@ class InternalNewsNotification {
           resolved.notifies.forEach(item => {
             let actions = [
               {
-                label: TYPO3.lang['internal_news.more'],
+                label: TYPO3.lang !== undefined ? TYPO3.lang['internal_news.more'] : 'More',
                 action: new ImmediateAction(() => {
                   InternalNewsUtils.fetchNews(item.newsId);
                 })
@@ -23,7 +23,7 @@ class InternalNewsNotification {
             ];
             if (resolved.enableNotifySessionHide) {
               actions.push({
-                label: TYPO3.lang['internal_news.hide'],
+                label: TYPO3.lang !== undefined ? TYPO3.lang['internal_news.hide'] : 'Hide',
                 action: new ImmediateAction(() => {
                   Client.set(`internal_news_notify--${item.id}`, true);
                 })

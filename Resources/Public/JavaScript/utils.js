@@ -8,7 +8,7 @@ class InternalNewsUtils {
       .get()
       .then(async (response) => {
         const resolved = await response.resolve();
-        this.showInternalNews(TYPO3.lang['internal_news.title'], resolved.result);
+        this.showInternalNews(TYPO3.lang !== undefined ? TYPO3.lang['internal_news.title'] : 'Internal News', resolved.result);
       });
   }
 
@@ -21,7 +21,7 @@ class InternalNewsUtils {
       staticBackdrop: true,
       buttons: [
         {
-          text: TYPO3.lang['internal_news.close'],
+          text: TYPO3.lang !== undefined ? TYPO3.lang['internal_news.close'] : 'Close',
           name: 'close',
           icon: 'actions-close',
           active: true,
