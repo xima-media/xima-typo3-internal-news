@@ -19,7 +19,11 @@ class UserFunc
         }
 
         $dates = DateService::getDates(GeneralUtility::makeInstance(News::class), $record);
-        $label = ($dates[0]['type'] === 'single_date' ? '📅 ': '🗓️ ') . $parameters['row']['title'];
+        if (empty($dates)) {
+            return;
+        }
+        $title = (array_key_exists('title', $parameters['row']) ? $parameters['row']['title'] : array_key_exists('title', $parameters)) ? $parameters['title'] : '';
+        $label = ($dates[0]['type'] === 'single_date' ? '📅 ': '🗓️ ') . $title;
 
         $rawDates = [];
 
