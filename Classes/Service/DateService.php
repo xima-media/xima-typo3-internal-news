@@ -18,7 +18,10 @@ class DateService
     {
         $nextDate = null;
         foreach ($news->getDates() as $date) {
-            $nextDate = self::getDates($news, $date, true, true)[0];
+            $nextDateArray = self::getDates($news, $date, true, true);
+            if (!empty($nextDateArray)) {
+                $nextDate = $nextDateArray[0];
+            }
         }
 
         return $nextDate;
