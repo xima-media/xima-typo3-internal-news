@@ -19,7 +19,7 @@ ul.internal-news--wrapper {
 .internal-news {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(125,125,125,0.2);
 }
 
 .wizard .internal-news:first-child {
@@ -33,7 +33,7 @@ ul.internal-news--wrapper {
 
 .internal-news > a:hover {
     color: inherit;
-    background-color: rgba(239, 239, 240, 1);
+    background-color: rgba(125,125,125,0.2);
     text-decoration: none;
 }
 
