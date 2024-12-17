@@ -39,6 +39,10 @@
 				<source />
 				<target>Nächste Termine</target>
 			</trans-unit>
+			<trans-unit id="top">
+				<source />
+				<target>Sondermeldung</target>
+			</trans-unit>
 			<trans-unit id="widget.title">
 				<source />
 				<target>Interne News</target>

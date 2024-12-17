@@ -30,6 +30,9 @@
 			<trans-unit id="nextDates">
 				<source>Next dates</source>
 			</trans-unit>
+			<trans-unit id="top">
+				<source>Breaking news</source>
+			</trans-unit>
 			<trans-unit id="widget.title">
 				<source>Internal News</source>
 			</trans-unit>

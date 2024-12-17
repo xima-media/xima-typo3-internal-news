@@ -17,7 +17,7 @@
     <f:if condition="{data}">
         <f:then>
             <f:for each="{data}" as="record">
-                <f:render partial="Item" arguments="{record: record}"/>
+                <f:render partial="Item" arguments="{record: record, top: record.topAndNew}"/>
             </f:for>
         </f:then>
         <f:else>
