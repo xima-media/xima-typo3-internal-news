@@ -54,3 +54,7 @@ indent_style = unset
 indent_size = unset
 trim_trailing_whitespace = unset
 insert_final_newline = unset
+
+# phpstan.neon
+[*.neon]
+indent_style = tab
