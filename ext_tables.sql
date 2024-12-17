@@ -1,6 +1,12 @@
 CREATE TABLE tx_ximatypo3internalnews_domain_model_news
 (
-	uid         int(11) NOT NULL auto_increment,
+	uid           int(11) NOT NULL auto_increment,
+	pid           int(11) DEFAULT '0' NOT NULL,
+	tstamp        int(11) DEFAULT '0' NOT NULL,
+	crdate        int(11) DEFAULT '0' NOT NULL,
+	deleted       tinyint(4) unsigned DEFAULT '0' NOT NULL,
+	hidden        tinyint(4) unsigned DEFAULT '0' NOT NULL,
+
 	title       varchar(255)  DEFAULT '' NOT NULL,
 	description varchar(2000) DEFAULT '' NOT NULL,
 	top         tinyint(4) unsigned DEFAULT 0 NOT NULL,
