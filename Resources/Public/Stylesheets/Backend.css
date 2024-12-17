@@ -76,10 +76,14 @@ ul.internal-news--wrapper {
     flex-grow: 1;
 }
 
+.internal-news--subheader {
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
 small {
     color: #666;
-    margin-bottom: 1em;
-    display: block;
 }
 
 .internal-news--next-date {
