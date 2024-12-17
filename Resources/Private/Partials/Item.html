@@ -1,39 +1,35 @@
 <html data-namespace-typo3-fluid="true"
-    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers">
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" xmlns="http://www.w3.org/1999/html">
 <f:variable name="nextDate" value="{record.nextDate}"/>
 <li
     class="internal-news internal-news--{record.uid}"
     data-news-id="{record.uid}"
     data-top="{record.topAndNew}"
 >
-    <div class="internal-news--header">
-        <a href="#">
+    <a href="#">
+        <div class="internal-news--header">
             <h3>{record.title}</h3>
-        </a>
-        <small>{record.tstamp -> f:format.date(format: 'd.m.Y H:i')}</small>
-    </div>
-    <div class="internal-news--body">
-        <div class="internal-news--description">{record.description ->
-            f:format.raw() -> f:format.crop(maxCharacters: 100)}
+            <small>{record.tstamp -> f:format.date(format: 'd.m.Y H:i')}</small>
         </div>
-        <div class="internal-news--image-container">
-            <f:if condition="{record.image}">
-                <div class="internal-news--image-preview">
-                    <f:image image="{record.image}" alt="{record.title}" width="100px"/>
+        <div class="internal-news--body">
+            <div class="internal-news--description">{record.description ->
+                f:format.raw() -> f:format.crop(maxCharacters: 100)}
+            </div>
+            <div class="internal-news--image-container">
+                <f:if condition="{record.image}">
+                    <div class="internal-news--image-preview">
+                        <f:image image="{record.image}" alt="{record.title}" width="100px"/>
+                    </div>
+                </f:if>
+            </div>
+        </div>
+        <div class="internal-news--footer">
+            <f:if condition="{record.nextDate}">
+                <div class="internal-news--next-date">
+                    <span class="badge" title="Upcoming news date">{record.nextDate.date -> f:format.date(format: 'd.m.Y H:i')}</span>
+                    <span>{record.nextDate.title}</span>
                 </div>
             </f:if>
         </div>
-    </div>
-    <div class="internal-news--footer">
-        <f:if condition="{record.nextDate}">
-            <div class="internal-news--next-date">
-                <span class="badge" title="Upcoming news date">{record.nextDate.date -> f:format.date(format: 'd.m.Y H:i')}</span>
-                <span>{record.nextDate.title}</span>
-                <core:icon identifier="content-info" size="small"/>
-            </div>
-        </f:if>
-        <a href="#" class="internal-news--more">
-            <core:icon identifier="actions-arrow-right-alt" size="small"/>
-        </a>
-    </div>
+    </a>
 </li>

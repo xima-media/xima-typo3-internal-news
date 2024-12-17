@@ -18,9 +18,6 @@
                         {nextDate.date -> f:format.date(format: 'd.m.Y H:i')}
                     </span>
                         {nextDate.title}
-                        <f:if condition="{nextDate.notify}">
-                            <core:icon identifier="content-info" size="small"/>
-                        </f:if>
                     </li>
                     <f:if condition="{i.cycle} == {dateListCount}">
                         <li>&#8230;</li>
