@@ -86,6 +86,10 @@ small {
     color: #666;
 }
 
+.internal-news--top {
+    margin-bottom: 1em;
+}
+
 .internal-news--next-date {
     flex-grow: 1;
     align-items: center;

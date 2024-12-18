@@ -1,13 +1,21 @@
 <html data-namespace-typo3-fluid="true"
-    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers">
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers">
 
 <h2>{record.title}</h2>
+<span class="badge badge-danger internal-news--top">
+    <f:translate key="top" extensionName="XimaTypo3InternalNews"/>
+</span>
+
 <div class="internal-news--subheader">
     <small>{record.tstamp -> f:format.date(format: 'd.m.Y H:i')}</small>
-    <f:if condition="{record.top}">
-    <span class="badge badge-primary">
-        <f:translate key="top" extensionName="XimaTypo3InternalNews"/>
-    </span>
+    <f:if condition="{record.categories}">
+        <div class="internal-news--categories">
+            <f:for each="{record.categories}" as="category" iteration="i">
+            <span class="badge badge-secondary">
+                {category.title}
+            </span>
+            </f:for>
+        </div>
     </f:if>
 </div>
 

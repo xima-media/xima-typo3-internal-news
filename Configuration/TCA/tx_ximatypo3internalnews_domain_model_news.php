@@ -32,6 +32,8 @@ return [
             --palette--;;newsPalette,
         --div--;LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_news.files,
             image,
+        --div--;LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_news.categories,
+            categories,
         --div--;LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_news.dates,
             dates,
         --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.access,
@@ -104,6 +106,12 @@ return [
                 'foreign_field' => 'news',
                 'minitems' => 0,
                 'maxitems' => 9999,
+            ],
+        ],
+        'categories'       => [
+            'label'  => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_news.categories',
+            'config' => [
+                'type' => 'category',
             ],
         ],
         'be_group' => [

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Xima\XimaTypo3InternalNews\Domain\Model;
 
+use TYPO3\CMS\Extbase\Domain\Model\Category;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -22,10 +23,15 @@ class News extends AbstractEntity
     */
     protected ObjectStorage $dates;
     protected News|null $news = null;
+    /**
+     * @var ObjectStorage<Category>
+     */
+    protected ObjectStorage $categories;
 
     public function __construct()
     {
         $this->dates = new ObjectStorage();
+        $this->categories = new ObjectStorage();
     }
 
     public function getTitle(): string
@@ -120,5 +126,21 @@ class News extends AbstractEntity
     public function getTstamp(): ?int
     {
         return $this->tstamp;
+    }
+
+    /**
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     */
+    public function getCategories(): ObjectStorage
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories
+     */
+    public function setCategories(ObjectStorage $categories): void
+    {
+        $this->categories = $categories;
     }
 }
