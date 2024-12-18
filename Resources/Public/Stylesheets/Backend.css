@@ -96,6 +96,13 @@ small {
     gap: 0.5em;
 }
 
+.internal-news--image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
 .internal-news .internal-news--image img {
     width: 100%;
     height: auto;

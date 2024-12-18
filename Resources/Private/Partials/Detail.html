@@ -19,6 +19,14 @@
     </f:if>
 </div>
 
+<f:if condition="{record.image}">
+    <div class="internal-news--image-container">
+        <div class="internal-news--image">
+            <f:image image="{record.image}" alt="{record.title}" width="760px"/>
+        </div>
+    </div>
+</f:if>
+
 <div class="internal-news--description">{record.description -> f:format.raw()}</div>
 <f:if condition="{record.nextDates}">
     <div class="internal-news--next-dates">
@@ -42,10 +50,4 @@
         </ul>
     </div>
 </f:if>
-<div class="internal-news--image-container">
-    <f:if condition="{record.image}">
-        <div class="internal-news--image">
-            <f:image image="{record.image}" alt="{record.title}" width="760px"/>
-        </div>
-    </f:if>
-</div>
+
