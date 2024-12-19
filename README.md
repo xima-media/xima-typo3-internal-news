@@ -4,13 +4,16 @@
 
 # TYPO3 extension `xima_typo3_internal_news`
 
-[![Supported TYPO3 versions](https://badgen.net/badge/TYPO3/12%20&%2013/orange)](https://extensions.typo3.org/extension/xima_typo3_content_planner)
+[![Latest Stable Version](https://typo3-badges.dev/badge/xima_typo3_internal_news/version/shields.svg)](https://extensions.typo3.org/extension/xima_typo3_internal_news)
+[![TYPO3 12](https://img.shields.io/badge/TYPO3-12-orange.svg)](https://get.typo3.org/version/12)
+[![TYPO3 13](https://img.shields.io/badge/TYPO3-13-orange.svg)](https://get.typo3.org/version/13)
+[![Total Downloads](https://poser.pugx.org/xima/xima-typo3-internal-news/d/total)](https://packagist.org/packages/xima/xima-typo3-frontend-edit)
 
 </div>
 
-This extension provides an internal news system with custom access and notification capabilities for the TYPO3 backend.
+This extension provides an internal news system with custom access and notification capabilities for the TYPO3 backend, e.g. to inform editors about new features and changes in the cms.
 
-![Toolbar](./Documentation/Images/toolbar-item.png)
+![Record](./Documentation/Images/screenrecord.gif)
 
 ## Features
 
@@ -35,7 +38,9 @@ composer require xima/xima-typo3-internal-news
 
 ### TER
 
-ToDo
+[![TER version](https://typo3-badges.dev/badge/xima_typo3_internal_news/version/shields.svg)](https://extensions.typo3.org/extension/xima_typo3_internal_news)
+
+Download the zip file from [TYPO3 extension repository (TER)](https://extensions.typo3.org/extension/xima_typo3_internal_news).
 
 ## Usage
 
@@ -55,7 +60,7 @@ The latest news will be also available in the toolbar.
 
 The notification feature can be used to inform backend users about specific events.
 
-Therefore a custom date (as a single date or a recurrence rule) can be defined within the news record.
+Therefore, a custom date (as a single date or a recurrence rule) can be defined within the news record.
 
 The notification hint will be displayed by default within a time slot 6 hours before the event (this can be adjusted in the extension settings).
 
