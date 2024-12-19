@@ -21,8 +21,8 @@
 			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.files">
 				<source>Files</source>
 			</trans-unit>
-			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.image">
-				<source>Image</source>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.media">
+				<source>Media</source>
 			</trans-unit>
 			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.dates">
 				<source>Dates</source>

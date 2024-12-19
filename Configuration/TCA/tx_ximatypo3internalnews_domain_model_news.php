@@ -31,7 +31,7 @@ return [
         --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
             --palette--;;newsPalette,
         --div--;LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_news.files,
-            image,
+            media,
         --div--;LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_news.categories,
             categories,
         --div--;LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_news.dates,
@@ -81,12 +81,12 @@ return [
                 'eval' => 'trim',
             ],
         ],
-        'image' => [
-            'label' => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_news.image',
+        'media' => [
+            'label' => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_news.media',
             'exclude' => false,
             'config' => [
                 'type' => 'file',
-                'allowed' => 'jpg,jpeg,png',
+                'allowed' => 'common-media-types',
                 'overrideChildTca' => [
                     'types' => [
                         AbstractFile::FILETYPE_IMAGE => [

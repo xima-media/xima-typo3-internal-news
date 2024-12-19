@@ -10,7 +10,7 @@ CREATE TABLE tx_ximatypo3internalnews_domain_model_news
 	title       varchar(255)  DEFAULT '' NOT NULL,
 	description varchar(2000) DEFAULT '' NOT NULL,
 	top         tinyint(4) unsigned DEFAULT 0 NOT NULL,
-	image       int (11) unsigned DEFAULT '0' NOT NULL,
+	media       int (11) unsigned DEFAULT '0' NOT NULL,
 	dates       int(11) unsigned DEFAULT '0' NOT NULL,
 	be_group    varchar(255) DEFAULT '' NOT NULL,
 	PRIMARY KEY (uid)

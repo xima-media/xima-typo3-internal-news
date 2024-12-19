@@ -17,12 +17,11 @@ class News extends AbstractEntity
     protected int|null $tstamp = null;
     protected bool $top = false;
     protected string $description = '';
-    protected FileReference|null $image = null;
+    protected FileReference|null $media = null;
     /**
     * @var ObjectStorage<\Xima\XimaTypo3InternalNews\Domain\Model\Date>
     */
     protected ObjectStorage $dates;
-    protected News|null $news = null;
     /**
      * @var ObjectStorage<Category>
      */
@@ -54,14 +53,14 @@ class News extends AbstractEntity
         $this->description = $description;
     }
 
-    public function getImage(): ?FileReference
+    public function getMedia(): ?FileReference
     {
-        return $this->image;
+        return $this->media;
     }
 
-    public function setImage(?FileReference $image): void
+    public function setMedia(?FileReference $media): void
     {
-        $this->image = $image;
+        $this->media = $media;
     }
 
     public function getDates(): ObjectStorage
@@ -72,22 +71,6 @@ class News extends AbstractEntity
     public function setDates(ObjectStorage $dates): void
     {
         $this->dates = $dates;
-    }
-
-    /**
-    * @return \Xima\XimaTypo3InternalNews\Domain\Model\News|null
-    */
-    public function getNews(): ?News
-    {
-        return $this->news;
-    }
-
-    /**
-    * @param \Xima\XimaTypo3InternalNews\Domain\Model\News|null $news
-    */
-    public function setNews(?News $news): void
-    {
-        $this->news = $news;
     }
 
     public function getNextDate(): ?array

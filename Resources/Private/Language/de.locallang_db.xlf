@@ -27,9 +27,9 @@
 				<source />
 				<target>Dateien</target>
 			</trans-unit>
-			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.image">
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.media">
 				<source />
-				<target>Bild</target>
+				<target>Medien</target>
 			</trans-unit>
 			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.dates">
 				<source />

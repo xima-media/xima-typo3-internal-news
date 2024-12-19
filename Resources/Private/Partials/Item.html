@@ -15,10 +15,10 @@
             <div class="internal-news--description">{record.description ->
                 f:format.raw() -> f:format.crop(maxCharacters: 100)}
             </div>
-            <div class="internal-news--image-container">
-                <f:if condition="{record.image}">
-                    <div class="internal-news--image-preview">
-                        <f:image image="{record.image}" alt="{record.title}" width="100px"/>
+            <div class="internal-news--media-container">
+                <f:if condition="{record.media} && {record.media.originalResource.originalFile.properties.mime_type} != 'video/mp4' && {record.media.originalResource.originalFile.properties.mime_type} != 'video/webm' &&{record.media.originalResource.originalFile.properties.mime_type} != 'video/ogg'">
+                    <div class="internal-news--media-preview">
+                        <f:image image="{record.media}" alt="{record.title}" width="100px"/>
                     </div>
                 </f:if>
             </div>

@@ -19,10 +19,23 @@
     </f:if>
 </div>
 
-<f:if condition="{record.image}">
-    <div class="internal-news--image-container">
-        <div class="internal-news--image">
-            <f:image image="{record.image}" alt="{record.title}" width="760px"/>
+<f:if condition="{record.media}">
+    <div class="internal-news--media-container">
+        <div class="internal-news--media">
+            <f:if condition="{record.media.originalResource.originalFile.properties.mime_type} == 'image/gif'">
+                <f:then>
+                    <img src="{record.media.originalResource.publicUrl}" alt="{record.title}" width="760px"/>
+                </f:then>
+                <f:else if="{record.media.originalResource.originalFile.properties.mime_type} == 'video/mp4' || {record.media.originalResource.originalFile.properties.mime_type} == 'video/webm' || {record.media.originalResource.originalFile.properties.mime_type} == 'video/ogg'">
+                    <video controls width="760px">
+                        <source src="{record.media.originalResource.publicUrl}" type="{record.media.originalResource.originalFile.properties.mime_type}">
+                        Your browser does not support the video tag.
+                    </video>
+                </f:else>
+                <f:else>
+                    <f:image image="{record.media}" alt="{record.title}" width="760px"/>
+                </f:else>
+            </f:if>
         </div>
     </div>
 </f:if>
@@ -33,21 +46,19 @@
         <h4>
             <f:translate key="nextDates" extensionName="XimaTypo3InternalNews"/>
         </h4>
-        <ul>
-            <f:for each="{record.nextDates}" as="nextDate" iteration="i">
-                <f:if condition="{i.index} < {dateListCount}">
-                    <li>
+        <f:for each="{record.nextDates}" as="nextDate" iteration="i">
+            <f:if condition="{i.index} < {dateListCount}">
+                <div class="internal-news--next-date">
                     <span class="badge">
                         {nextDate.date -> f:format.date(format: 'd.m.Y H:i')}
                     </span>
-                        {nextDate.title}
-                    </li>
+                    {nextDate.title}
                     <f:if condition="{i.cycle} == {dateListCount}">
-                        <li>&#8230;</li>
+                        <br/>&#8230;
                     </f:if>
-                </f:if>
-            </f:for>
-        </ul>
+                </div>
+            </f:if>
+        </f:for>
     </div>
 </f:if>
 
