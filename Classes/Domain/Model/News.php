@@ -23,8 +23,8 @@ class News extends AbstractEntity
     */
     protected ObjectStorage $dates;
     /**
-     * @var ObjectStorage<Category>
-     */
+    * @var ObjectStorage<Category>
+    */
     protected ObjectStorage $categories;
 
     public function __construct()
@@ -112,16 +112,16 @@ class News extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
-     */
+    * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+    */
     public function getCategories(): ObjectStorage
     {
         return $this->categories;
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories
-     */
+    * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories
+    */
     public function setCategories(ObjectStorage $categories): void
     {
         $this->categories = $categories;
