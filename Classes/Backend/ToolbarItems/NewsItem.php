@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Xima\XimaTypo3InternalNews\Backend\ToolbarItems;
 
 use TYPO3\CMS\Backend\Toolbar\ToolbarItemInterface;
@@ -33,7 +35,7 @@ class NewsItem implements ToolbarItemInterface
     */
     public function getItem(): string
     {
-        $items = $this->newsRepository->findAllByCurrentUser()->toArray();
+        $items = $this->newsRepository->findAllByCurrentUser();
         $newItemsCount = count(array_filter($items, fn ($item) => $item->isNew()));
         $view = GeneralUtility::makeInstance(StandaloneView::class);
         $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName('EXT:' . Configuration::EXT_KEY
