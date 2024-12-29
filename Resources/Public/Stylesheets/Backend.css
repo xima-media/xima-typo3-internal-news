@@ -126,6 +126,10 @@ small {
     display: none;
 }
 
+.internal-news--toolbar h3 {
+    font-size: .875rem;
+}
+
 .internal-news--footer {
     display: flex;
     justify-content: right;
