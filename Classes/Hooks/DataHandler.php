@@ -6,7 +6,7 @@ namespace Xima\XimaTypo3InternalNews\Hooks;
 
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 
-readonly class DataHandler
+class DataHandler
 {
     public function __construct(private FrontendInterface $cache)
     {
