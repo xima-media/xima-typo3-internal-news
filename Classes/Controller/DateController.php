@@ -28,7 +28,7 @@ final class DateController extends ActionController
 
     public function notifiesAction(): ResponseInterface
     {
-        $newsList = $this->newsRepository->findAllByCurrentUser()->toArray();
+        $newsList = $this->newsRepository->findAllByCurrentUser();
         $notifies = DateService::getNotifyDatesByNewsList($newsList);
 
         return new JsonResponse([
