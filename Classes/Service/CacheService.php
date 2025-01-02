@@ -40,7 +40,7 @@ class CacheService
 
     private function collectCacheTags(array $data): array
     {
-        $tags = [];
+        $tags = ['tx_ximatypo3internalnews_domain_model_news'];
         foreach ($data as $item) {
             $tags[] = 'tx_ximatypo3internalnews_domain_model_news_' . $item->getUid();
         }
