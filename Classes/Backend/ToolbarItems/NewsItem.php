@@ -2,21 +2,38 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
+ *
+ * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
 namespace Xima\XimaTypo3InternalNews\Backend\ToolbarItems;
 
 use TYPO3\CMS\Backend\Toolbar\ToolbarItemInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\View\StandaloneView;
-use Xima\XimaTypo3InternalNews\Configuration;
+use Xima\XimaTypo3InternalNews\Domain\Model\News;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
+use Xima\XimaTypo3InternalNews\Utilities\ViewFactoryHelper;
 
 class NewsItem implements ToolbarItemInterface
 {
     protected array $configuration;
     public function __construct(
         private readonly NewsRepository $newsRepository
-    ) {
-    }
+    ) {}
 
     /**
     * Checks whether the user has access to this toolbar item
@@ -36,14 +53,14 @@ class NewsItem implements ToolbarItemInterface
     public function getItem(): string
     {
         $items = $this->newsRepository->findAllByCurrentUser();
-        $newItemsCount = count(array_filter($items, fn ($item) => $item->isNew()));
-        $view = GeneralUtility::makeInstance(StandaloneView::class);
-        $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName('EXT:' . Configuration::EXT_KEY
-            . '/Resources/Private/Templates/Backend/ToolbarItems/NewsItem.html'));
+        $newItemsCount = count(array_filter($items, static fn(News $item) => $item->isNew()));
 
-        return $view->assignMultiple([
-            'count' => $newItemsCount,
-        ])->render();
+        return ViewFactoryHelper::renderView(
+            'Backend/ToolbarItems/NewsItem.html',
+            [
+                'count' => $newItemsCount,
+            ]
+        );
     }
 
     /**
@@ -63,15 +80,12 @@ class NewsItem implements ToolbarItemInterface
     */
     public function getDropDown(): string
     {
-        $view = GeneralUtility::makeInstance(StandaloneView::class);
-        $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName('EXT:' . Configuration::EXT_KEY
-            . '/Resources/Private/Templates/Backend/ToolbarItems/NewsItemDropDown.html'));
-        $view->setPartialRootPaths([
-            GeneralUtility::getFileAbsFileName('EXT:' . Configuration::EXT_KEY . '/Resources/Private/Partials/'),
-        ]);
-        return $view->assignMultiple([
-            'data' => $this->newsRepository->findAllByCurrentUser(3),
-        ])->render();
+        return ViewFactoryHelper::renderView(
+            'Backend/ToolbarItems/NewsItemDropDown.html',
+            [
+                'data' => $this->newsRepository->findAllByCurrentUser(3),
+            ]
+        );
     }
 
     /**
