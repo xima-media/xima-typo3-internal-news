@@ -5,7 +5,7 @@ services:
             - EXTENSION_KEY=xima_typo3_internal_news
             - EXTENSION_NAME=xima-typo3-internal-news
             - PACKAGE_NAME=xima/xima-typo3-internal-news
-            - TYPO3_VERSIONS=11 12 13
+            - TYPO3_VERSIONS=12 13
             - SYMLINK_EXCLUSIONS=.* Documentation Documentation-GENERATED-temp var vendor public
 
             # TYPO3 v11 and v12 config
