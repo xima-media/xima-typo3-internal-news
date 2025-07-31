@@ -36,7 +36,7 @@ This extension provides an internal news system with custom access and notificat
 
 ### Composer
 
-[![Packagist](https://img.shields.io/packagist/v/xima/xima-typo3-internal-news?label=version&logo=packagist)](https://packagist.org/packages/xima-media/xima-typo3-internal-news)
+[![Packagist](https://img.shields.io/packagist/v/xima/xima-typo3-internal-news?label=version&logo=packagist)](https://packagist.org/packages/xima/xima-typo3-internal-news)
 ![Packagist Downloads](https://img.shields.io/packagist/dt/xima/xima-typo3-internal-news?color=brightgreen)
 
 ``` bash
