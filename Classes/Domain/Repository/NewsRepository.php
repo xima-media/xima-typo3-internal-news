@@ -55,7 +55,7 @@ class NewsRepository extends Repository
 
         $query = $this->createQuery();
 
-        if (!empty($userGroups)) {
+        if ($userGroups !== []) {
             $query->matching(
                 $query->logicalOr(
                     $query->equals('be_group', 0),
@@ -66,7 +66,7 @@ class NewsRepository extends Repository
             $query->equals('be_group', 0);
         }
 
-        if ($limit) {
+        if ($limit !== null) {
             $query->setLimit($limit);
         }
 

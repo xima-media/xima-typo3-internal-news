@@ -27,6 +27,7 @@ use TYPO3\CMS\Backend\Toolbar\ToolbarItemInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use Xima\XimaTypo3InternalNews\Configuration;
+use Xima\XimaTypo3InternalNews\Domain\Model\News;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
 
 class NewsItem implements ToolbarItemInterface
@@ -54,7 +55,7 @@ class NewsItem implements ToolbarItemInterface
     public function getItem(): string
     {
         $items = $this->newsRepository->findAllByCurrentUser();
-        $newItemsCount = count(array_filter($items, fn($item) => $item->isNew()));
+        $newItemsCount = count(array_filter($items, fn(News $item) => $item->isNew()));
         $view = GeneralUtility::makeInstance(StandaloneView::class);
         $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName('EXT:' . Configuration::EXT_KEY
             . '/Resources/Private/Templates/Backend/ToolbarItems/NewsItem.html'));

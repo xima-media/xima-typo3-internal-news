@@ -29,8 +29,8 @@ class BackendUserHelper
     {
         $return = true;
 
-        $array = $GLOBALS['BE_USER']->getModuleData($moduleName) ?: [];
-        if (is_array($array) && in_array($value, $array)) {
+        $array = $GLOBALS['BE_USER']->getModuleData($moduleName) ?? [];
+        if (is_array($array) && in_array($value, $array, true)) {
             $return = false;
         }
         $array[] = $value;

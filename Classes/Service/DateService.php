@@ -38,7 +38,7 @@ class DateService
         $nextDate = null;
         foreach ($news->getDates() as $date) {
             $nextDateArray = self::getDates($news, $date, true, true);
-            if (!empty($nextDateArray)) {
+            if (isset($nextDateArray[0])) {
                 $nextDate = $nextDateArray[0];
             }
         }
@@ -53,7 +53,7 @@ class DateService
             // merge arrays
             $nextDates = array_merge($nextDates, self::getDates($news, $date, true));
         }
-        usort($nextDates, function ($a, $b) {
+        usort($nextDates, function (array $a, array $b) {
             return $a['date'] <=> $b['date'];
         });
         return $nextDates;
@@ -67,7 +67,7 @@ class DateService
                 $notifyDates = array_merge($notifyDates, self::getDates($news, $date, true, true));
             }
         }
-        usort($notifyDates, function ($a, $b) {
+        usort($notifyDates, function (array $a, array $b) {
             return $a['date'] <=> $b['date'];
         });
         return $notifyDates;
@@ -112,9 +112,8 @@ class DateService
         ];
         if ($respectNotify && $date->isNotify() && self::checkNotifyIsReached($startDate)) {
             $newDate['notify'] = true;
-            $newDate['notifyType'] = $date->getNotifyType() ?: 'info';
-            $newDate['notifyMessage'] = ($date->getNotifyMessage() ?: $GLOBALS['LANG']->sL('LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:internal_news_notify_note')) . ' (' . $startDate->format('d.m.Y H:i') . ')';
-        }
+            $newDate['notifyType'] = ($date->getNotifyType() !== '') ? $date->getNotifyType() : 'info';
+            $newDate['notifyMessage'] = (($date->getNotifyMessage() !== '') ? $date->getNotifyMessage() : $GLOBALS['LANG']->sL('LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:internal_news_notify_note')) . ' (' . $startDate->format('d.m.Y H:i') . ')';        }
         return $newDate;
     }
 

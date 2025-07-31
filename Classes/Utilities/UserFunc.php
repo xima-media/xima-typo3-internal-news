@@ -38,9 +38,10 @@ class UserFunc
         }
 
         $dates = DateService::getDates(GeneralUtility::makeInstance(News::class), $record);
-        if (empty($dates)) {
+        if ($dates === []) {
             return;
         }
+
         $title = (array_key_exists('title', $parameters['row']) ? $parameters['row']['title'] : array_key_exists('title', $parameters)) ? $parameters['title'] : '';
         $label = ($dates[0]['type'] === 'single_date' ? '📅 ' : '🗓️ ') . $title;
 
