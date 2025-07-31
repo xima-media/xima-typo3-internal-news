@@ -1,6 +1,8 @@
 <html data-namespace-typo3-fluid="true"
-    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" xmlns="http://www.w3.org/1999/html">
-<f:variable name="nextDate" value="{record.nextDate}"/>
+    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" 
+    xmlns:xin="http://typo3.org/ns/Xima/XimaTypo3InternalNews/ViewHelpers"
+    xmlns="http://www.w3.org/1999/html">
+<f:variable name="nextDate" value="{xin:nextDate(news: record)}"/>
 <li
     class="internal-news internal-news--{record.uid}"
     data-news-id="{record.uid}"

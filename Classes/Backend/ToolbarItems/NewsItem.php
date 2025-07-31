@@ -26,13 +26,15 @@ namespace Xima\XimaTypo3InternalNews\Backend\ToolbarItems;
 use TYPO3\CMS\Backend\Toolbar\ToolbarItemInterface;
 use Xima\XimaTypo3InternalNews\Domain\Model\News;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
+use Xima\XimaTypo3InternalNews\Service\NewsService;
 use Xima\XimaTypo3InternalNews\Utilities\ViewFactoryHelper;
 
 class NewsItem implements ToolbarItemInterface
 {
     protected array $configuration;
     public function __construct(
-        private readonly NewsRepository $newsRepository
+        private readonly NewsRepository $newsRepository,
+        private readonly NewsService $newsService
     ) {}
 
     /**
@@ -53,7 +55,7 @@ class NewsItem implements ToolbarItemInterface
     public function getItem(): string
     {
         $items = $this->newsRepository->findAllByCurrentUser();
-        $newItemsCount = count(array_filter($items, static fn(News $item) => $item->isNew()));
+        $newItemsCount = count(array_filter($items, fn(News $item) => $this->newsService->isNew($item)));
 
         return ViewFactoryHelper::renderView(
             'Backend/ToolbarItems/NewsItem.html',

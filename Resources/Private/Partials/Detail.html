@@ -1,5 +1,6 @@
 <html data-namespace-typo3-fluid="true"
-    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers">
+    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+    xmlns:xin="http://typo3.org/ns/Xima/XimaTypo3InternalNews/ViewHelpers">
 
 <h2>{record.title}</h2>
 <f:if condition="{record.top}">
@@ -43,12 +44,13 @@
 </f:if>
 
 <div class="internal-news--description">{record.description -> f:format.raw()}</div>
-<f:if condition="{record.nextDates}">
+<f:variable name="nextDates" value="{xin:nextDates(news: record)}"/>
+<f:if condition="{nextDates}">
     <div class="internal-news--next-dates">
         <h4>
             <f:translate key="nextDates" extensionName="XimaTypo3InternalNews"/>
         </h4>
-        <f:for each="{record.nextDates}" as="nextDate" iteration="i">
+        <f:for each="{nextDates}" as="nextDate" iteration="i">
             <f:if condition="{i.index} < {dateListCount}">
                 <div class="internal-news--next-date">
                     <span class="badge">

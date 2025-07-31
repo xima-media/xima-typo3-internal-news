@@ -21,27 +21,28 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Xima\XimaTypo3InternalNews\Utilities;
+namespace Xima\XimaTypo3InternalNews\ViewHelpers;
 
-class BackendUserHelper
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use Xima\XimaTypo3InternalNews\Domain\Model\News;
+use Xima\XimaTypo3InternalNews\Service\NewsService;
+
+class NextDatesViewHelper extends AbstractViewHelper
 {
-
-    public function checkAndSetModuleDate(string $moduleName, mixed $value): bool
+    public function initializeArguments(): void
     {
-        // Validate backend user exists and is authenticated
-        if (!isset($GLOBALS['BE_USER']) || !is_object($GLOBALS['BE_USER'])) {
-            return false;
+        $this->registerArgument('news', News::class, 'The news object', true);
+    }
+
+    public function render(): array
+    {
+        $news = $this->arguments['news'];
+        if (!$news instanceof News) {
+            return [];
         }
 
-        $backendUser = $GLOBALS['BE_USER'];
-        $return = true;
-
-        $array = $backendUser->getModuleData($moduleName) ?? [];
-        if (is_array($array) && in_array($value, $array, true)) {
-            $return = false;
-        }
-        $array[] = $value;
-        $backendUser->pushModuleData($moduleName, $array);
-        return $return;
+        $newsService = GeneralUtility::makeInstance(NewsService::class);
+        return $newsService->getNextDates($news);
     }
 }
