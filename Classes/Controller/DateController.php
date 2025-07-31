@@ -57,8 +57,23 @@ final class DateController extends ActionController
 
     public function newsAction(): ResponseInterface
     {
-        $newsUid = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['newsId'];
-        $news = $this->newsRepository->findByUid((int)$newsUid);
+        $queryParams = $GLOBALS['TYPO3_REQUEST']->getQueryParams();
+        $newsId = $queryParams['newsId'] ?? null;
+
+        if ($newsId === null || !is_numeric($newsId)) {
+            return new JsonResponse(['error' => 'Invalid or missing newsId parameter'], 400);
+        }
+
+        $newsUid = (int)$newsId;
+        if ($newsUid <= 0) {
+            return new JsonResponse(['error' => 'newsId must be a positive integer'], 400);
+        }
+
+        $news = $this->newsRepository->findByUid($newsUid);
+
+        if ($news === null) {
+            return new JsonResponse(['error' => 'News item not found'], 404);
+        }
 
         return new JsonResponse(
             [
