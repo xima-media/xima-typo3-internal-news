@@ -41,7 +41,7 @@ final class DateTest extends TestCase
     {
         $title = 'Test Date Title';
         $this->subject->setTitle($title);
-        
+
         self::assertEquals($title, $this->subject->getTitle());
     }
 
@@ -56,7 +56,7 @@ final class DateTest extends TestCase
     {
         $date = new \DateTime('2025-12-31 23:59:59');
         $this->subject->setSingleDate($date);
-        
+
         self::assertEquals($date, $this->subject->getSingleDate());
     }
 
@@ -71,7 +71,7 @@ final class DateTest extends TestCase
     {
         $recurrence = 'FREQ=WEEKLY;BYDAY=MO';
         $this->subject->setRecurrence($recurrence);
-        
+
         self::assertEquals($recurrence, $this->subject->getRecurrence());
     }
 
@@ -86,7 +86,7 @@ final class DateTest extends TestCase
     {
         $this->subject->setNotify(true);
         self::assertTrue($this->subject->isNotify());
-        
+
         $this->subject->setNotify(false);
         self::assertFalse($this->subject->isNotify());
     }
@@ -102,7 +102,7 @@ final class DateTest extends TestCase
     {
         $type = 'single_date';
         $this->subject->setType($type);
-        
+
         self::assertEquals($type, $this->subject->getType());
     }
 
@@ -117,7 +117,7 @@ final class DateTest extends TestCase
     {
         $notifyType = 'warning';
         $this->subject->setNotifyType($notifyType);
-        
+
         self::assertEquals($notifyType, $this->subject->getNotifyType());
     }
 
@@ -132,7 +132,7 @@ final class DateTest extends TestCase
     {
         $message = 'Test notification message';
         $this->subject->setNotifyMessage($message);
-        
+
         self::assertEquals($message, $this->subject->getNotifyMessage());
     }
 

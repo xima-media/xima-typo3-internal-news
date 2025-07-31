@@ -26,7 +26,6 @@ namespace Xima\XimaTypo3InternalNews\Tests\Unit\Service;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
-use Xima\XimaTypo3InternalNews\Domain\Model\News;
 use Xima\XimaTypo3InternalNews\Service\CacheService;
 
 final class CacheServiceTest extends TestCase
@@ -38,7 +37,7 @@ final class CacheServiceTest extends TestCase
     {
         $this->cacheMock = $this->getMockBuilder(FrontendInterface::class)->getMock();
         $this->subject = new CacheService($this->cacheMock);
-        
+
         // Mock global BE_USER for cache identifier generation
         $GLOBALS['BE_USER'] = $this->createMockBackendUser();
     }
@@ -57,15 +56,15 @@ final class CacheServiceTest extends TestCase
     #[Test]
     public function generateCacheIdentifierForAdminUser(): void
     {
-        $GLOBALS['BE_USER'] = new class {
+        $GLOBALS['BE_USER'] = new class () {
             public function isAdmin(): bool
             {
                 return true;
             }
         };
-        
+
         $result = $this->subject->generateCacheIdentifier([1, 2, 3]);
-        
+
         self::assertEquals('xima_typo3_internal_news--all', $result);
     }
 
@@ -74,9 +73,9 @@ final class CacheServiceTest extends TestCase
     {
         // BE_USER is already set to non-admin in setUp()
         $userGroups = [3, 1, 2]; // Will be sorted
-        
+
         $result = $this->subject->generateCacheIdentifier($userGroups);
-        
+
         self::assertEquals('xima_typo3_internal_news--1_2_3', $result);
     }
 
@@ -84,15 +83,15 @@ final class CacheServiceTest extends TestCase
     public function generateCacheIdentifierForEmptyUserGroups(): void
     {
         // BE_USER is already set to non-admin in setUp()
-        
+
         $result = $this->subject->generateCacheIdentifier([]);
-        
+
         self::assertEquals('xima_typo3_internal_news--', $result);
     }
 
     private function createMockBackendUser(): object
     {
-        return new class {
+        return new class () {
             public function isAdmin(): bool
             {
                 return false;

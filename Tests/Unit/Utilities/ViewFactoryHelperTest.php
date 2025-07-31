@@ -26,7 +26,6 @@ namespace Xima\XimaTypo3InternalNews\Tests\Unit\Utilities;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
-use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Xima\XimaTypo3InternalNews\Utilities\ViewFactoryHelper;
 
@@ -49,10 +48,10 @@ final class ViewFactoryHelperTest extends TestCase
         // We cannot easily test the actual rendering without a full TYPO3 setup,
         // but we can test that the method is properly typed and accessible
         $reflection = new \ReflectionMethod(ViewFactoryHelper::class, 'renderView');
-        
+
         self::assertTrue($reflection->isStatic());
         self::assertTrue($reflection->isPublic());
-        
+
         // Check parameter types
         $parameters = $reflection->getParameters();
         self::assertCount(3, $parameters);
@@ -67,7 +66,7 @@ final class ViewFactoryHelperTest extends TestCase
     {
         $reflection = new \ReflectionMethod(ViewFactoryHelper::class, 'renderView');
         $returnType = $reflection->getReturnType();
-        
+
         self::assertNotNull($returnType);
         self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
         self::assertEquals('string', $returnType->getName());
@@ -77,13 +76,13 @@ final class ViewFactoryHelperTest extends TestCase
     public function privateMethodsExistForBothTypo3Versions(): void
     {
         $reflection = new \ReflectionClass(ViewFactoryHelper::class);
-        
+
         $renderView12 = $reflection->getMethod('renderView12');
         $renderView13 = $reflection->getMethod('renderView13');
-        
+
         self::assertTrue($renderView12->isPrivate());
         self::assertTrue($renderView12->isStatic());
-        
+
         self::assertTrue($renderView13->isPrivate());
         self::assertTrue($renderView13->isStatic());
     }
@@ -94,7 +93,7 @@ final class ViewFactoryHelperTest extends TestCase
         $reflection = new \ReflectionMethod(ViewFactoryHelper::class, 'renderView');
         $templateParam = $reflection->getParameters()[0];
         $paramType = $templateParam->getType();
-        
+
         self::assertTrue($templateParam->hasType());
         self::assertInstanceOf(\ReflectionNamedType::class, $paramType);
         self::assertEquals('string', $paramType->getName());
@@ -106,7 +105,7 @@ final class ViewFactoryHelperTest extends TestCase
         $reflection = new \ReflectionMethod(ViewFactoryHelper::class, 'renderView');
         $valuesParam = $reflection->getParameters()[1];
         $paramType = $valuesParam->getType();
-        
+
         self::assertTrue($valuesParam->hasType());
         self::assertInstanceOf(\ReflectionNamedType::class, $paramType);
         self::assertEquals('array', $paramType->getName());
@@ -118,7 +117,7 @@ final class ViewFactoryHelperTest extends TestCase
         $reflection = new \ReflectionMethod(ViewFactoryHelper::class, 'renderView');
         $requestParam = $reflection->getParameters()[2];
         $paramType = $requestParam->getType();
-        
+
         self::assertTrue($requestParam->hasType());
         self::assertTrue($requestParam->allowsNull());
         self::assertInstanceOf(\ReflectionNamedType::class, $paramType);

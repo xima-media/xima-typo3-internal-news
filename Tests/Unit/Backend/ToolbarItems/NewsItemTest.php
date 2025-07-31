@@ -39,7 +39,7 @@ final class NewsItemTest extends TestCase
         $this->newsRepositoryMock = $this->getMockBuilder(NewsRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
-            
+
         $this->subject = new NewsItem($this->newsRepositoryMock);
     }
 
@@ -53,7 +53,7 @@ final class NewsItemTest extends TestCase
     public function toolbarItemImplementsInterface(): void
     {
         $reflection = new \ReflectionClass(NewsItem::class);
-        
+
         self::assertTrue($reflection->implementsInterface(ToolbarItemInterface::class));
     }
 
@@ -62,14 +62,14 @@ final class NewsItemTest extends TestCase
     {
         $reflection = new \ReflectionClass(NewsItem::class);
         $constructor = $reflection->getConstructor();
-        
+
         self::assertNotNull($constructor);
-        
+
         $parameters = $constructor->getParameters();
         self::assertCount(1, $parameters);
-        
+
         self::assertEquals('newsRepository', $parameters[0]->getName());
-        
+
         $paramType = $parameters[0]->getType();
         self::assertInstanceOf(\ReflectionNamedType::class, $paramType);
         self::assertEquals(NewsRepository::class, $paramType->getName());
@@ -79,7 +79,7 @@ final class NewsItemTest extends TestCase
     public function checkAccessReturnsTrue(): void
     {
         $result = $this->subject->checkAccess();
-        
+
         self::assertTrue($result);
     }
 
@@ -87,7 +87,7 @@ final class NewsItemTest extends TestCase
     public function hasDropDownReturnsTrue(): void
     {
         $result = $this->subject->hasDropDown();
-        
+
         self::assertTrue($result);
     }
 
@@ -95,7 +95,7 @@ final class NewsItemTest extends TestCase
     public function getIndexReturns50(): void
     {
         $result = $this->subject->getIndex();
-        
+
         self::assertEquals(50, $result);
     }
 
@@ -103,8 +103,7 @@ final class NewsItemTest extends TestCase
     public function getAdditionalAttributesReturnsEmptyArray(): void
     {
         $result = $this->subject->getAdditionalAttributes();
-        
-        self::assertIsArray($result);
+
         self::assertEmpty($result);
     }
 
@@ -112,37 +111,37 @@ final class NewsItemTest extends TestCase
     public function toolbarItemMethodsHaveCorrectReturnTypes(): void
     {
         $reflection = new \ReflectionClass(NewsItem::class);
-        
+
         // checkAccess
         $checkAccess = $reflection->getMethod('checkAccess');
         $returnType = $checkAccess->getReturnType();
         self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
         self::assertEquals('bool', $returnType->getName());
-        
+
         // getItem
         $getItem = $reflection->getMethod('getItem');
         $returnType = $getItem->getReturnType();
         self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
         self::assertEquals('string', $returnType->getName());
-        
+
         // hasDropDown
         $hasDropDown = $reflection->getMethod('hasDropDown');
         $returnType = $hasDropDown->getReturnType();
         self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
         self::assertEquals('bool', $returnType->getName());
-        
+
         // getDropDown
         $getDropDown = $reflection->getMethod('getDropDown');
         $returnType = $getDropDown->getReturnType();
         self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
         self::assertEquals('string', $returnType->getName());
-        
+
         // getAdditionalAttributes
         $getAdditionalAttributes = $reflection->getMethod('getAdditionalAttributes');
         $returnType = $getAdditionalAttributes->getReturnType();
         self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
         self::assertEquals('array', $returnType->getName());
-        
+
         // getIndex
         $getIndex = $reflection->getMethod('getIndex');
         $returnType = $getIndex->getReturnType();
@@ -154,16 +153,16 @@ final class NewsItemTest extends TestCase
     public function toolbarItemMethodsArePublic(): void
     {
         $reflection = new \ReflectionClass(NewsItem::class);
-        
+
         $methods = [
             'checkAccess',
-            'getItem', 
+            'getItem',
             'hasDropDown',
             'getDropDown',
             'getAdditionalAttributes',
-            'getIndex'
+            'getIndex',
         ];
-        
+
         foreach ($methods as $methodName) {
             $method = $reflection->getMethod($methodName);
             self::assertTrue($method->isPublic(), "Method {$methodName} should be public");
@@ -175,12 +174,12 @@ final class NewsItemTest extends TestCase
     public function toolbarItemHasProtectedConfigurationProperty(): void
     {
         $reflection = new \ReflectionClass(NewsItem::class);
-        
+
         self::assertTrue($reflection->hasProperty('configuration'));
-        
+
         $property = $reflection->getProperty('configuration');
         self::assertTrue($property->isProtected());
-        
+
         $propertyType = $property->getType();
         self::assertInstanceOf(\ReflectionNamedType::class, $propertyType);
         self::assertEquals('array', $propertyType->getName());
@@ -190,7 +189,7 @@ final class NewsItemTest extends TestCase
     public function toolbarItemUsesCorrectNamespace(): void
     {
         $reflection = new \ReflectionClass(NewsItem::class);
-        
+
         self::assertEquals('Xima\XimaTypo3InternalNews\Backend\ToolbarItems', $reflection->getNamespaceName());
         self::assertEquals('NewsItem', $reflection->getShortName());
     }
@@ -199,16 +198,16 @@ final class NewsItemTest extends TestCase
     public function toolbarItemMethodsHaveNoParameters(): void
     {
         $reflection = new \ReflectionClass(NewsItem::class);
-        
+
         $parameterlessMethods = [
             'checkAccess',
             'getItem',
-            'hasDropDown', 
+            'hasDropDown',
             'getDropDown',
             'getAdditionalAttributes',
-            'getIndex'
+            'getIndex',
         ];
-        
+
         foreach ($parameterlessMethods as $methodName) {
             $method = $reflection->getMethod($methodName);
             self::assertCount(0, $method->getParameters(), "Method {$methodName} should have no parameters");

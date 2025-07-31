@@ -29,8 +29,6 @@ use Xima\XimaTypo3InternalNews\Utilities\BackendUserHelper;
 
 final class BackendUserHelperTest extends TestCase
 {
-    private array $originalModuleData = [];
-
     protected function setUp(): void
     {
         // Mock BE_USER global
@@ -40,7 +38,6 @@ final class BackendUserHelperTest extends TestCase
     protected function tearDown(): void
     {
         unset($GLOBALS['BE_USER']);
-        $this->originalModuleData = [];
     }
 
     #[Test]
@@ -48,9 +45,9 @@ final class BackendUserHelperTest extends TestCase
     {
         $moduleName = 'test_module';
         $value = 123;
-        
+
         $result = BackendUserHelper::checkAndSetModuleDate($moduleName, $value);
-        
+
         self::assertTrue($result);
     }
 
@@ -59,11 +56,11 @@ final class BackendUserHelperTest extends TestCase
     {
         $moduleName = 'test_module';
         $value = 123;
-        
+
         // First call should return true (new value)
         $firstResult = BackendUserHelper::checkAndSetModuleDate($moduleName, $value);
         self::assertTrue($firstResult);
-        
+
         // Second call should return false (existing value)
         $secondResult = BackendUserHelper::checkAndSetModuleDate($moduleName, $value);
         self::assertFalse($secondResult);
@@ -74,9 +71,9 @@ final class BackendUserHelperTest extends TestCase
     {
         $moduleName = 'test_module';
         $value = 'test_string';
-        
+
         $result = BackendUserHelper::checkAndSetModuleDate($moduleName, $value);
-        
+
         self::assertTrue($result);
     }
 
@@ -84,10 +81,10 @@ final class BackendUserHelperTest extends TestCase
     public function checkAndSetModuleDateHandlesDifferentModules(): void
     {
         $value = 123;
-        
+
         $result1 = BackendUserHelper::checkAndSetModuleDate('module1', $value);
         $result2 = BackendUserHelper::checkAndSetModuleDate('module2', $value);
-        
+
         // Same value in different modules should both return true
         self::assertTrue($result1);
         self::assertTrue($result2);
@@ -97,13 +94,13 @@ final class BackendUserHelperTest extends TestCase
     public function checkAndSetModuleDateHandlesMultipleValuesInSameModule(): void
     {
         $moduleName = 'test_module';
-        
+
         $result1 = BackendUserHelper::checkAndSetModuleDate($moduleName, 123);
         $result2 = BackendUserHelper::checkAndSetModuleDate($moduleName, 456);
         $result3 = BackendUserHelper::checkAndSetModuleDate($moduleName, 123); // Duplicate
-        
+
         self::assertTrue($result1);   // New value
-        self::assertTrue($result2);   // New value  
+        self::assertTrue($result2);   // New value
         self::assertFalse($result3);  // Existing value
     }
 
@@ -112,10 +109,10 @@ final class BackendUserHelperTest extends TestCase
     {
         $moduleName = 'empty_module';
         $value = 123;
-        
+
         // BE_USER will return null for unknown modules
         $result = BackendUserHelper::checkAndSetModuleDate($moduleName, $value);
-        
+
         self::assertTrue($result);
     }
 
@@ -123,7 +120,7 @@ final class BackendUserHelperTest extends TestCase
     public function methodIsStatic(): void
     {
         $reflection = new \ReflectionMethod(BackendUserHelper::class, 'checkAndSetModuleDate');
-        
+
         self::assertTrue($reflection->isStatic());
         self::assertTrue($reflection->isPublic());
     }
@@ -133,16 +130,16 @@ final class BackendUserHelperTest extends TestCase
     {
         $reflection = new \ReflectionMethod(BackendUserHelper::class, 'checkAndSetModuleDate');
         $parameters = $reflection->getParameters();
-        
+
         self::assertCount(2, $parameters);
         self::assertEquals('moduleName', $parameters[0]->getName());
         self::assertEquals('value', $parameters[1]->getName());
-        
+
         // Check parameter types
         $firstParamType = $parameters[0]->getType();
         self::assertInstanceOf(\ReflectionNamedType::class, $firstParamType);
         self::assertEquals('string', $firstParamType->getName());
-        
+
         // Second parameter should be mixed type
         $secondParamType = $parameters[1]->getType();
         if ($secondParamType instanceof \ReflectionUnionType) {
@@ -159,21 +156,21 @@ final class BackendUserHelperTest extends TestCase
     {
         $reflection = new \ReflectionMethod(BackendUserHelper::class, 'checkAndSetModuleDate');
         $returnType = $reflection->getReturnType();
-        
+
         self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
         self::assertEquals('bool', $returnType->getName());
     }
 
     private function createMockBackendUser(): object
     {
-        return new class {
+        return new class () {
             private array $moduleData = [];
-            
+
             public function getModuleData(string $moduleName): ?array
             {
                 return $this->moduleData[$moduleName] ?? null;
             }
-            
+
             public function pushModuleData(string $moduleName, array $data): void
             {
                 $this->moduleData[$moduleName] = $data;

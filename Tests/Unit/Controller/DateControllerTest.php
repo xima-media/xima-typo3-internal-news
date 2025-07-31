@@ -41,18 +41,18 @@ final class DateControllerTest extends TestCase
         $this->newsRepositoryMock = $this->getMockBuilder(NewsRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
-            
+
         $this->extensionConfigurationMock = $this->getMockBuilder(ExtensionConfiguration::class)
             ->disableOriginalConstructor()
             ->getMock();
-            
+
         $this->extensionConfigurationMock
             ->method('get')
             ->willReturn([
                 'enableNotifySessionHide' => true,
                 'dateListCount' => 20,
             ]);
-            
+
         $this->subject = new DateController(
             $this->newsRepositoryMock,
             $this->extensionConfigurationMock
@@ -69,7 +69,7 @@ final class DateControllerTest extends TestCase
     public function controllerExtendsActionController(): void
     {
         $reflection = new \ReflectionClass(DateController::class);
-        
+
         self::assertTrue($reflection->isSubclassOf(ActionController::class));
     }
 
@@ -77,7 +77,7 @@ final class DateControllerTest extends TestCase
     public function controllerIsFinal(): void
     {
         $reflection = new \ReflectionClass(DateController::class);
-        
+
         self::assertTrue($reflection->isFinal());
     }
 
@@ -86,9 +86,9 @@ final class DateControllerTest extends TestCase
     {
         $reflection = new \ReflectionClass(DateController::class);
         $attributes = $reflection->getAttributes();
-        
+
         self::assertNotEmpty($attributes);
-        
+
         // Check if AsController attribute exists
         $hasAsControllerAttribute = false;
         foreach ($attributes as $attribute) {
@@ -97,7 +97,7 @@ final class DateControllerTest extends TestCase
                 break;
             }
         }
-        
+
         self::assertTrue($hasAsControllerAttribute);
     }
 
@@ -106,18 +106,18 @@ final class DateControllerTest extends TestCase
     {
         $reflection = new \ReflectionClass(DateController::class);
         $constructor = $reflection->getConstructor();
-        
+
         self::assertNotNull($constructor);
-        
+
         $parameters = $constructor->getParameters();
         self::assertCount(2, $parameters);
-        
+
         // Check first parameter (NewsRepository)
         self::assertEquals('newsRepository', $parameters[0]->getName());
         $firstParamType = $parameters[0]->getType();
         self::assertInstanceOf(\ReflectionNamedType::class, $firstParamType);
         self::assertEquals(NewsRepository::class, $firstParamType->getName());
-        
+
         // Check second parameter (ExtensionConfiguration)
         self::assertEquals('extensionConfiguration', $parameters[1]->getName());
         $secondParamType = $parameters[1]->getType();
@@ -129,12 +129,12 @@ final class DateControllerTest extends TestCase
     public function notifiesActionMethodExists(): void
     {
         $reflection = new \ReflectionClass(DateController::class);
-        
+
         self::assertTrue($reflection->hasMethod('notifiesAction'));
-        
+
         $method = $reflection->getMethod('notifiesAction');
         self::assertTrue($method->isPublic());
-        
+
         // Check return type
         $returnType = $method->getReturnType();
         self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
@@ -145,12 +145,12 @@ final class DateControllerTest extends TestCase
     public function newsActionMethodExists(): void
     {
         $reflection = new \ReflectionClass(DateController::class);
-        
+
         self::assertTrue($reflection->hasMethod('newsAction'));
-        
+
         $method = $reflection->getMethod('newsAction');
         self::assertTrue($method->isPublic());
-        
+
         // Check return type
         $returnType = $method->getReturnType();
         self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
@@ -161,12 +161,12 @@ final class DateControllerTest extends TestCase
     public function controllerHasProtectedConfigurationProperty(): void
     {
         $reflection = new \ReflectionClass(DateController::class);
-        
+
         self::assertTrue($reflection->hasProperty('configuration'));
-        
+
         $property = $reflection->getProperty('configuration');
         self::assertTrue($property->isProtected());
-        
+
         // Check property type
         $propertyType = $property->getType();
         self::assertInstanceOf(\ReflectionNamedType::class, $propertyType);
@@ -177,7 +177,7 @@ final class DateControllerTest extends TestCase
     public function controllerUsesCorrectNamespace(): void
     {
         $reflection = new \ReflectionClass(DateController::class);
-        
+
         self::assertEquals('Xima\XimaTypo3InternalNews\Controller', $reflection->getNamespaceName());
         self::assertEquals('DateController', $reflection->getShortName());
     }
@@ -186,10 +186,10 @@ final class DateControllerTest extends TestCase
     public function controllerMethodsAreNotStatic(): void
     {
         $reflection = new \ReflectionClass(DateController::class);
-        
+
         $notifiesAction = $reflection->getMethod('notifiesAction');
         $newsAction = $reflection->getMethod('newsAction');
-        
+
         self::assertFalse($notifiesAction->isStatic());
         self::assertFalse($newsAction->isStatic());
     }
@@ -198,10 +198,10 @@ final class DateControllerTest extends TestCase
     public function controllerActionMethodsHaveNoParameters(): void
     {
         $reflection = new \ReflectionClass(DateController::class);
-        
+
         $notifiesAction = $reflection->getMethod('notifiesAction');
         $newsAction = $reflection->getMethod('newsAction');
-        
+
         self::assertCount(0, $notifiesAction->getParameters());
         self::assertCount(0, $newsAction->getParameters());
     }

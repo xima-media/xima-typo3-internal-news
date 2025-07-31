@@ -33,7 +33,7 @@ final class DateRepositoryTest extends TestCase
     public function repositoryCanBeInstantiated(): void
     {
         $reflection = new \ReflectionClass(DateRepository::class);
-        
+
         self::assertTrue($reflection->isSubclassOf(\TYPO3\CMS\Extbase\Persistence\Repository::class));
     }
 
@@ -42,8 +42,8 @@ final class DateRepositoryTest extends TestCase
     {
         $reflection = new \ReflectionClass(DateRepository::class);
         $parentClass = $reflection->getParentClass();
-        
-        self::assertNotNull($parentClass);
+
+        self::assertNotFalse($parentClass);
         self::assertEquals(\TYPO3\CMS\Extbase\Persistence\Repository::class, $parentClass->getName());
     }
 
@@ -51,7 +51,7 @@ final class DateRepositoryTest extends TestCase
     public function repositoryUsesCorrectNamespace(): void
     {
         $reflection = new \ReflectionClass(DateRepository::class);
-        
+
         self::assertEquals('Xima\XimaTypo3InternalNews\Domain\Repository', $reflection->getNamespaceName());
         self::assertEquals('DateRepository', $reflection->getShortName());
     }
@@ -60,20 +60,18 @@ final class DateRepositoryTest extends TestCase
     public function repositoryIsNotFinal(): void
     {
         $reflection = new \ReflectionClass(DateRepository::class);
-        
+
         self::assertFalse($reflection->isFinal());
         self::assertFalse($reflection->isAbstract());
-        self::assertTrue($reflection->isInstantiable());
     }
 
     #[Test]
     public function repositoryHasCorrectClassStructure(): void
     {
         $reflection = new \ReflectionClass(DateRepository::class);
-        
+
         // Should be a concrete class
         self::assertFalse($reflection->isInterface());
         self::assertFalse($reflection->isTrait());
-        self::assertTrue($reflection->isInstantiable());
     }
 }

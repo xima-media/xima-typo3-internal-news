@@ -45,10 +45,10 @@ final class ConfigurationTest extends TestCase
     public function constantsAreFinal(): void
     {
         $reflection = new \ReflectionClass(Configuration::class);
-        
+
         $extKeyConstant = $reflection->getReflectionConstant('EXT_KEY');
         $extNameConstant = $reflection->getReflectionConstant('EXT_NAME');
-        
+
         self::assertTrue($extKeyConstant->isFinal());
         self::assertTrue($extNameConstant->isFinal());
     }

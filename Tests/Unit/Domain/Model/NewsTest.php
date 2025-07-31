@@ -44,7 +44,7 @@ final class NewsTest extends TestCase
     {
         $title = 'Test News Title';
         $this->subject->setTitle($title);
-        
+
         self::assertEquals($title, $this->subject->getTitle());
     }
 
@@ -59,7 +59,7 @@ final class NewsTest extends TestCase
     {
         $description = 'Test news description';
         $this->subject->setDescription($description);
-        
+
         self::assertEquals($description, $this->subject->getDescription());
     }
 
@@ -74,7 +74,7 @@ final class NewsTest extends TestCase
     {
         $media = $this->createMock(FileReference::class);
         $this->subject->setMedia($media);
-        
+
         self::assertEquals($media, $this->subject->getMedia());
     }
 
@@ -89,7 +89,7 @@ final class NewsTest extends TestCase
     {
         $this->subject->setTop(true);
         self::assertTrue($this->subject->isTop());
-        
+
         $this->subject->setTop(false);
         self::assertFalse($this->subject->isTop());
     }
@@ -106,9 +106,9 @@ final class NewsTest extends TestCase
         $dates = new ObjectStorage();
         $date = new Date();
         $dates->attach($date);
-        
+
         $this->subject->setDates($dates);
-        
+
         self::assertEquals($dates, $this->subject->getDates());
         self::assertTrue($this->subject->getDates()->contains($date));
     }
@@ -117,7 +117,7 @@ final class NewsTest extends TestCase
     public function datesIsEmptyObjectStorageByDefault(): void
     {
         $dates = $this->subject->getDates();
-        
+
         self::assertInstanceOf(ObjectStorage::class, $dates);
         self::assertEquals(0, $dates->count());
     }
@@ -127,7 +127,7 @@ final class NewsTest extends TestCase
     {
         $categories = new ObjectStorage();
         $this->subject->setCategories($categories);
-        
+
         self::assertEquals($categories, $this->subject->getCategories());
     }
 
@@ -135,7 +135,7 @@ final class NewsTest extends TestCase
     public function categoriesIsEmptyObjectStorageByDefault(): void
     {
         $categories = $this->subject->getCategories();
-        
+
         self::assertInstanceOf(ObjectStorage::class, $categories);
         self::assertEquals(0, $categories->count());
     }

@@ -25,7 +25,6 @@ namespace Xima\XimaTypo3InternalNews\Tests\Unit\Service;
 
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use Xima\XimaTypo3InternalNews\Domain\Model\Date;
@@ -37,13 +36,13 @@ final class DateServiceTest extends TestCase
     protected function setUp(): void
     {
         // Mock GLOBALS for language service
-        $GLOBALS['LANG'] = new class {
+        $GLOBALS['LANG'] = new class () {
             public function sL(string $key): string
             {
                 return 'Notification message';
             }
         };
-        
+
         // Reset GeneralUtility for isolated tests
         GeneralUtility::purgeInstances();
     }
@@ -58,9 +57,9 @@ final class DateServiceTest extends TestCase
     public function getNextDateReturnsNullForNewsWithoutDates(): void
     {
         $news = $this->createNewsWithDates([]);
-        
+
         $result = DateService::getNextDate($news);
-        
+
         self::assertNull($result);
     }
 
@@ -68,9 +67,9 @@ final class DateServiceTest extends TestCase
     public function getNextDateMethodExists(): void
     {
         $reflection = new \ReflectionClass(DateService::class);
-        
+
         self::assertTrue($reflection->hasMethod('getNextDate'));
-        
+
         $method = $reflection->getMethod('getNextDate');
         self::assertTrue($method->isStatic());
         self::assertTrue($method->isPublic());
@@ -80,10 +79,9 @@ final class DateServiceTest extends TestCase
     public function getNextDatesReturnsEmptyArrayForNewsWithoutDates(): void
     {
         $news = $this->createNewsWithDates([]);
-        
+
         $result = DateService::getNextDates($news);
-        
-        self::assertIsArray($result);
+
         self::assertEmpty($result);
     }
 
@@ -93,19 +91,18 @@ final class DateServiceTest extends TestCase
         $date1 = $this->createDate('single_date', new \DateTime('+2 days'));
         $date2 = $this->createDate('single_date', new \DateTime('+1 day'));
         $news = $this->createNewsWithDates([$date1, $date2]);
-        
+
         $result = DateService::getNextDates($news);
-        
-        self::assertIsArray($result);
+
         // Test that method returns array (detailed sorting test would require more complex mocking)
+        self::assertNotEmpty($result);
     }
 
     #[Test]
     public function getNotifyDatesByNewsListReturnsEmptyArrayForEmptyList(): void
     {
         $result = DateService::getNotifyDatesByNewsList([]);
-        
-        self::assertIsArray($result);
+
         self::assertEmpty($result);
     }
 
@@ -113,9 +110,9 @@ final class DateServiceTest extends TestCase
     public function getNotifyDatesByNewsListMethodExists(): void
     {
         $reflection = new \ReflectionClass(DateService::class);
-        
+
         self::assertTrue($reflection->hasMethod('getNotifyDatesByNewsList'));
-        
+
         $method = $reflection->getMethod('getNotifyDatesByNewsList');
         self::assertTrue($method->isStatic());
         self::assertTrue($method->isPublic());
@@ -127,10 +124,9 @@ final class DateServiceTest extends TestCase
         $pastDate = new \DateTime('-1 day');
         $date = $this->createDate('single_date', $pastDate);
         $news = $this->createNewsWithDates([]);
-        
+
         $result = DateService::getDates($news, $date);
-        
-        self::assertIsArray($result);
+
         self::assertEmpty($result);
     }
 
@@ -140,11 +136,11 @@ final class DateServiceTest extends TestCase
         $futureDate = new \DateTime('+1 day');
         $date = $this->createDate('single_date', $futureDate);
         $news = $this->createNewsWithDates([]);
-        
+
         $result = DateService::getDates($news, $date);
-        
-        self::assertIsArray($result);
+
         // Detailed result checking would require mocking the notify check logic
+        self::assertNotEmpty($result);
     }
 
     #[Test]
@@ -153,24 +149,24 @@ final class DateServiceTest extends TestCase
         $startDate = new \DateTime('+1 day');
         $date = $this->createDate('recurrence', $startDate, 'FREQ=DAILY;COUNT=3');
         $news = $this->createNewsWithDates([]);
-        
+
         $result = DateService::getDates($news, $date);
-        
-        self::assertIsArray($result);
+
         // Detailed recurrence testing would require more complex setup
+        self::assertNotEmpty($result);
     }
 
     private function createNewsWithDates(array $dates): News
     {
         $news = new News();
         $objectStorage = new ObjectStorage();
-        
+
         foreach ($dates as $date) {
             $objectStorage->attach($date);
         }
-        
+
         $news->setDates($objectStorage);
-        
+
         return $news;
     }
 
@@ -181,7 +177,7 @@ final class DateServiceTest extends TestCase
         $date->setSingleDate($singleDate);
         $date->setRecurrence($recurrence);
         $date->setTitle('Test Date');
-        
+
         return $date;
     }
 }
