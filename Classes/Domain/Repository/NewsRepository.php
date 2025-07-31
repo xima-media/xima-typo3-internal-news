@@ -41,13 +41,26 @@ class NewsRepository extends Repository
 
     public function findAllByCurrentUser(int|null $limit = null): array|null
     {
-        $userGroups = array_keys($GLOBALS['BE_USER']->userGroups);
+        // Validate backend user exists and is authenticated
+        if (!isset($GLOBALS['BE_USER']) || !is_object($GLOBALS['BE_USER'])) {
+            return [];
+        }
+
+        $backendUser = $GLOBALS['BE_USER'];
+
+        // Validate user groups property exists and is an array
+        if (!property_exists($backendUser, 'userGroups') || !is_array($backendUser->userGroups)) {
+            return [];
+        }
+
+        $userGroups = array_keys($backendUser->userGroups);
         $cacheIdentifier = $this->cache->generateCacheIdentifier($userGroups);
         if ($this->cache->has($cacheIdentifier)) {
             return $this->cache->get($cacheIdentifier);
         }
 
-        if ($GLOBALS['BE_USER']->isAdmin()) {
+        // Check if user has admin privileges
+        if (method_exists($backendUser, 'isAdmin') && $backendUser->isAdmin()) {
             $result = $this->findAll()->toArray();
             $this->cache->set($cacheIdentifier, $result);
             return $result;
