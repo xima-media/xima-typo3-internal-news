@@ -5,7 +5,7 @@
 		<body>
 			<trans-unit id="internal_news_notify_note">
 				<source />
-				<target><![CDATA[The next date for the internal news "%s" is today: %s]]></target>
+				<target>Der nächste Termin für die internen News steht kurz bevor.</target>
 			</trans-unit>
 			<trans-unit id="widgets.internalNews.news.title">
 				<source />
