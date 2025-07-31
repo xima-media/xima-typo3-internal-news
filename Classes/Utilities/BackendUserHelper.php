@@ -23,18 +23,29 @@ declare(strict_types=1);
 
 namespace Xima\XimaTypo3InternalNews\Utilities;
 
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+
 class BackendUserHelper
 {
-    public static function checkAndSetModuleDate(string $moduleName, mixed $value): bool
+    public function __construct(
+        private readonly BackendUserAuthentication $backendUser
+    ) {}
+
+    public function checkAndSetModuleDate(string $moduleName, mixed $value): bool
     {
+        // Validate backend user exists and is authenticated
+        if (!$this->backendUser) {
+            return false;
+        }
+
         $return = true;
 
-        $array = $GLOBALS['BE_USER']->getModuleData($moduleName) ?? [];
+        $array = $this->backendUser->getModuleData($moduleName) ?? [];
         if (is_array($array) && in_array($value, $array, true)) {
             $return = false;
         }
         $array[] = $value;
-        $GLOBALS['BE_USER']->pushModuleData($moduleName, $array);
+        $this->backendUser->pushModuleData($moduleName, $array);
         return $return;
     }
 }

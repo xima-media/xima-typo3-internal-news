@@ -16,6 +16,10 @@ services:
     arguments:
       $cache: "@cache.xima_typo3_internal_news_cache"
 
+  Xima\XimaTypo3InternalNews\Utilities\BackendUserHelper:
+    arguments:
+      $backendUser: "@TYPO3\\CMS\\Core\\Authentication\\BackendUserAuthentication"
+
   Xima\XimaTypo3InternalNews\Hooks\DataHandler:
     public: true
     arguments:
