@@ -19,7 +19,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-use TYPO3\CMS\Core\Resource\AbstractFile;
+use TYPO3\CMS\Core\Resource\FileType;
 use Xima\XimaTypo3InternalNews\Configuration;
 
 return [
@@ -108,7 +108,7 @@ return [
                 'allowed' => 'common-media-types',
                 'overrideChildTca' => [
                     'types' => [
-                        AbstractFile::FILETYPE_IMAGE => [
+                        FileType::IMAGE->value => [
                             'showitem' => '
                                 --palette--;;imageoverlayPalette,
                                 --palette--;;filePalette',

@@ -33,6 +33,7 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 use Xima\XimaTypo3InternalNews\Configuration;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
 use Xima\XimaTypo3InternalNews\Service\DateService;
+use Xima\XimaTypo3InternalNews\Utilities\ViewFactoryHelper;
 
 #[AsController]
 final class DateController extends ActionController
@@ -61,17 +62,16 @@ final class DateController extends ActionController
         $newsUid = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['newsId'];
         $news = $this->newsRepository->findByUid((int)$newsUid);
 
-        $view = GeneralUtility::makeInstance(StandaloneView::class);
-
-        $view->setTemplateRootPaths(['EXT:' . Configuration::EXT_KEY . '/Resources/Private/Templates']);
-        $view->setPartialRootPaths(['EXT:' . Configuration::EXT_KEY . '/Resources/Private/Partials']);
-        $view->setLayoutRootPaths(['EXT:' . Configuration::EXT_KEY . '/Resources/Private/Layouts']);
-
-        $view->setTemplate('News');
-        $view->assignMultiple([
-            'record' => $news,
-            'dateListCount' => (array_key_exists('dateListCount', $this->configuration) ? (int)$this->configuration['dateListCount'] : 20),
-        ]);
-        return new JsonResponse(['result' => $view->render()]);
+        return new JsonResponse(
+            [
+                'result' => ViewFactoryHelper::renderView(
+                    'Default/News.html',
+                    [
+                        'record' => $news,
+                        'dateListCount' => (array_key_exists('dateListCount', $this->configuration) ? (int)$this->configuration['dateListCount'] : 20),
+                    ]
+                )
+            ]
+        );
     }
 }

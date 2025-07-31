@@ -34,6 +34,7 @@ use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use Xima\XimaTypo3InternalNews\Configuration;
+use Xima\XimaTypo3InternalNews\Utilities\ViewFactoryHelper;
 
 class InternalNewsWidget implements WidgetInterface, AdditionalCssInterface, JavaScriptInterface
 {
@@ -49,22 +50,15 @@ class InternalNewsWidget implements WidgetInterface, AdditionalCssInterface, Jav
 
     public function renderWidgetContent(): string
     {
-        $template = GeneralUtility::getFileAbsFileName('EXT:xima_typo3_internal_news/Resources/Private/Templates/Backend/Widgets/List.html');
-
-        // preparing view
-        $view = GeneralUtility::makeInstance(StandaloneView::class);
-        $view->setFormat('html');
-        $view->setTemplateRootPaths(['EXT:xima_typo3_internal_news/Resources/Private/Templates/']);
-        $view->setPartialRootPaths(['EXT:xima_typo3_internal_news/Resources/Private/Partials/']);
-        $view->setTemplatePathAndFilename($template);
-
-        $view->assignMultiple([
-            'configuration' => $this->configuration,
-            'records' => $this->dataProvider->getItems(),
-            'buttons' => $GLOBALS['BE_USER']->check('tables_modify', 'tx_ximatypo3internalnews_domain_model_news') ? $this->buttons : null,
-            'options' => $this->options,
-        ]);
-        return $view->render();
+        return ViewFactoryHelper::renderView(
+            'Backend/Widgets/List.html',
+            [
+                'configuration' => $this->configuration,
+                'records' => $this->dataProvider->getItems(),
+                'buttons' => $GLOBALS['BE_USER']->check('tables_modify', 'tx_ximatypo3internalnews_domain_model_news') ? $this->buttons : null,
+                'options' => $this->options,
+            ]
+        );
     }
 
     public function getOptions(): array

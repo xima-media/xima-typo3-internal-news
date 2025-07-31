@@ -29,6 +29,7 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 use Xima\XimaTypo3InternalNews\Configuration;
 use Xima\XimaTypo3InternalNews\Domain\Model\News;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
+use Xima\XimaTypo3InternalNews\Utilities\ViewFactoryHelper;
 
 class NewsItem implements ToolbarItemInterface
 {
@@ -55,14 +56,14 @@ class NewsItem implements ToolbarItemInterface
     public function getItem(): string
     {
         $items = $this->newsRepository->findAllByCurrentUser();
-        $newItemsCount = count(array_filter($items, fn(News $item) => $item->isNew()));
-        $view = GeneralUtility::makeInstance(StandaloneView::class);
-        $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName('EXT:' . Configuration::EXT_KEY
-            . '/Resources/Private/Templates/Backend/ToolbarItems/NewsItem.html'));
+        $newItemsCount = count(array_filter($items, static fn(News $item) => $item->isNew()));
 
-        return $view->assignMultiple([
-            'count' => $newItemsCount,
-        ])->render();
+        return ViewFactoryHelper::renderView(
+            'Backend/ToolbarItems/NewsItem.html',
+            [
+                'count' => $newItemsCount,
+            ]
+        );
     }
 
     /**
@@ -82,15 +83,12 @@ class NewsItem implements ToolbarItemInterface
     */
     public function getDropDown(): string
     {
-        $view = GeneralUtility::makeInstance(StandaloneView::class);
-        $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName('EXT:' . Configuration::EXT_KEY
-            . '/Resources/Private/Templates/Backend/ToolbarItems/NewsItemDropDown.html'));
-        $view->setPartialRootPaths([
-            GeneralUtility::getFileAbsFileName('EXT:' . Configuration::EXT_KEY . '/Resources/Private/Partials/'),
-        ]);
-        return $view->assignMultiple([
-            'data' => $this->newsRepository->findAllByCurrentUser(3),
-        ])->render();
+        return ViewFactoryHelper::renderView(
+            'Backend/ToolbarItems/NewsItemDropDown.html',
+            [
+                'data' => $this->newsRepository->findAllByCurrentUser(3),
+            ]
+        );
     }
 
     /**
