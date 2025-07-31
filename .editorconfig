@@ -58,3 +58,20 @@ insert_final_newline = unset
 # phpstan.neon
 [*.neon]
 indent_style = tab
+
+# Ignore paths
+[/.ddev/**]
+charset = unset
+end_of_line = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+indent_style = unset
+indent_size = unset
+
+[/Documentation/**]
+charset = unset
+end_of_line = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+indent_style = unset
+indent_size = unset

@@ -113,7 +113,8 @@ class DateService
         if ($respectNotify && $date->isNotify() && self::checkNotifyIsReached($startDate)) {
             $newDate['notify'] = true;
             $newDate['notifyType'] = ($date->getNotifyType() !== '') ? $date->getNotifyType() : 'info';
-            $newDate['notifyMessage'] = (($date->getNotifyMessage() !== '') ? $date->getNotifyMessage() : $GLOBALS['LANG']->sL('LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:internal_news_notify_note')) . ' (' . $startDate->format('d.m.Y H:i') . ')';        }
+            $newDate['notifyMessage'] = (($date->getNotifyMessage() !== '') ? $date->getNotifyMessage() : $GLOBALS['LANG']->sL('LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:internal_news_notify_note')) . ' (' . $startDate->format('d.m.Y H:i') . ')';
+        }
         return $newDate;
     }
 

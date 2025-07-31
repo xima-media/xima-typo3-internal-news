@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "typo3_environment_indicator".
+ * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
  *
  * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
