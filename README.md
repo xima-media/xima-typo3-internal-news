@@ -9,7 +9,7 @@
 [![Coverage](https://img.shields.io/coverallsCoverage/github/xima-media/xima-typo3-internal-news?logo=coveralls)](https://coveralls.io/github/xima-media/xima-typo3-internal-news)
 [![CGL](https://img.shields.io/github/actions/workflow/status/xima-media/xima-typo3-internal-news/cgl.yml?label=cgl&logo=github)](https://github.com/xima-media/xima-typo3-internal-news/actions/workflows/cgl.yml)
 [![Tests](https://img.shields.io/github/actions/workflow/status/xima-media/xima-typo3-internal-news/tests.yml?label=tests&logo=github)](https://github.com/xima-media/xima-typo3-internal-news/actions/workflows/tests.yml)
-[![License](https://poser.pugx.org/konradmichalik/xima-typo3-internal-news/license)](LICENSE.md)
+[![License](https://poser.pugx.org/xima/xima-typo3-internal-news/license)](LICENSE.md)
 
 </div>
 
@@ -36,6 +36,9 @@ This extension provides an internal news system with custom access and notificat
 
 ### Composer
 
+[![Packagist](https://img.shields.io/packagist/v/xima/xima-typo3-internal-news?label=version&logo=packagist)](https://packagist.org/packages/xima-media/xima-typo3-internal-news)
+![Packagist Downloads](https://img.shields.io/packagist/dt/xima/xima-typo3-internal-news?color=brightgreen)
+
 ``` bash
 composer require xima/xima-typo3-internal-news
 ```
@@ -43,6 +46,7 @@ composer require xima/xima-typo3-internal-news
 ### TER
 
 [![TER version](https://typo3-badges.dev/badge/xima_typo3_internal_news/version/shields.svg)](https://extensions.typo3.org/extension/xima_typo3_internal_news)
+[![TER downloads](https://typo3-badges.dev/badge/xima_typo3_internal_news/downloads/shields.svg)](https://extensions.typo3.org/extension/xima_typo3_internal_news)
 
 Download the zip file from [TYPO3 extension repository (TER)](https://extensions.typo3.org/extension/xima_typo3_internal_news).
 
