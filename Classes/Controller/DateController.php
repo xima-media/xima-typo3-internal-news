@@ -39,7 +39,8 @@ final class DateController extends ActionController
     protected array $configuration;
     public function __construct(
         private readonly NewsRepository $newsRepository,
-        private readonly ExtensionConfiguration $extensionConfiguration
+        private readonly ExtensionConfiguration $extensionConfiguration,
+        private readonly DateService $dateService
     ) {
         $this->configuration = $this->extensionConfiguration->get(Configuration::EXT_KEY);
     }
@@ -47,7 +48,7 @@ final class DateController extends ActionController
     public function notifiesAction(): ResponseInterface
     {
         $newsList = $this->newsRepository->findAllByCurrentUser();
-        $notifies = DateService::getNotifyDatesByNewsList($newsList);
+        $notifies = $this->dateService->getNotifyDatesByNewsList($newsList);
 
         return new JsonResponse([
             'notifies' => $notifies,

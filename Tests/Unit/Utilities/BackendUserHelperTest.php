@@ -29,10 +29,14 @@ use Xima\XimaTypo3InternalNews\Utilities\BackendUserHelper;
 
 final class BackendUserHelperTest extends TestCase
 {
+    private BackendUserHelper $backendUserHelper;
+
     protected function setUp(): void
     {
         // Mock BE_USER global
         $GLOBALS['BE_USER'] = $this->createMockBackendUser();
+
+        $this->backendUserHelper = new BackendUserHelper();
     }
 
     protected function tearDown(): void
@@ -46,7 +50,7 @@ final class BackendUserHelperTest extends TestCase
         $moduleName = 'test_module';
         $value = 123;
 
-        $result = BackendUserHelper::checkAndSetModuleDate($moduleName, $value);
+        $result = $this->backendUserHelper->checkAndSetModuleDate($moduleName, $value);
 
         self::assertTrue($result);
     }
@@ -58,11 +62,11 @@ final class BackendUserHelperTest extends TestCase
         $value = 123;
 
         // First call should return true (new value)
-        $firstResult = BackendUserHelper::checkAndSetModuleDate($moduleName, $value);
+        $firstResult = $this->backendUserHelper->checkAndSetModuleDate($moduleName, $value);
         self::assertTrue($firstResult);
 
         // Second call should return false (existing value)
-        $secondResult = BackendUserHelper::checkAndSetModuleDate($moduleName, $value);
+        $secondResult = $this->backendUserHelper->checkAndSetModuleDate($moduleName, $value);
         self::assertFalse($secondResult);
     }
 
@@ -72,7 +76,7 @@ final class BackendUserHelperTest extends TestCase
         $moduleName = 'test_module';
         $value = 'test_string';
 
-        $result = BackendUserHelper::checkAndSetModuleDate($moduleName, $value);
+        $result = $this->backendUserHelper->checkAndSetModuleDate($moduleName, $value);
 
         self::assertTrue($result);
     }
@@ -82,8 +86,8 @@ final class BackendUserHelperTest extends TestCase
     {
         $value = 123;
 
-        $result1 = BackendUserHelper::checkAndSetModuleDate('module1', $value);
-        $result2 = BackendUserHelper::checkAndSetModuleDate('module2', $value);
+        $result1 = $this->backendUserHelper->checkAndSetModuleDate('module1', $value);
+        $result2 = $this->backendUserHelper->checkAndSetModuleDate('module2', $value);
 
         // Same value in different modules should both return true
         self::assertTrue($result1);
@@ -95,9 +99,9 @@ final class BackendUserHelperTest extends TestCase
     {
         $moduleName = 'test_module';
 
-        $result1 = BackendUserHelper::checkAndSetModuleDate($moduleName, 123);
-        $result2 = BackendUserHelper::checkAndSetModuleDate($moduleName, 456);
-        $result3 = BackendUserHelper::checkAndSetModuleDate($moduleName, 123); // Duplicate
+        $result1 = $this->backendUserHelper->checkAndSetModuleDate($moduleName, 123);
+        $result2 = $this->backendUserHelper->checkAndSetModuleDate($moduleName, 456);
+        $result3 = $this->backendUserHelper->checkAndSetModuleDate($moduleName, 123); // Duplicate
 
         self::assertTrue($result1);   // New value
         self::assertTrue($result2);   // New value
@@ -111,7 +115,7 @@ final class BackendUserHelperTest extends TestCase
         $value = 123;
 
         // BE_USER will return null for unknown modules
-        $result = BackendUserHelper::checkAndSetModuleDate($moduleName, $value);
+        $result = $this->backendUserHelper->checkAndSetModuleDate($moduleName, $value);
 
         self::assertTrue($result);
     }
@@ -121,7 +125,7 @@ final class BackendUserHelperTest extends TestCase
     {
         $reflection = new \ReflectionMethod(BackendUserHelper::class, 'checkAndSetModuleDate');
 
-        self::assertTrue($reflection->isStatic());
+        self::assertFalse($reflection->isStatic());
         self::assertTrue($reflection->isPublic());
     }
 

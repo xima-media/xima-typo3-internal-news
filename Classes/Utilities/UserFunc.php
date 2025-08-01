@@ -38,7 +38,8 @@ class UserFunc
             return;
         }
 
-        $dates = DateService::getDates(GeneralUtility::makeInstance(News::class), $record);
+        $dateService = GeneralUtility::makeInstance(DateService::class);
+        $dates = $dateService->getDates(GeneralUtility::makeInstance(News::class), $record);
         if ($dates === []) {
             return;
         }
