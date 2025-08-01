@@ -28,11 +28,13 @@ use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Backend\Toolbar\ToolbarItemInterface;
 use Xima\XimaTypo3InternalNews\Backend\ToolbarItems\NewsItem;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
+use Xima\XimaTypo3InternalNews\Service\NewsService;
 
 final class NewsItemTest extends TestCase
 {
     private NewsItem $subject;
     private NewsRepository $newsRepositoryMock;
+    private NewsService $newsServiceMock;
 
     protected function setUp(): void
     {
@@ -40,7 +42,11 @@ final class NewsItemTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->subject = new NewsItem($this->newsRepositoryMock);
+        $this->newsServiceMock = $this->getMockBuilder(NewsService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->subject = new NewsItem($this->newsRepositoryMock, $this->newsServiceMock);
     }
 
     #[Test]

@@ -29,12 +29,14 @@ use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use Xima\XimaTypo3InternalNews\Controller\DateController;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
+use Xima\XimaTypo3InternalNews\Service\DateService;
 
 final class DateControllerTest extends TestCase
 {
     private DateController $subject;
     private NewsRepository $newsRepositoryMock;
     private ExtensionConfiguration $extensionConfigurationMock;
+    private DateService $dateServiceMock;
 
     protected function setUp(): void
     {
@@ -43,6 +45,10 @@ final class DateControllerTest extends TestCase
             ->getMock();
 
         $this->extensionConfigurationMock = $this->getMockBuilder(ExtensionConfiguration::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->dateServiceMock = $this->getMockBuilder(DateService::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -55,7 +61,8 @@ final class DateControllerTest extends TestCase
 
         $this->subject = new DateController(
             $this->newsRepositoryMock,
-            $this->extensionConfigurationMock
+            $this->extensionConfigurationMock,
+            $this->dateServiceMock
         );
     }
 

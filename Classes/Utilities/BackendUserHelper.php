@@ -25,7 +25,6 @@ namespace Xima\XimaTypo3InternalNews\Utilities;
 
 class BackendUserHelper
 {
-
     public function checkAndSetModuleDate(string $moduleName, mixed $value): bool
     {
         // Validate backend user exists and is authenticated
