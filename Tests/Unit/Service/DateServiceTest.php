@@ -128,7 +128,7 @@ final class DateServiceTest extends TestCase
         self::assertTrue($reflection->hasMethod('getNotifyDatesByNewsList'));
 
         $method = $reflection->getMethod('getNotifyDatesByNewsList');
-        self::assertTrue($method->isStatic());
+        self::assertFalse($method->isStatic());
         self::assertTrue($method->isPublic());
     }
 

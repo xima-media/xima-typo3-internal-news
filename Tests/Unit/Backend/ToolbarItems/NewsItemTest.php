@@ -72,13 +72,18 @@ final class NewsItemTest extends TestCase
         self::assertNotNull($constructor);
 
         $parameters = $constructor->getParameters();
-        self::assertCount(1, $parameters);
+        self::assertCount(2, $parameters);
 
         self::assertEquals('newsRepository', $parameters[0]->getName());
+        self::assertEquals('newsService', $parameters[1]->getName());
 
         $paramType = $parameters[0]->getType();
         self::assertInstanceOf(\ReflectionNamedType::class, $paramType);
         self::assertEquals(NewsRepository::class, $paramType->getName());
+
+        $paramType2 = $parameters[1]->getType();
+        self::assertInstanceOf(\ReflectionNamedType::class, $paramType2);
+        self::assertEquals('Xima\XimaTypo3InternalNews\Service\NewsService', $paramType2->getName());
     }
 
     #[Test]

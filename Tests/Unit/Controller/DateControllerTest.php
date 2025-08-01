@@ -117,7 +117,7 @@ final class DateControllerTest extends TestCase
         self::assertNotNull($constructor);
 
         $parameters = $constructor->getParameters();
-        self::assertCount(2, $parameters);
+        self::assertCount(3, $parameters);
 
         // Check first parameter (NewsRepository)
         self::assertEquals('newsRepository', $parameters[0]->getName());
@@ -130,6 +130,12 @@ final class DateControllerTest extends TestCase
         $secondParamType = $parameters[1]->getType();
         self::assertInstanceOf(\ReflectionNamedType::class, $secondParamType);
         self::assertEquals(ExtensionConfiguration::class, $secondParamType->getName());
+
+        // Check third parameter (DateService)
+        self::assertEquals('dateService', $parameters[2]->getName());
+        $thirdParamType = $parameters[2]->getType();
+        self::assertInstanceOf(\ReflectionNamedType::class, $thirdParamType);
+        self::assertEquals('Xima\XimaTypo3InternalNews\Service\DateService', $thirdParamType->getName());
     }
 
     #[Test]
