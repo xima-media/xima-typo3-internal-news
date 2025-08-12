@@ -24,7 +24,9 @@ declare(strict_types=1);
 namespace Xima\XimaTypo3InternalNews\Widgets;
 
 use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
 use TYPO3\CMS\Dashboard\Widgets\ButtonProviderInterface;
 use TYPO3\CMS\Dashboard\Widgets\JavaScriptInterface;
@@ -55,6 +57,7 @@ class InternalNewsWidget implements WidgetInterface, AdditionalCssInterface, Jav
                 'records' => $this->dataProvider->getItems(),
                 'buttons' => $GLOBALS['BE_USER']->check('tables_modify', 'tx_ximatypo3internalnews_domain_model_news') ? $this->buttons : null,
                 'options' => $this->options,
+                'version' => GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion(),
             ]
         );
     }
