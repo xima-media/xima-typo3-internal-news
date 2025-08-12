@@ -12,10 +12,15 @@ services:
     factory: ['@TYPO3\CMS\Core\Cache\CacheManager', "getCache"]
     arguments: ["xima_typo3_internal_news_cache"]
 
+  Xima\XimaTypo3InternalNews\Service\DateService:
+    public: true
+
+  Xima\XimaTypo3InternalNews\Service\NewsService:
+    public: true
+
   Xima\XimaTypo3InternalNews\Service\CacheService:
     arguments:
       $cache: "@cache.xima_typo3_internal_news_cache"
-
 
   Xima\XimaTypo3InternalNews\Hooks\DataHandler:
     public: true
