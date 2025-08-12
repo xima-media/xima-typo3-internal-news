@@ -19,7 +19,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-use TYPO3\CMS\Core\Resource\FileType;
 use Xima\XimaTypo3InternalNews\Configuration;
 
 return [
@@ -108,7 +107,7 @@ return [
                 'allowed' => 'common-media-types',
                 'overrideChildTca' => [
                     'types' => [
-                        FileType::IMAGE->value => [
+                        '2' => [
                             'showitem' => '
                                 --palette--;;imageoverlayPalette,
                                 --palette--;;filePalette',
