@@ -2,6 +2,25 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
+ *
+ * Copyright (C) 2024-2025 Konrad Michalik <hej@konradmichalik.dev>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
 namespace Xima\XimaTypo3InternalNews\Widgets;
 
 use Psr\Http\Message\ServerRequestInterface;
@@ -16,6 +35,12 @@ use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use Xima\XimaTypo3InternalNews\Configuration;
 
+/**
+ * InternalNewsWidget.
+ *
+ * @author Konrad Michalik <hej@konradmichalik.dev>
+ * @license GPL-2.0
+ */
 class InternalNewsWidget implements WidgetInterface, AdditionalCssInterface, JavaScriptInterface
 {
     protected ServerRequestInterface $request;
@@ -26,8 +51,7 @@ class InternalNewsWidget implements WidgetInterface, AdditionalCssInterface, Jav
         protected readonly ?ButtonProviderInterface $buttonProvider = null,
         protected readonly array $buttons = [],
         protected array $options = []
-    ) {
-    }
+    ) {}
 
     public function renderWidgetContent(): string
     {
