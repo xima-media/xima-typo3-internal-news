@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
  *
- * Copyright (C) 2024-2025 Konrad Michalik <hej@konradmichalik.dev>
+ * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,15 +27,7 @@ use TYPO3\CMS\Extbase\Domain\Model\Category;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use Xima\XimaTypo3InternalNews\Service\DateService;
-use Xima\XimaTypo3InternalNews\Utilities\BackendUserHelper;
 
-/**
- * News.
- *
- * @author Konrad Michalik <hej@konradmichalik.dev>
- * @license GPL-2.0
- */
 class News extends AbstractEntity
 {
     protected string $title = '';
@@ -98,16 +90,6 @@ class News extends AbstractEntity
         $this->dates = $dates;
     }
 
-    public function getNextDate(): ?array
-    {
-        return DateService::getNextDate($this);
-    }
-
-    public function getNextDates(): array
-    {
-        return DateService::getNextDates($this);
-    }
-
     public function isTop(): bool
     {
         return $this->top;
@@ -116,19 +98,6 @@ class News extends AbstractEntity
     public function setTop(bool $top): void
     {
         $this->top = $top;
-    }
-
-    public function isTopAndNew(): bool
-    {
-        if (!$this->top) {
-            return false;
-        }
-        return BackendUserHelper::checkAndSetModuleDate('internal_news/top', $this->getUid());
-    }
-
-    public function isNew(): bool
-    {
-        return BackendUserHelper::checkAndSetModuleDate('internal_news/read', $this->getUid());
     }
 
     public function getTstamp(): ?int

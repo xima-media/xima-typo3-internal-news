@@ -3,11 +3,13 @@
     xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
     data-namespace-typo3-fluid="true">
 
-<div class="widget-content-title d-flex" style="gap:10px;">
-    <core:icon identifier="internal-news-news-color" size="small" alternativeMarkupIdentifier="inline"/>
-    <span><f:translate key="widget.title" extensionName="XimaTypo3InternalNews"/></span>
-</div>
-<div class="widget-content-main"
+<f:if condition="{version} < 13">
+    <div class="widget-content-title d-flex" style="gap:10px;">
+        <core:icon identifier="internal-news-news-color" size="small" alternativeMarkupIdentifier="inline"/>
+        <span><f:translate key="widget.title" extensionName="XimaTypo3InternalNews"/></span>
+    </div>
+</f:if>
+<div class="widget-content-main widget-internal-news"
     style="--mask: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 0) 100% 90% / 100% 100% repeat-x;-webkit-mask: var(--mask);mask: var(--mask);">
     <f:if condition="{records}">
         <f:then>

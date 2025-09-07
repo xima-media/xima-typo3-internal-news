@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
  *
- * Copyright (C) 2024-2025 Konrad Michalik <hej@konradmichalik.dev>
+ * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,27 +27,20 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Http\JsonResponse;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 use Xima\XimaTypo3InternalNews\Configuration;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
 use Xima\XimaTypo3InternalNews\Service\DateService;
+use Xima\XimaTypo3InternalNews\Utilities\ViewFactoryHelper;
 
 #[AsController]
-
-/**
- * DateController.
- *
- * @author Konrad Michalik <hej@konradmichalik.dev>
- * @license GPL-2.0
- */
 final class DateController extends ActionController
 {
     protected array $configuration;
     public function __construct(
         private readonly NewsRepository $newsRepository,
-        private readonly ExtensionConfiguration $extensionConfiguration
+        private readonly ExtensionConfiguration $extensionConfiguration,
+        private readonly DateService $dateService
     ) {
         $this->configuration = $this->extensionConfiguration->get(Configuration::EXT_KEY);
     }
@@ -55,7 +48,7 @@ final class DateController extends ActionController
     public function notifiesAction(): ResponseInterface
     {
         $newsList = $this->newsRepository->findAllByCurrentUser();
-        $notifies = DateService::getNotifyDatesByNewsList($newsList);
+        $notifies = $this->dateService->getNotifyDatesByNewsList($newsList);
 
         return new JsonResponse([
             'notifies' => $notifies,
@@ -65,20 +58,34 @@ final class DateController extends ActionController
 
     public function newsAction(): ResponseInterface
     {
-        $newsUid = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['newsId'];
-        $news = $this->newsRepository->findByUid((int)$newsUid);
+        $queryParams = $GLOBALS['TYPO3_REQUEST']->getQueryParams();
+        $newsId = $queryParams['newsId'] ?? null;
 
-        $view = GeneralUtility::makeInstance(StandaloneView::class);
+        if ($newsId === null || !is_numeric($newsId)) {
+            return new JsonResponse(['error' => 'Invalid or missing newsId parameter'], 400);
+        }
 
-        $view->setTemplateRootPaths(['EXT:' . Configuration::EXT_KEY . '/Resources/Private/Templates']);
-        $view->setPartialRootPaths(['EXT:' . Configuration::EXT_KEY . '/Resources/Private/Partials']);
-        $view->setLayoutRootPaths(['EXT:' . Configuration::EXT_KEY . '/Resources/Private/Layouts']);
+        $newsUid = (int)$newsId;
+        if ($newsUid <= 0) {
+            return new JsonResponse(['error' => 'newsId must be a positive integer'], 400);
+        }
 
-        $view->setTemplate('News');
-        $view->assignMultiple([
-            'record' => $news,
-            'dateListCount' => (array_key_exists('dateListCount', $this->configuration) ? (int)$this->configuration['dateListCount'] : 20),
-        ]);
-        return new JsonResponse(['result' => $view->render()]);
+        $news = $this->newsRepository->findByUid($newsUid);
+
+        if ($news === null) {
+            return new JsonResponse(['error' => 'News item not found'], 404);
+        }
+
+        return new JsonResponse(
+            [
+                'result' => ViewFactoryHelper::renderView(
+                    'Default/News.html',
+                    [
+                        'record' => $news,
+                        'dateListCount' => (array_key_exists('dateListCount', $this->configuration) ? (int)$this->configuration['dateListCount'] : 20),
+                    ]
+                ),
+            ]
+        );
     }
 }

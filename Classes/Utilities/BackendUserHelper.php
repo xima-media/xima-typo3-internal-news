@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
  *
- * Copyright (C) 2024-2025 Konrad Michalik <hej@konradmichalik.dev>
+ * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,24 +23,24 @@ declare(strict_types=1);
 
 namespace Xima\XimaTypo3InternalNews\Utilities;
 
-/**
- * BackendUserHelper.
- *
- * @author Konrad Michalik <hej@konradmichalik.dev>
- * @license GPL-2.0
- */
 class BackendUserHelper
 {
-    public static function checkAndSetModuleDate(string $moduleName, mixed $value): bool
+    public function checkAndSetModuleDate(string $moduleName, mixed $value): bool
     {
+        // Validate backend user exists and is authenticated
+        if (!isset($GLOBALS['BE_USER']) || !is_object($GLOBALS['BE_USER'])) {
+            return false;
+        }
+
+        $backendUser = $GLOBALS['BE_USER'];
         $return = true;
 
-        $array = $GLOBALS['BE_USER']->getModuleData($moduleName) ?: [];
-        if (is_array($array) && in_array($value, $array)) {
+        $array = $backendUser->getModuleData($moduleName) ?? [];
+        if (is_array($array) && in_array($value, $array, true)) {
             $return = false;
         }
         $array[] = $value;
-        $GLOBALS['BE_USER']->pushModuleData($moduleName, $array);
+        $backendUser->pushModuleData($moduleName, $array);
         return $return;
     }
 }

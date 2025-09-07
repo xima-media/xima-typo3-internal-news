@@ -35,6 +35,10 @@
 				<source />
 				<target>Termine</target>
 			</trans-unit>
+			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.categories">
+				<source />
+				<target>Kategorien</target>
+			</trans-unit>
 			<trans-unit id="tx_ximatypo3internalnews_domain_model_news.be_group">
 				<source />
 				<target>Backend Nutzer Gruppen</target>

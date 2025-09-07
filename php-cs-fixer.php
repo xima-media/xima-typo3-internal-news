@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
  *
- * Copyright (C) 2024-2025 Konrad Michalik <hej@konradmichalik.dev>
+ * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ $header = PhpCsFixerConfig\Rules\Header::create(
     Configuration::EXT_KEY,
     PhpCsFixerConfig\Package\Type::TYPO3Extension,
     PhpCsFixerConfig\Package\Author::create('Konrad Michalik', 'hej@konradmichalik.dev'),
-    PhpCsFixerConfig\Package\CopyrightRange::from(2024),
+    PhpCsFixerConfig\Package\CopyrightRange::from(2025),
     PhpCsFixerConfig\Package\License::GPL2OrLater,
 );
 
@@ -42,17 +42,5 @@ $finder = $config->getFinder()
 
 return PhpCsFixerConfig\Config::create()
     ->withConfig($config)
-    ->withRule(
-        PhpCsFixerConfig\Rules\RuleSet::fromArray(
-            KonradMichalik\PhpDocBlockHeaderFixer\Generators\DocBlockHeader::create(
-                [
-                    'author' => 'Konrad Michalik <hej@konradmichalik.dev>',
-                    'license' => 'GPL-2.0',
-                ],
-                addStructureName: true,
-            )->__toArray(),
-        ),
-    )
-    ->registerCustomFixers([new KonradMichalik\PhpDocBlockHeaderFixer\Rules\DocBlockHeaderFixer()])
     ->withRule($header)
 ;

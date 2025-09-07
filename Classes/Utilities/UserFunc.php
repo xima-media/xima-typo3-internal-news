@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
  *
- * Copyright (C) 2024-2025 Konrad Michalik <hej@konradmichalik.dev>
+ * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,29 +24,26 @@ declare(strict_types=1);
 namespace Xima\XimaTypo3InternalNews\Utilities;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Xima\XimaTypo3InternalNews\Domain\Model\Date;
 use Xima\XimaTypo3InternalNews\Domain\Model\News;
 use Xima\XimaTypo3InternalNews\Domain\Repository\DateRepository;
 use Xima\XimaTypo3InternalNews\Service\DateService;
 
-/**
- * UserFunc.
- *
- * @author Konrad Michalik <hej@konradmichalik.dev>
- * @license GPL-2.0
- */
 class UserFunc
 {
     public function dateLabel(array &$parameters): void
     {
         $record = GeneralUtility::makeInstance(DateRepository::class)->findByUid($parameters['row']['uid']);
-        if ($record === null) {
+        if (!$record instanceof Date) {
             return;
         }
 
-        $dates = DateService::getDates(GeneralUtility::makeInstance(News::class), $record);
-        if (empty($dates)) {
+        $dateService = GeneralUtility::makeInstance(DateService::class);
+        $dates = $dateService->getDates(GeneralUtility::makeInstance(News::class), $record);
+        if ($dates === []) {
             return;
         }
+
         $title = (array_key_exists('title', $parameters['row']) ? $parameters['row']['title'] : array_key_exists('title', $parameters)) ? $parameters['title'] : '';
         $label = ($dates[0]['type'] === 'single_date' ? '📅 ' : '🗓️ ') . $title;
 

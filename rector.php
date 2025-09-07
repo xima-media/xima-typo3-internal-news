@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
  *
- * Copyright (C) 2024-2025 Konrad Michalik <hej@konradmichalik.dev>
+ * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,9 +35,9 @@ return RectorConfig::configure()
     ->withPaths([
         __DIR__ . '/Classes',
         __DIR__ . '/Configuration',
-        __DIR__ . '/config',
         __DIR__ . '/ext_emconf.php',
         __DIR__ . '/ext_tables.php',
+        __DIR__ . '/Tests/Unit',
     ])
     // uncomment to reach your current PHP version
     // ->withPhpSets()

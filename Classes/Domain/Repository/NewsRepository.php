@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
  *
- * Copyright (C) 2024-2025 Konrad Michalik <hej@konradmichalik.dev>
+ * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,12 +27,6 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use Xima\XimaTypo3InternalNews\Service\CacheService;
 
-/**
- * NewsRepository.
- *
- * @author Konrad Michalik <hej@konradmichalik.dev>
- * @license GPL-2.0
- */
 class NewsRepository extends Repository
 {
     public function __construct(
@@ -47,13 +41,26 @@ class NewsRepository extends Repository
 
     public function findAllByCurrentUser(int|null $limit = null): array|null
     {
-        $userGroups = array_keys($GLOBALS['BE_USER']->userGroups);
+        // Validate backend user exists and is authenticated
+        if (!isset($GLOBALS['BE_USER']) || !is_object($GLOBALS['BE_USER'])) {
+            return [];
+        }
+
+        $backendUser = $GLOBALS['BE_USER'];
+
+        // Validate user groups property exists and is an array
+        if (!property_exists($backendUser, 'userGroups') || !is_array($backendUser->userGroups)) {
+            return [];
+        }
+
+        $userGroups = array_keys($backendUser->userGroups);
         $cacheIdentifier = $this->cache->generateCacheIdentifier($userGroups);
         if ($this->cache->has($cacheIdentifier)) {
             return $this->cache->get($cacheIdentifier);
         }
 
-        if ($GLOBALS['BE_USER']->isAdmin()) {
+        // Check if user has admin privileges
+        if (method_exists($backendUser, 'isAdmin') && $backendUser->isAdmin()) {
             $result = $this->findAll()->toArray();
             $this->cache->set($cacheIdentifier, $result);
             return $result;
@@ -61,7 +68,7 @@ class NewsRepository extends Repository
 
         $query = $this->createQuery();
 
-        if (!empty($userGroups)) {
+        if ($userGroups !== []) {
             $query->matching(
                 $query->logicalOr(
                     $query->equals('be_group', 0),
@@ -72,7 +79,7 @@ class NewsRepository extends Repository
             $query->equals('be_group', 0);
         }
 
-        if ($limit) {
+        if ($limit !== null) {
             $query->setLimit($limit);
         }
 

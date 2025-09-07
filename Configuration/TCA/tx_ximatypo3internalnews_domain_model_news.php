@@ -3,7 +3,7 @@
 /*
  * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
  *
- * Copyright (C) 2024-2025 Konrad Michalik <hej@konradmichalik.dev>
+ * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-use TYPO3\CMS\Core\Resource\AbstractFile;
 use Xima\XimaTypo3InternalNews\Configuration;
 
 return [
@@ -108,7 +107,7 @@ return [
                 'allowed' => 'common-media-types',
                 'overrideChildTca' => [
                     'types' => [
-                        AbstractFile::FILETYPE_IMAGE => [
+                        '2' => [
                             'showitem' => '
                                 --palette--;;imageoverlayPalette,
                                 --palette--;;filePalette',

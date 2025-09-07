@@ -3,7 +3,7 @@
 /*
  * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
  *
- * Copyright (C) 2024-2025 Konrad Michalik <hej@konradmichalik.dev>
+ * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ $EM_CONF[$_EXTKEY] = [
     'author_email' => 'konrad.michalik@xima.de',
     'author_company' => 'XIMA MEDIA GmbH',
     'state' => 'stable',
-    'version' => '1.0.0',
+    'version' => '1.1.1',
     'constraints' => [
         'depends' => [
             'php' => '8.1.0-8.3.99',
