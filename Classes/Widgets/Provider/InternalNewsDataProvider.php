@@ -38,6 +38,6 @@ class InternalNewsDataProvider implements ListDataProviderInterface
 
     public function getItems(): array
     {
-        return $this->newsRepository->findAllByCurrentUser()->toArray();
+        return $this->newsRepository->findAllByCurrentUser();
     }
 }
