@@ -29,7 +29,7 @@
 		"eliashaeussler/version-bumper": "^2.4 || ^3.0",
 		"ergebnis/composer-normalize": "^2.48.2",
 		"helhum/typo3-console": "^7.0 || ^8.1",
-		"helmich/typo3-typoscript-lint": "^3.2",
+		"helmich/typo3-typoscript-lint": "^3.3.0",
 		"move-elevator/composer-translation-validator": "^1.1",
 		"phpstan/phpstan-deprecation-rules": "^1.0 || ^2.0",
 		"phpstan/phpstan-phpunit": "^1.0 || ^2.0",
