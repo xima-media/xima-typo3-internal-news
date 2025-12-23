@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a1098679cc9d0d845ece8b9f0d16041f",
+    "content-hash": "ff2bedd48862eba6353cba274d4d2740",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2148,25 +2148,28 @@
         },
         {
             "name": "simshaun/recurr",
-            "version": "v5.0.3",
+            "version": "v6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simshaun/recurr.git",
-                "reference": "7b136768d64f257065e38a804ee6d2f9af6ba6d1"
+                "reference": "b95da4d381bb612d40a75df989383f75e0d70e19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simshaun/recurr/zipball/7b136768d64f257065e38a804ee6d2f9af6ba6d1",
-                "reference": "7b136768d64f257065e38a804ee6d2f9af6ba6d1",
+                "url": "https://api.github.com/repos/simshaun/recurr/zipball/b95da4d381bb612d40a75df989383f75e0d70e19",
+                "reference": "b95da4d381bb612d40a75df989383f75e0d70e19",
                 "shasum": ""
             },
             "require": {
                 "doctrine/collections": "~1.6||^2.0",
-                "php": "^7.2||^8.0"
+                "php": ">=8.4"
             },
             "require-dev": {
-                "phpunit/phpunit": "^8.5.16",
-                "symfony/yaml": "^5.3"
+                "friendsofphp/php-cs-fixer": "^3.88",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^12.3",
+                "rector/rector": "^2.1",
+                "symfony/yaml": "^7.3"
             },
             "type": "library",
             "extra": {
@@ -2201,9 +2204,9 @@
             ],
             "support": {
                 "issues": "https://github.com/simshaun/recurr/issues",
-                "source": "https://github.com/simshaun/recurr/tree/v5.0.3"
+                "source": "https://github.com/simshaun/recurr/tree/v6.0.0"
             },
-            "time": "2024-12-12T15:39:24+00:00"
+            "time": "2025-10-04T10:09:28+00:00"
         },
         {
             "name": "symfony/cache",
