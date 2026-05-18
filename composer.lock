@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a1098679cc9d0d845ece8b9f0d16041f",
+    "content-hash": "97f5f1ae4545828025280053b7ca5472",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -4321,16 +4321,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v7.4.0",
+            "version": "v7.4.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "7ca8dc2d0dcf4882658313aba8be5d9fd01026c8"
+                "reference": "d9593c9efa40499eb078b81144de42cbc28a31f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/7ca8dc2d0dcf4882658313aba8be5d9fd01026c8",
-                "reference": "7ca8dc2d0dcf4882658313aba8be5d9fd01026c8",
+                "url": "https://api.github.com/repos/symfony/process/zipball/d9593c9efa40499eb078b81144de42cbc28a31f0",
+                "reference": "d9593c9efa40499eb078b81144de42cbc28a31f0",
                 "shasum": ""
             },
             "require": {
@@ -4362,7 +4362,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v7.4.0"
+                "source": "https://github.com/symfony/process/tree/v7.4.11"
             },
             "funding": [
                 {
@@ -4382,7 +4382,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-10-16T11:21:06+00:00"
+            "time": "2026-05-11T16:55:21+00:00"
         },
         {
             "name": "symfony/property-access",
@@ -8224,16 +8224,16 @@
         },
         {
             "name": "move-elevator/composer-translation-validator",
-            "version": "1.3.1",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/move-elevator/composer-translation-validator.git",
-                "reference": "7c99a49bdee56062d7c69eae95173d1216abe04f"
+                "reference": "c2854897ff8f0ba330c3811c7042f01888abed4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/move-elevator/composer-translation-validator/zipball/7c99a49bdee56062d7c69eae95173d1216abe04f",
-                "reference": "7c99a49bdee56062d7c69eae95173d1216abe04f",
+                "url": "https://api.github.com/repos/move-elevator/composer-translation-validator/zipball/c2854897ff8f0ba330c3811c7042f01888abed4e",
+                "reference": "c2854897ff8f0ba330c3811c7042f01888abed4e",
                 "shasum": ""
             },
             "require": {
@@ -8291,9 +8291,9 @@
             "description": "A Composer plugin that validates translations files in your project regarding mismatches between language source and target files.",
             "support": {
                 "issues": "https://github.com/move-elevator/composer-translation-validator/issues",
-                "source": "https://github.com/move-elevator/composer-translation-validator/tree/1.3.1"
+                "source": "https://github.com/move-elevator/composer-translation-validator/tree/1.4.0"
             },
-            "time": "2025-12-10T10:47:29+00:00"
+            "time": "2026-03-26T09:00:08+00:00"
         },
         {
             "name": "myclabs/deep-copy",
