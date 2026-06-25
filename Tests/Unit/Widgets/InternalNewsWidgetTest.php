@@ -3,35 +3,30 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
+ * This file is part of the "xima_typo3_internal_news" TYPO3 CMS extension.
  *
- * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
+ * (c) 2025-2026 Konrad Michalik <hej@konradmichalik.dev>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Xima\XimaTypo3InternalNews\Tests\Unit\Widgets;
 
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
-use TYPO3\CMS\Dashboard\Widgets\ButtonProviderInterface;
-use TYPO3\CMS\Dashboard\Widgets\JavaScriptInterface;
-use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
-use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
-use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
+use ReflectionClass;
+use ReflectionNamedType;
+use TYPO3\CMS\Dashboard\Widgets\{AdditionalCssInterface, ButtonProviderInterface, JavaScriptInterface, ListDataProviderInterface, WidgetConfigurationInterface, WidgetInterface};
 use Xima\XimaTypo3InternalNews\Widgets\InternalNewsWidget;
+
+
+/**
+ * InternalNewsWidgetTest.
+ *
+ * @author Konrad Michalik <hej@konradmichalik.dev>
+ * @license GPL-2.0-or-later
+ */
 
 final class InternalNewsWidgetTest extends TestCase
 {
@@ -51,7 +46,7 @@ final class InternalNewsWidgetTest extends TestCase
             $this->dataProviderMock,
             $this->buttonProviderMock,
             ['button1' => 'test'],
-            ['option1' => 'value1']
+            ['option1' => 'value1'],
         );
 
         // Mock BE_USER global for widget rendering
@@ -72,7 +67,7 @@ final class InternalNewsWidgetTest extends TestCase
     #[Test]
     public function widgetImplementsRequiredInterfaces(): void
     {
-        $reflection = new \ReflectionClass(InternalNewsWidget::class);
+        $reflection = new ReflectionClass(InternalNewsWidget::class);
 
         self::assertTrue($reflection->implementsInterface(WidgetInterface::class));
         self::assertTrue($reflection->implementsInterface(AdditionalCssInterface::class));
@@ -82,7 +77,7 @@ final class InternalNewsWidgetTest extends TestCase
     #[Test]
     public function constructorAcceptsAllParameters(): void
     {
-        $reflection = new \ReflectionClass(InternalNewsWidget::class);
+        $reflection = new ReflectionClass(InternalNewsWidget::class);
         $constructor = $reflection->getConstructor();
 
         self::assertNotNull($constructor);
@@ -106,7 +101,7 @@ final class InternalNewsWidgetTest extends TestCase
     #[Test]
     public function renderWidgetContentMethodExists(): void
     {
-        $reflection = new \ReflectionClass(InternalNewsWidget::class);
+        $reflection = new ReflectionClass(InternalNewsWidget::class);
 
         self::assertTrue($reflection->hasMethod('renderWidgetContent'));
 
@@ -114,7 +109,7 @@ final class InternalNewsWidgetTest extends TestCase
         self::assertTrue($method->isPublic());
 
         $returnType = $method->getReturnType();
-        self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
+        self::assertInstanceOf(ReflectionNamedType::class, $returnType);
         self::assertEquals('string', $returnType->getName());
     }
 
@@ -149,7 +144,7 @@ final class InternalNewsWidgetTest extends TestCase
     #[Test]
     public function widgetUsesCorrectNamespace(): void
     {
-        $reflection = new \ReflectionClass(InternalNewsWidget::class);
+        $reflection = new ReflectionClass(InternalNewsWidget::class);
 
         self::assertEquals('Xima\XimaTypo3InternalNews\Widgets', $reflection->getNamespaceName());
         self::assertEquals('InternalNewsWidget', $reflection->getShortName());
@@ -158,7 +153,7 @@ final class InternalNewsWidgetTest extends TestCase
     #[Test]
     public function widgetHasProtectedServerRequestProperty(): void
     {
-        $reflection = new \ReflectionClass(InternalNewsWidget::class);
+        $reflection = new ReflectionClass(InternalNewsWidget::class);
 
         self::assertTrue($reflection->hasProperty('request'));
 
@@ -169,7 +164,7 @@ final class InternalNewsWidgetTest extends TestCase
     #[Test]
     public function constructorParametersHaveCorrectVisibility(): void
     {
-        $reflection = new \ReflectionClass(InternalNewsWidget::class);
+        $reflection = new ReflectionClass(InternalNewsWidget::class);
 
         // Check that promoted properties are protected/readonly
         self::assertTrue($reflection->hasProperty('configuration'));
@@ -194,7 +189,7 @@ final class InternalNewsWidgetTest extends TestCase
     #[Test]
     public function widgetMethodsAreNotStatic(): void
     {
-        $reflection = new \ReflectionClass(InternalNewsWidget::class);
+        $reflection = new ReflectionClass(InternalNewsWidget::class);
 
         $methods = ['renderWidgetContent', 'getOptions', 'getCssFiles', 'getJavaScriptModuleInstructions'];
 
@@ -206,7 +201,7 @@ final class InternalNewsWidgetTest extends TestCase
 
     private function createMockBackendUser(): object
     {
-        return new class () {
+        return new class {
             public function check(string $table, string $action): bool
             {
                 return true; // Always allow for testing

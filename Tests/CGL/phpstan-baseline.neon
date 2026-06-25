@@ -1,0 +1,67 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Mixed variable in a `\$GLOBALS\[''TYPO3_REQUEST''\]\-\>\.\.\.\(\)` can skip important errors\. Make sure the type is known$#'
+			identifier: typePerfect.noMixedMethodCaller
+			count: 1
+			path: ../../Classes/Controller/DateController.php
+
+		-
+			message: '#^Provide more specific return type "TYPO3\\CMS\\Core\\Http\\JsonResponse" over abstract one$#'
+			identifier: typePerfect.narrowReturnObjectType
+			count: 1
+			path: ../../Classes/Controller/DateController.php
+
+		-
+			message: '#^Parameters should have "DateTimeInterface" types as the only types passed to this method$#'
+			identifier: typePerfect.narrowPublicClassMethodParamType
+			count: 1
+			path: ../../Classes/Domain/Model/Date.php
+
+		-
+			message: '#^Provide more specific return type "TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage" over abstract one$#'
+			identifier: typePerfect.narrowReturnObjectType
+			count: 2
+			path: ../../Classes/Domain/Model/News.php
+
+		-
+			message: '#^Mixed variable in a `\$GLOBALS\[''BE_USER''\]\-\>\.\.\.\(\)` can skip important errors\. Make sure the type is known$#'
+			identifier: typePerfect.noMixedMethodCaller
+			count: 1
+			path: ../../Classes/Service/CacheService.php
+
+		-
+			message: '#^Mixed variable in a `\$item\-\>\.\.\.\(\)` can skip important errors\. Make sure the type is known$#'
+			identifier: typePerfect.noMixedMethodCaller
+			count: 1
+			path: ../../Classes/Service/CacheService.php
+
+		-
+			message: '#^Cognitive complexity for "Xima\\XimaTypo3InternalNews\\Service\\DateService\:\:getDates\(\)" is 13, keep it under 10$#'
+			identifier: complexity.functionLike
+			count: 1
+			path: ../../Classes/Service/DateService.php
+
+		-
+			message: '#^Mixed variable in a `\$GLOBALS\[''LANG''\]\-\>\.\.\.\(\)` can skip important errors\. Make sure the type is known$#'
+			identifier: typePerfect.noMixedMethodCaller
+			count: 1
+			path: ../../Classes/Service/DateService.php
+
+		-
+			message: '#^Mixed variable in a `\$news\-\>\.\.\.\(\)` can skip important errors\. Make sure the type is known$#'
+			identifier: typePerfect.noMixedMethodCaller
+			count: 1
+			path: ../../Classes/Service/DateService.php
+
+		-
+			message: '#^Mixed variable in a `\$date\[''date''\]\-\>\.\.\.\(\)` can skip important errors\. Make sure the type is known$#'
+			identifier: typePerfect.noMixedMethodCaller
+			count: 1
+			path: ../../Classes/Utilities/UserFunc.php
+
+		-
+			message: '#^Mixed variable in a `\$GLOBALS\[''BE_USER''\]\-\>\.\.\.\(\)` can skip important errors\. Make sure the type is known$#'
+			identifier: typePerfect.noMixedMethodCaller
+			count: 1
+			path: ../../Classes/Widgets/InternalNewsWidget.php

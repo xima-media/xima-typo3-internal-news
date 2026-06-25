@@ -3,32 +3,32 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
+ * This file is part of the "xima_typo3_internal_news" TYPO3 CMS extension.
  *
- * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
+ * (c) 2025-2026 Konrad Michalik <hej@konradmichalik.dev>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Xima\XimaTypo3InternalNews\Tests\Unit\Backend\ToolbarItems;
 
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionNamedType;
 use TYPO3\CMS\Backend\Toolbar\ToolbarItemInterface;
 use Xima\XimaTypo3InternalNews\Backend\ToolbarItems\NewsItem;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
 use Xima\XimaTypo3InternalNews\Service\NewsService;
+
+
+/**
+ * NewsItemTest.
+ *
+ * @author Konrad Michalik <hej@konradmichalik.dev>
+ * @license GPL-2.0-or-later
+ */
 
 final class NewsItemTest extends TestCase
 {
@@ -58,7 +58,7 @@ final class NewsItemTest extends TestCase
     #[Test]
     public function toolbarItemImplementsInterface(): void
     {
-        $reflection = new \ReflectionClass(NewsItem::class);
+        $reflection = new ReflectionClass(NewsItem::class);
 
         self::assertTrue($reflection->implementsInterface(ToolbarItemInterface::class));
     }
@@ -66,7 +66,7 @@ final class NewsItemTest extends TestCase
     #[Test]
     public function constructorAcceptsNewsRepository(): void
     {
-        $reflection = new \ReflectionClass(NewsItem::class);
+        $reflection = new ReflectionClass(NewsItem::class);
         $constructor = $reflection->getConstructor();
 
         self::assertNotNull($constructor);
@@ -78,12 +78,12 @@ final class NewsItemTest extends TestCase
         self::assertEquals('newsService', $parameters[1]->getName());
 
         $paramType = $parameters[0]->getType();
-        self::assertInstanceOf(\ReflectionNamedType::class, $paramType);
+        self::assertInstanceOf(ReflectionNamedType::class, $paramType);
         self::assertEquals(NewsRepository::class, $paramType->getName());
 
         $paramType2 = $parameters[1]->getType();
-        self::assertInstanceOf(\ReflectionNamedType::class, $paramType2);
-        self::assertEquals('Xima\XimaTypo3InternalNews\Service\NewsService', $paramType2->getName());
+        self::assertInstanceOf(ReflectionNamedType::class, $paramType2);
+        self::assertEquals(NewsService::class, $paramType2->getName());
     }
 
     #[Test]
@@ -121,49 +121,49 @@ final class NewsItemTest extends TestCase
     #[Test]
     public function toolbarItemMethodsHaveCorrectReturnTypes(): void
     {
-        $reflection = new \ReflectionClass(NewsItem::class);
+        $reflection = new ReflectionClass(NewsItem::class);
 
         // checkAccess
         $checkAccess = $reflection->getMethod('checkAccess');
         $returnType = $checkAccess->getReturnType();
-        self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
+        self::assertInstanceOf(ReflectionNamedType::class, $returnType);
         self::assertEquals('bool', $returnType->getName());
 
         // getItem
         $getItem = $reflection->getMethod('getItem');
         $returnType = $getItem->getReturnType();
-        self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
+        self::assertInstanceOf(ReflectionNamedType::class, $returnType);
         self::assertEquals('string', $returnType->getName());
 
         // hasDropDown
         $hasDropDown = $reflection->getMethod('hasDropDown');
         $returnType = $hasDropDown->getReturnType();
-        self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
+        self::assertInstanceOf(ReflectionNamedType::class, $returnType);
         self::assertEquals('bool', $returnType->getName());
 
         // getDropDown
         $getDropDown = $reflection->getMethod('getDropDown');
         $returnType = $getDropDown->getReturnType();
-        self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
+        self::assertInstanceOf(ReflectionNamedType::class, $returnType);
         self::assertEquals('string', $returnType->getName());
 
         // getAdditionalAttributes
         $getAdditionalAttributes = $reflection->getMethod('getAdditionalAttributes');
         $returnType = $getAdditionalAttributes->getReturnType();
-        self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
+        self::assertInstanceOf(ReflectionNamedType::class, $returnType);
         self::assertEquals('array', $returnType->getName());
 
         // getIndex
         $getIndex = $reflection->getMethod('getIndex');
         $returnType = $getIndex->getReturnType();
-        self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
+        self::assertInstanceOf(ReflectionNamedType::class, $returnType);
         self::assertEquals('int', $returnType->getName());
     }
 
     #[Test]
     public function toolbarItemMethodsArePublic(): void
     {
-        $reflection = new \ReflectionClass(NewsItem::class);
+        $reflection = new ReflectionClass(NewsItem::class);
 
         $methods = [
             'checkAccess',
@@ -184,7 +184,7 @@ final class NewsItemTest extends TestCase
     #[Test]
     public function toolbarItemHasProtectedConfigurationProperty(): void
     {
-        $reflection = new \ReflectionClass(NewsItem::class);
+        $reflection = new ReflectionClass(NewsItem::class);
 
         self::assertTrue($reflection->hasProperty('configuration'));
 
@@ -192,14 +192,14 @@ final class NewsItemTest extends TestCase
         self::assertTrue($property->isProtected());
 
         $propertyType = $property->getType();
-        self::assertInstanceOf(\ReflectionNamedType::class, $propertyType);
+        self::assertInstanceOf(ReflectionNamedType::class, $propertyType);
         self::assertEquals('array', $propertyType->getName());
     }
 
     #[Test]
     public function toolbarItemUsesCorrectNamespace(): void
     {
-        $reflection = new \ReflectionClass(NewsItem::class);
+        $reflection = new ReflectionClass(NewsItem::class);
 
         self::assertEquals('Xima\XimaTypo3InternalNews\Backend\ToolbarItems', $reflection->getNamespaceName());
         self::assertEquals('NewsItem', $reflection->getShortName());
@@ -208,7 +208,7 @@ final class NewsItemTest extends TestCase
     #[Test]
     public function toolbarItemMethodsHaveNoParameters(): void
     {
-        $reflection = new \ReflectionClass(NewsItem::class);
+        $reflection = new ReflectionClass(NewsItem::class);
 
         $parameterlessMethods = [
             'checkAccess',

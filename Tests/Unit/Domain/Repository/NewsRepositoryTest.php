@@ -3,30 +3,32 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
+ * This file is part of the "xima_typo3_internal_news" TYPO3 CMS extension.
  *
- * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
+ * (c) 2025-2026 Konrad Michalik <hej@konradmichalik.dev>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Xima\XimaTypo3InternalNews\Tests\Unit\Domain\Repository;
 
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionMethod;
+use ReflectionNamedType;
+use ReflectionUnionType;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
 use Xima\XimaTypo3InternalNews\Service\CacheService;
+
+
+/**
+ * NewsRepositoryTest.
+ *
+ * @author Konrad Michalik <hej@konradmichalik.dev>
+ * @license GPL-2.0-or-later
+ */
 
 final class NewsRepositoryTest extends TestCase
 {
@@ -48,7 +50,7 @@ final class NewsRepositoryTest extends TestCase
     public function repositoryCanBeInstantiated(): void
     {
         // This tests the basic structure without full TYPO3 framework
-        $reflection = new \ReflectionClass(NewsRepository::class);
+        $reflection = new ReflectionClass(NewsRepository::class);
 
         self::assertTrue($reflection->isSubclassOf(\TYPO3\CMS\Extbase\Persistence\Repository::class));
     }
@@ -56,7 +58,7 @@ final class NewsRepositoryTest extends TestCase
     #[Test]
     public function repositoryHasDefaultOrderings(): void
     {
-        $reflection = new \ReflectionClass(NewsRepository::class);
+        $reflection = new ReflectionClass(NewsRepository::class);
         $property = $reflection->getProperty('defaultOrderings');
 
         self::assertTrue($property->isProtected());
@@ -65,7 +67,7 @@ final class NewsRepositoryTest extends TestCase
     #[Test]
     public function findAllByCurrentUserMethodExists(): void
     {
-        $reflection = new \ReflectionClass(NewsRepository::class);
+        $reflection = new ReflectionClass(NewsRepository::class);
 
         self::assertTrue($reflection->hasMethod('findAllByCurrentUser'));
 
@@ -82,15 +84,15 @@ final class NewsRepositoryTest extends TestCase
     #[Test]
     public function findAllByCurrentUserHasCorrectReturnType(): void
     {
-        $reflection = new \ReflectionMethod(NewsRepository::class, 'findAllByCurrentUser');
+        $reflection = new ReflectionMethod(NewsRepository::class, 'findAllByCurrentUser');
         $returnType = $reflection->getReturnType();
 
         self::assertNotNull($returnType);
 
         // Check if it's a union type or named type
-        if ($returnType instanceof \ReflectionUnionType) {
+        if ($returnType instanceof ReflectionUnionType) {
             $types = $returnType->getTypes();
-            $typeNames = array_map(fn($type) => $type->getName(), $types);
+            $typeNames = array_map(static fn ($type) => $type->getName(), $types);
 
             self::assertContains('array', $typeNames);
             self::assertContains('null', $typeNames);
@@ -103,7 +105,7 @@ final class NewsRepositoryTest extends TestCase
     #[Test]
     public function constructorAcceptsCacheService(): void
     {
-        $reflection = new \ReflectionClass(NewsRepository::class);
+        $reflection = new ReflectionClass(NewsRepository::class);
         $constructor = $reflection->getConstructor();
 
         self::assertNotNull($constructor);
@@ -113,14 +115,14 @@ final class NewsRepositoryTest extends TestCase
         self::assertEquals('cache', $parameters[0]->getName());
 
         $paramType = $parameters[0]->getType();
-        self::assertInstanceOf(\ReflectionNamedType::class, $paramType);
+        self::assertInstanceOf(ReflectionNamedType::class, $paramType);
         self::assertEquals(CacheService::class, $paramType->getName());
     }
 
     #[Test]
     public function repositoryExtendsBaseRepository(): void
     {
-        $reflection = new \ReflectionClass(NewsRepository::class);
+        $reflection = new ReflectionClass(NewsRepository::class);
         $parentClass = $reflection->getParentClass();
 
         self::assertNotFalse($parentClass);
@@ -130,7 +132,7 @@ final class NewsRepositoryTest extends TestCase
     #[Test]
     public function repositoryUsesCorrectNamespace(): void
     {
-        $reflection = new \ReflectionClass(NewsRepository::class);
+        $reflection = new ReflectionClass(NewsRepository::class);
 
         self::assertEquals('Xima\XimaTypo3InternalNews\Domain\Repository', $reflection->getNamespaceName());
         self::assertEquals('NewsRepository', $reflection->getShortName());
@@ -139,7 +141,7 @@ final class NewsRepositoryTest extends TestCase
     #[Test]
     public function repositoryIsNotFinal(): void
     {
-        $reflection = new \ReflectionClass(NewsRepository::class);
+        $reflection = new ReflectionClass(NewsRepository::class);
 
         self::assertFalse($reflection->isFinal());
         self::assertFalse($reflection->isAbstract());
@@ -147,7 +149,7 @@ final class NewsRepositoryTest extends TestCase
 
     private function createMockBackendUser(): object
     {
-        return new class () {
+        return new class {
             public function isAdmin(): bool
             {
                 return false;
