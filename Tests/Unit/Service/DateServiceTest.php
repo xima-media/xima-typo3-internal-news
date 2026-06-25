@@ -157,8 +157,25 @@ final class DateServiceTest extends TestCase
     }
 
     #[Test]
+    public function hasRecurrenceSupportMethodExists(): void
+    {
+        $reflection = new ReflectionClass(DateService::class);
+
+        self::assertTrue($reflection->hasMethod('hasRecurrenceSupport'));
+
+        $method = $reflection->getMethod('hasRecurrenceSupport');
+        self::assertFalse($method->isStatic());
+        self::assertTrue($method->isPublic());
+        self::assertSame('bool', (string)$method->getReturnType());
+    }
+
+    #[Test]
     public function getDatesHandlesRecurrenceType(): void
     {
+        if (!$this->dateService->hasRecurrenceSupport()) {
+            self::markTestSkipped('simshaun/recurr is not installed; skip recurr happy-path test');
+        }
+
         $startDate = new DateTime('+1 day');
         $date = $this->createDate('recurrence', $startDate, 'FREQ=DAILY;COUNT=3');
         $news = $this->createNewsWithDates([]);
@@ -167,6 +184,23 @@ final class DateServiceTest extends TestCase
 
         // Detailed recurrence testing would require more complex setup
         self::assertNotEmpty($result);
+    }
+
+    #[Test]
+    public function getDatesHandlesRecurrenceTypeWithoutRecurrenceLibrary(): void
+    {
+        if ($this->dateService->hasRecurrenceSupport()) {
+            self::markTestSkipped('simshaun/recurr is installed; skip no-recurr test');
+        }
+
+        $startDate = new DateTime('+1 day');
+        $date = $this->createDate('recurrence', $startDate, 'FREQ=DAILY;COUNT=3');
+        $news = $this->createNewsWithDates([]);
+
+        $result = $this->dateService->getDates($news, $date);
+
+        // Without recurr, recurrence type returns empty array
+        self::assertEmpty($result);
     }
 
     private function createNewsWithDates(array $dates): News

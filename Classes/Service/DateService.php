@@ -15,9 +15,6 @@ namespace Xima\XimaTypo3InternalNews\Service;
 
 use DateTime;
 use DateTimeInterface;
-use DateTimeZone;
-use Recurr\Rule;
-use Recurr\Transformer\ArrayTransformer;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use Xima\XimaTypo3InternalNews\Configuration;
 use Xima\XimaTypo3InternalNews\Domain\Model\{Date, News};
@@ -35,6 +32,11 @@ class DateService
     public function __construct(
         private readonly ExtensionConfiguration $extensionConfiguration,
     ) {}
+
+    public function hasRecurrenceSupport(): bool
+    {
+        return class_exists(\Recurr\Rule::class);
+    }
 
     public function getNextDate(News $news): ?array
     {
@@ -87,8 +89,11 @@ class DateService
                 }
                 break;
             case 'recurrence':
-                $transformer = new ArrayTransformer();
-                $rule = new Rule($date->getRecurrence(), $date->getSingleDate(), null, (new DateTimeZone('Europe/Berlin'))->getName());
+                if (!$this->hasRecurrenceSupport()) {
+                    break;
+                }
+                $transformer = new \Recurr\Transformer\ArrayTransformer();
+                $rule = new \Recurr\Rule($date->getRecurrence(), $date->getSingleDate(), null, (new \DateTimeZone('Europe/Berlin'))->getName());
                 foreach ($transformer->transform($rule) as $recurrence) {
                     if ($recurrence->getStart() > new DateTime() && (!$forceNotify || $this->checkNotifyIsReached($recurrence->getStart()))) {
                         $dates[] = $this->createDateEntry($news, $date, $recurrence->getStart(), $respectNotify);

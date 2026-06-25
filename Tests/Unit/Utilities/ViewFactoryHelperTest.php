@@ -22,14 +22,12 @@ use ReflectionNamedType;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Xima\XimaTypo3InternalNews\Utilities\ViewFactoryHelper;
 
-
 /**
  * ViewFactoryHelperTest.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 final class ViewFactoryHelperTest extends TestCase
 {
     protected function setUp(): void
@@ -77,7 +75,7 @@ final class ViewFactoryHelperTest extends TestCase
     public function classHasOnlyRenderViewAsPublicMethod(): void
     {
         $reflection = new ReflectionClass(ViewFactoryHelper::class);
-        $publicMethods = $reflection->getMethods(\ReflectionMethod::IS_PUBLIC);
+        $publicMethods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
 
         self::assertCount(1, $publicMethods);
         self::assertEquals('renderView', $publicMethods[0]->getName());
