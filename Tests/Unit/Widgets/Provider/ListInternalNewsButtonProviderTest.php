@@ -92,6 +92,6 @@ final class ListInternalNewsButtonProviderTest extends TestCase
         $provider = new ListInternalNewsButtonProvider('List');
         $link = $provider->getLink();
 
-        self::assertIsString($link);
+        self::assertNotEmpty($link);
     }
 }

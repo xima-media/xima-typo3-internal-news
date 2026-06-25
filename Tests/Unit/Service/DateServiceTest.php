@@ -282,7 +282,6 @@ final class DateServiceTest extends TestCase
         $result = $this->dateService->getNextDate($news);
 
         self::assertNotNull($result);
-        self::assertIsArray($result);
         self::assertArrayHasKey('date', $result);
     }
 

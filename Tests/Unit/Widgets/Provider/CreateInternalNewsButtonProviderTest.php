@@ -92,6 +92,6 @@ final class CreateInternalNewsButtonProviderTest extends TestCase
         $provider = new CreateInternalNewsButtonProvider('Create');
         $link = $provider->getLink();
 
-        self::assertIsString($link);
+        self::assertNotEmpty($link);
     }
 }
