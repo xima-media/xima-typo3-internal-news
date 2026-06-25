@@ -45,12 +45,12 @@
 	"config": {
 		"allow-plugins": {
 			"eliashaeussler/version-bumper": true,
+			"ergebnis/composer-normalize": true,
 			"helhum/dotenv-connector": true,
 			"php-http/discovery": true,
 			"typo3/class-alias-loader": true,
 			"typo3/cms-composer-installers": true
 		},
-		"lock": false,
 		"platform": {
 			"php": "8.2"
 		},
