@@ -37,8 +37,26 @@ parameters:
 			path: ../../Classes/Service/CacheService.php
 
 		-
-			message: '#^Cognitive complexity for "Xima\\XimaTypo3InternalNews\\Service\\DateService\:\:getDates\(\)" is 13, keep it under 10$#'
+			message: '#^Cognitive complexity for "Xima\\XimaTypo3InternalNews\\Service\\DateService\:\:getDates\(\)" is \d+, keep it under 10$#'
 			identifier: complexity.functionLike
+			count: 1
+			path: ../../Classes/Service/DateService.php
+
+		-
+			message: '#^Instantiated class Recurr\\Rule not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: ../../Classes/Service/DateService.php
+
+		-
+			message: '#^Instantiated class Recurr\\Transformer\\ArrayTransformer not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: ../../Classes/Service/DateService.php
+
+		-
+			message: '#^Call to method transform\(\) on an unknown class Recurr\\Transformer\\ArrayTransformer\.$#'
+			identifier: class.notFound
 			count: 1
 			path: ../../Classes/Service/DateService.php
 
@@ -113,6 +131,7 @@ parameters:
 			identifier: class.notFound
 			count: 1
 			path: ../../Classes/Utilities/ViewFactoryHelper.php
+
 
 		-
 			message: '#^Mixed variable in a `\$GLOBALS\[''BE_USER''\]\-\>\.\.\.\(\)` can skip important errors\. Make sure the type is known$#'
