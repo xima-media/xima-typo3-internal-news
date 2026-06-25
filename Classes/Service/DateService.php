@@ -55,9 +55,7 @@ class DateService
             // merge arrays
             $nextDates = array_merge($nextDates, $this->getDates($news, $date, true));
         }
-        usort($nextDates, function (array $a, array $b) {
-            return $a['date'] <=> $b['date'];
-        });
+        usort($nextDates, fn(array $a, array $b) => $a['date'] <=> $b['date']);
         return $nextDates;
     }
 
@@ -69,9 +67,7 @@ class DateService
                 $notifyDates = array_merge($notifyDates, $this->getDates($news, $date, true, true));
             }
         }
-        usort($notifyDates, function (array $a, array $b) {
-            return $a['date'] <=> $b['date'];
-        });
+        usort($notifyDates, fn(array $a, array $b) => $a['date'] <=> $b['date']);
         return $notifyDates;
     }
 

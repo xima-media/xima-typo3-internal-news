@@ -27,7 +27,7 @@ use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 
 class DataHandler
 {
-    public function __construct(private FrontendInterface $cache) {}
+    public function __construct(private readonly FrontendInterface $cache) {}
 
     public function clearCachePostProc(array $params): void
     {

@@ -83,7 +83,7 @@ final class NewsItemTest extends TestCase
 
         $paramType2 = $parameters[1]->getType();
         self::assertInstanceOf(\ReflectionNamedType::class, $paramType2);
-        self::assertEquals('Xima\XimaTypo3InternalNews\Service\NewsService', $paramType2->getName());
+        self::assertEquals(\Xima\XimaTypo3InternalNews\Service\NewsService::class, $paramType2->getName());
     }
 
     #[Test]

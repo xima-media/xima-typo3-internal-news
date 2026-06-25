@@ -29,7 +29,7 @@ use Xima\XimaTypo3InternalNews\Configuration;
 class CacheService
 {
     public function __construct(
-        private FrontendInterface $cache
+        private readonly FrontendInterface $cache
     ) {}
 
     public function has(string $identifier): bool

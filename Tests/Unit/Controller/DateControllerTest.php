@@ -135,7 +135,7 @@ final class DateControllerTest extends TestCase
         self::assertEquals('dateService', $parameters[2]->getName());
         $thirdParamType = $parameters[2]->getType();
         self::assertInstanceOf(\ReflectionNamedType::class, $thirdParamType);
-        self::assertEquals('Xima\XimaTypo3InternalNews\Service\DateService', $thirdParamType->getName());
+        self::assertEquals(\Xima\XimaTypo3InternalNews\Service\DateService::class, $thirdParamType->getName());
     }
 
     #[Test]
@@ -151,7 +151,7 @@ final class DateControllerTest extends TestCase
         // Check return type
         $returnType = $method->getReturnType();
         self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
-        self::assertEquals('Psr\Http\Message\ResponseInterface', $returnType->getName());
+        self::assertEquals(\Psr\Http\Message\ResponseInterface::class, $returnType->getName());
     }
 
     #[Test]
@@ -167,7 +167,7 @@ final class DateControllerTest extends TestCase
         // Check return type
         $returnType = $method->getReturnType();
         self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
-        self::assertEquals('Psr\Http\Message\ResponseInterface', $returnType->getName());
+        self::assertEquals(\Psr\Http\Message\ResponseInterface::class, $returnType->getName());
     }
 
     #[Test]

@@ -55,7 +55,7 @@ class NewsItem implements ToolbarItemInterface
     public function getItem(): string
     {
         $items = $this->newsRepository->findAllByCurrentUser();
-        $newItemsCount = count(array_filter($items, fn(News $item) => $this->newsService->isNew($item)));
+        $newItemsCount = count(array_filter($items, $this->newsService->isNew(...)));
 
         return ViewFactoryHelper::renderView(
             'Backend/ToolbarItems/NewsItem.html',

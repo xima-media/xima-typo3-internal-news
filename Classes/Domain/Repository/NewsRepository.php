@@ -30,7 +30,7 @@ use Xima\XimaTypo3InternalNews\Service\CacheService;
 class NewsRepository extends Repository
 {
     public function __construct(
-        private CacheService $cache
+        private readonly CacheService $cache
     ) {
         parent::__construct();
     }
