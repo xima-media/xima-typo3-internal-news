@@ -3,35 +3,35 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
+ * This file is part of the "xima_typo3_internal_news" TYPO3 CMS extension.
  *
- * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
+ * (c) 2025-2026 Konrad Michalik <hej@konradmichalik.dev>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Xima\XimaTypo3InternalNews\Tests\Unit\Service;
 
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
+use Xima\XimaTypo3InternalNews\Domain\Model\News;
 use Xima\XimaTypo3InternalNews\Service\CacheService;
 
+use function in_array;
+
+/**
+ * CacheServiceTest.
+ *
+ * @author Konrad Michalik <hej@konradmichalik.dev>
+ * @license GPL-2.0-or-later
+ */
 final class CacheServiceTest extends TestCase
 {
     private CacheService $subject;
-    private FrontendInterface $cacheMock;
+    private FrontendInterface&MockObject $cacheMock;
 
     protected function setUp(): void
     {
@@ -48,15 +48,9 @@ final class CacheServiceTest extends TestCase
     }
 
     #[Test]
-    public function canBeInstantiated(): void
-    {
-        self::assertInstanceOf(CacheService::class, $this->subject);
-    }
-
-    #[Test]
     public function generateCacheIdentifierForAdminUser(): void
     {
-        $GLOBALS['BE_USER'] = new class () {
+        $GLOBALS['BE_USER'] = new class {
             public function isAdmin(): bool
             {
                 return true;
@@ -89,14 +83,75 @@ final class CacheServiceTest extends TestCase
         self::assertEquals('xima_typo3_internal_news--', $result);
     }
 
+    #[Test]
+    public function hasReturnsTrueWhenCacheHasEntry(): void
+    {
+        $this->cacheMock->expects(self::once())->method('has')->with('test-identifier')->willReturn(true);
+
+        $result = $this->subject->has('test-identifier');
+
+        self::assertTrue($result);
+    }
+
+    #[Test]
+    public function hasReturnsFalseWhenCacheHasNoEntry(): void
+    {
+        $this->cacheMock->expects(self::once())->method('has')->with('test-identifier')->willReturn(false);
+
+        $result = $this->subject->has('test-identifier');
+
+        self::assertFalse($result);
+    }
+
+    #[Test]
+    public function getReturnsCacheEntry(): void
+    {
+        $data = ['some' => 'data'];
+        $this->cacheMock->expects(self::once())->method('get')->with('test-identifier')->willReturn($data);
+
+        $result = $this->subject->get('test-identifier');
+
+        self::assertSame($data, $result);
+    }
+
+    #[Test]
+    public function setStoresDataInCache(): void
+    {
+        $data = [];
+        $this->cacheMock->expects(self::once())
+            ->method('set')
+            ->with(
+                'test-identifier',
+                $data,
+                ['tx_ximatypo3internalnews_domain_model_news'],
+            );
+
+        $this->subject->set('test-identifier', $data);
+    }
+
+    #[Test]
+    public function setStoresDataWithNewsTags(): void
+    {
+        $news = new News();
+        $data = [$news];
+        $this->cacheMock->expects(self::once())
+            ->method('set')
+            ->with(
+                'test-identifier',
+                $data,
+                self::callback(static fn (array $tags): bool => in_array('tx_ximatypo3internalnews_domain_model_news', $tags, true)),
+            );
+
+        $this->subject->set('test-identifier', $data);
+    }
+
     private function createMockBackendUser(): object
     {
-        return new class () {
+        return new class {
             public function isAdmin(): bool
             {
                 return false;
             }
         };
     }
-
 }

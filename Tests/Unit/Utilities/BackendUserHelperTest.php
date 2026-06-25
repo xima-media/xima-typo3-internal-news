@@ -3,30 +3,31 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
+ * This file is part of the "xima_typo3_internal_news" TYPO3 CMS extension.
  *
- * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
+ * (c) 2025-2026 Konrad Michalik <hej@konradmichalik.dev>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Xima\XimaTypo3InternalNews\Tests\Unit\Utilities;
 
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
+use ReflectionNamedType;
+use ReflectionUnionType;
 use Xima\XimaTypo3InternalNews\Utilities\BackendUserHelper;
 
+use function count;
+
+/**
+ * BackendUserHelperTest.
+ *
+ * @author Konrad Michalik <hej@konradmichalik.dev>
+ * @license GPL-2.0-or-later
+ */
 final class BackendUserHelperTest extends TestCase
 {
     private BackendUserHelper $backendUserHelper;
@@ -123,7 +124,7 @@ final class BackendUserHelperTest extends TestCase
     #[Test]
     public function methodIsStatic(): void
     {
-        $reflection = new \ReflectionMethod(BackendUserHelper::class, 'checkAndSetModuleDate');
+        $reflection = new ReflectionMethod(BackendUserHelper::class, 'checkAndSetModuleDate');
 
         self::assertFalse($reflection->isStatic());
         self::assertTrue($reflection->isPublic());
@@ -132,7 +133,7 @@ final class BackendUserHelperTest extends TestCase
     #[Test]
     public function methodHasCorrectParameters(): void
     {
-        $reflection = new \ReflectionMethod(BackendUserHelper::class, 'checkAndSetModuleDate');
+        $reflection = new ReflectionMethod(BackendUserHelper::class, 'checkAndSetModuleDate');
         $parameters = $reflection->getParameters();
 
         self::assertCount(2, $parameters);
@@ -141,12 +142,12 @@ final class BackendUserHelperTest extends TestCase
 
         // Check parameter types
         $firstParamType = $parameters[0]->getType();
-        self::assertInstanceOf(\ReflectionNamedType::class, $firstParamType);
+        self::assertInstanceOf(ReflectionNamedType::class, $firstParamType);
         self::assertEquals('string', $firstParamType->getName());
 
         // Second parameter should be mixed type
         $secondParamType = $parameters[1]->getType();
-        if ($secondParamType instanceof \ReflectionUnionType) {
+        if ($secondParamType instanceof ReflectionUnionType) {
             // Union type with multiple types
             self::assertGreaterThan(1, count($secondParamType->getTypes()));
         } else {
@@ -158,16 +159,26 @@ final class BackendUserHelperTest extends TestCase
     #[Test]
     public function methodHasCorrectReturnType(): void
     {
-        $reflection = new \ReflectionMethod(BackendUserHelper::class, 'checkAndSetModuleDate');
+        $reflection = new ReflectionMethod(BackendUserHelper::class, 'checkAndSetModuleDate');
         $returnType = $reflection->getReturnType();
 
-        self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
+        self::assertInstanceOf(ReflectionNamedType::class, $returnType);
         self::assertEquals('bool', $returnType->getName());
+    }
+
+    #[Test]
+    public function checkAndSetModuleDateReturnsFalseWhenNoBackendUser(): void
+    {
+        unset($GLOBALS['BE_USER']);
+
+        $result = $this->backendUserHelper->checkAndSetModuleDate('test_module', 123);
+
+        self::assertFalse($result);
     }
 
     private function createMockBackendUser(): object
     {
-        return new class () {
+        return new class {
             private array $moduleData = [];
 
             public function getModuleData(string $moduleName): ?array

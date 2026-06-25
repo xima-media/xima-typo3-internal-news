@@ -3,35 +3,32 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
+ * This file is part of the "xima_typo3_internal_news" TYPO3 CMS extension.
  *
- * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
+ * (c) 2025-2026 Konrad Michalik <hej@konradmichalik.dev>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Xima\XimaTypo3InternalNews\Tests\Unit\Service;
 
+use DateTime;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use Xima\XimaTypo3InternalNews\Domain\Model\Date;
-use Xima\XimaTypo3InternalNews\Domain\Model\News;
+use Xima\XimaTypo3InternalNews\Domain\Model\{Date, News};
 use Xima\XimaTypo3InternalNews\Service\DateService;
 
+/**
+ * DateServiceTest.
+ *
+ * @author Konrad Michalik <hej@konradmichalik.dev>
+ * @license GPL-2.0-or-later
+ */
 final class DateServiceTest extends TestCase
 {
     private DateService $dateService;
@@ -39,7 +36,7 @@ final class DateServiceTest extends TestCase
     protected function setUp(): void
     {
         // Mock GLOBALS for language service
-        $GLOBALS['LANG'] = new class () {
+        $GLOBALS['LANG'] = new class {
             public function sL(string $key): string
             {
                 return 'Notification message';
@@ -80,7 +77,7 @@ final class DateServiceTest extends TestCase
     #[Test]
     public function getNextDateMethodExists(): void
     {
-        $reflection = new \ReflectionClass(DateService::class);
+        $reflection = new ReflectionClass(DateService::class);
 
         self::assertTrue($reflection->hasMethod('getNextDate'));
 
@@ -102,8 +99,8 @@ final class DateServiceTest extends TestCase
     #[Test]
     public function getNextDatesSortsByDate(): void
     {
-        $date1 = $this->createDate('single_date', new \DateTime('+2 days'));
-        $date2 = $this->createDate('single_date', new \DateTime('+1 day'));
+        $date1 = $this->createDate('single_date', new DateTime('+2 days'));
+        $date2 = $this->createDate('single_date', new DateTime('+1 day'));
         $news = $this->createNewsWithDates([$date1, $date2]);
 
         $result = $this->dateService->getNextDates($news);
@@ -123,7 +120,7 @@ final class DateServiceTest extends TestCase
     #[Test]
     public function getNotifyDatesByNewsListMethodExists(): void
     {
-        $reflection = new \ReflectionClass(DateService::class);
+        $reflection = new ReflectionClass(DateService::class);
 
         self::assertTrue($reflection->hasMethod('getNotifyDatesByNewsList'));
 
@@ -135,7 +132,7 @@ final class DateServiceTest extends TestCase
     #[Test]
     public function getDatesReturnsEmptyArrayForPastSingleDate(): void
     {
-        $pastDate = new \DateTime('-1 day');
+        $pastDate = new DateTime('-1 day');
         $date = $this->createDate('single_date', $pastDate);
         $news = $this->createNewsWithDates([]);
 
@@ -147,7 +144,7 @@ final class DateServiceTest extends TestCase
     #[Test]
     public function getDatesHandlesSingleDateType(): void
     {
-        $futureDate = new \DateTime('+1 day');
+        $futureDate = new DateTime('+1 day');
         $date = $this->createDate('single_date', $futureDate);
         $news = $this->createNewsWithDates([]);
 
@@ -158,9 +155,26 @@ final class DateServiceTest extends TestCase
     }
 
     #[Test]
+    public function hasRecurrenceSupportMethodExists(): void
+    {
+        $reflection = new ReflectionClass(DateService::class);
+
+        self::assertTrue($reflection->hasMethod('hasRecurrenceSupport'));
+
+        $method = $reflection->getMethod('hasRecurrenceSupport');
+        self::assertFalse($method->isStatic());
+        self::assertTrue($method->isPublic());
+        self::assertSame('bool', (string) $method->getReturnType());
+    }
+
+    #[Test]
     public function getDatesHandlesRecurrenceType(): void
     {
-        $startDate = new \DateTime('+1 day');
+        if (!$this->dateService->hasRecurrenceSupport()) {
+            self::markTestSkipped('simshaun/recurr is not installed; skip recurr happy-path test');
+        }
+
+        $startDate = new DateTime('+1 day');
         $date = $this->createDate('recurrence', $startDate, 'FREQ=DAILY;COUNT=3');
         $news = $this->createNewsWithDates([]);
 
@@ -168,6 +182,137 @@ final class DateServiceTest extends TestCase
 
         // Detailed recurrence testing would require more complex setup
         self::assertNotEmpty($result);
+    }
+
+    #[Test]
+    public function getDatesHandlesRecurrenceTypeWithoutRecurrenceLibrary(): void
+    {
+        if ($this->dateService->hasRecurrenceSupport()) {
+            self::markTestSkipped('simshaun/recurr is installed; skip no-recurr test');
+        }
+
+        $startDate = new DateTime('+1 day');
+        $date = $this->createDate('recurrence', $startDate, 'FREQ=DAILY;COUNT=3');
+        $news = $this->createNewsWithDates([]);
+
+        $result = $this->dateService->getDates($news, $date);
+
+        // Without recurr, recurrence type returns empty array
+        self::assertEmpty($result);
+    }
+
+    #[Test]
+    public function getDatesReturnEntryWithExpectedStructureForFutureSingleDate(): void
+    {
+        $futureDate = new DateTime('+1 day');
+        $date = $this->createDate('single_date', $futureDate);
+        $date->setNotifyType('info');
+        $date->setNotifyMessage('Test notification');
+        $news = $this->createNewsWithDates([]);
+
+        $result = $this->dateService->getDates($news, $date);
+
+        self::assertNotEmpty($result);
+        self::assertArrayHasKey('id', $result[0]);
+        self::assertArrayHasKey('date', $result[0]);
+        self::assertArrayHasKey('title', $result[0]);
+        self::assertArrayHasKey('type', $result[0]);
+        self::assertArrayHasKey('newsId', $result[0]);
+        self::assertSame('single_date', $result[0]['type']);
+    }
+
+    #[Test]
+    public function getDatesWithOnlyNextDateReturnsSingleElement(): void
+    {
+        $futureDate = new DateTime('+1 day');
+        $date = $this->createDate('single_date', $futureDate);
+        $news = $this->createNewsWithDates([]);
+
+        $result = $this->dateService->getDates($news, $date, false, false, true);
+
+        self::assertCount(1, $result);
+    }
+
+    #[Test]
+    public function getDatesNotifyIsSetWhenWithinThreshold(): void
+    {
+        // threshold is 3600s, date is 1800s in the future → within threshold → notify=true
+        $nearFutureDate = new DateTime('+1800 seconds');
+        $date = $this->createDate('single_date', $nearFutureDate);
+        $date->setNotify(true);
+        $date->setNotifyType('info');
+        $date->setNotifyMessage('Team meeting soon!');
+        $news = $this->createNewsWithDates([]);
+
+        $result = $this->dateService->getDates($news, $date, true, false);
+
+        self::assertNotEmpty($result);
+        self::assertTrue($result[0]['notify'] ?? false);
+        self::assertSame('info', $result[0]['notifyType']);
+    }
+
+    #[Test]
+    public function getDatesNotifyIsNotSetWhenOutsideThreshold(): void
+    {
+        // threshold is 3600s, date is 7200s in the future → outside threshold → no notify key
+        $farFutureDate = new DateTime('+7200 seconds');
+        $date = $this->createDate('single_date', $farFutureDate);
+        $date->setNotify(true);
+        $date->setNotifyType('info');
+        $date->setNotifyMessage('Message');
+        $news = $this->createNewsWithDates([]);
+
+        $result = $this->dateService->getDates($news, $date, true, false);
+
+        self::assertNotEmpty($result);
+        self::assertArrayNotHasKey('notify', $result[0]);
+    }
+
+    #[Test]
+    public function getNextDateReturnsArrayForNewsWithFutureDate(): void
+    {
+        $futureDate = new DateTime('+1 day');
+        $date = $this->createDate('single_date', $futureDate);
+        // getNextDate uses forceNotify=true, so must be within threshold or it returns null
+        // Use threshold (3600s), date 1800s away → within threshold
+        $nearDate = new DateTime('+1800 seconds');
+        $nearDateEntry = $this->createDate('single_date', $nearDate);
+        $news = $this->createNewsWithDates([$nearDateEntry]);
+
+        $result = $this->dateService->getNextDate($news);
+
+        self::assertNotNull($result);
+        self::assertArrayHasKey('date', $result);
+    }
+
+    #[Test]
+    public function getNextDatesReturnsArrayWithEntriesForNewsWithFutureDates(): void
+    {
+        $date1 = $this->createDate('single_date', new DateTime('+2 days'));
+        $date2 = $this->createDate('single_date', new DateTime('+1 day'));
+        $news = $this->createNewsWithDates([$date1, $date2]);
+
+        $result = $this->dateService->getNextDates($news);
+
+        self::assertNotEmpty($result);
+        self::assertCount(2, $result);
+        // Verify sorted by date ascending
+        self::assertLessThan($result[1]['date'], $result[0]['date']);
+    }
+
+    #[Test]
+    public function getNotifyDatesByNewsListAggregatesDatesFromMultipleNews(): void
+    {
+        // Use near-future dates so forceNotify=true passes threshold check
+        $date1 = $this->createDate('single_date', new DateTime('+1800 seconds'));
+        $news1 = $this->createNewsWithDates([$date1]);
+
+        $date2 = $this->createDate('single_date', new DateTime('+900 seconds'));
+        $news2 = $this->createNewsWithDates([$date2]);
+
+        $result = $this->dateService->getNotifyDatesByNewsList([$news1, $news2]);
+
+        self::assertCount(2, $result);
     }
 
     private function createNewsWithDates(array $dates): News
@@ -184,7 +329,7 @@ final class DateServiceTest extends TestCase
         return $news;
     }
 
-    private function createDate(string $type, \DateTime $singleDate, string $recurrence = ''): Date
+    private function createDate(string $type, DateTime $singleDate, string $recurrence = ''): Date
     {
         $date = new Date();
         $date->setType($type);

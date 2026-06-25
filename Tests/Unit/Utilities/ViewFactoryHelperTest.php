@@ -3,22 +3,12 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
+ * This file is part of the "xima_typo3_internal_news" TYPO3 CMS extension.
  *
- * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
+ * (c) 2025-2026 Konrad Michalik <hej@konradmichalik.dev>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Xima\XimaTypo3InternalNews\Tests\Unit\Utilities;
@@ -26,9 +16,18 @@ namespace Xima\XimaTypo3InternalNews\Tests\Unit\Utilities;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
+use ReflectionClass;
+use ReflectionMethod;
+use ReflectionNamedType;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Xima\XimaTypo3InternalNews\Utilities\ViewFactoryHelper;
 
+/**
+ * ViewFactoryHelperTest.
+ *
+ * @author Konrad Michalik <hej@konradmichalik.dev>
+ * @license GPL-2.0-or-later
+ */
 final class ViewFactoryHelperTest extends TestCase
 {
     protected function setUp(): void
@@ -47,7 +46,7 @@ final class ViewFactoryHelperTest extends TestCase
     {
         // We cannot easily test the actual rendering without a full TYPO3 setup,
         // but we can test that the method is properly typed and accessible
-        $reflection = new \ReflectionMethod(ViewFactoryHelper::class, 'renderView');
+        $reflection = new ReflectionMethod(ViewFactoryHelper::class, 'renderView');
 
         self::assertTrue($reflection->isStatic());
         self::assertTrue($reflection->isPublic());
@@ -64,19 +63,19 @@ final class ViewFactoryHelperTest extends TestCase
     #[Test]
     public function renderViewHasCorrectReturnType(): void
     {
-        $reflection = new \ReflectionMethod(ViewFactoryHelper::class, 'renderView');
+        $reflection = new ReflectionMethod(ViewFactoryHelper::class, 'renderView');
         $returnType = $reflection->getReturnType();
 
         self::assertNotNull($returnType);
-        self::assertInstanceOf(\ReflectionNamedType::class, $returnType);
+        self::assertInstanceOf(ReflectionNamedType::class, $returnType);
         self::assertEquals('string', $returnType->getName());
     }
 
     #[Test]
     public function classHasOnlyRenderViewAsPublicMethod(): void
     {
-        $reflection = new \ReflectionClass(ViewFactoryHelper::class);
-        $publicMethods = $reflection->getMethods(\ReflectionMethod::IS_PUBLIC);
+        $reflection = new ReflectionClass(ViewFactoryHelper::class);
+        $publicMethods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
 
         self::assertCount(1, $publicMethods);
         self::assertEquals('renderView', $publicMethods[0]->getName());
@@ -85,37 +84,37 @@ final class ViewFactoryHelperTest extends TestCase
     #[Test]
     public function templateParameterIsString(): void
     {
-        $reflection = new \ReflectionMethod(ViewFactoryHelper::class, 'renderView');
+        $reflection = new ReflectionMethod(ViewFactoryHelper::class, 'renderView');
         $templateParam = $reflection->getParameters()[0];
         $paramType = $templateParam->getType();
 
         self::assertTrue($templateParam->hasType());
-        self::assertInstanceOf(\ReflectionNamedType::class, $paramType);
+        self::assertInstanceOf(ReflectionNamedType::class, $paramType);
         self::assertEquals('string', $paramType->getName());
     }
 
     #[Test]
     public function valuesParameterIsArray(): void
     {
-        $reflection = new \ReflectionMethod(ViewFactoryHelper::class, 'renderView');
+        $reflection = new ReflectionMethod(ViewFactoryHelper::class, 'renderView');
         $valuesParam = $reflection->getParameters()[1];
         $paramType = $valuesParam->getType();
 
         self::assertTrue($valuesParam->hasType());
-        self::assertInstanceOf(\ReflectionNamedType::class, $paramType);
+        self::assertInstanceOf(ReflectionNamedType::class, $paramType);
         self::assertEquals('array', $paramType->getName());
     }
 
     #[Test]
     public function requestParameterIsNullableServerRequestInterface(): void
     {
-        $reflection = new \ReflectionMethod(ViewFactoryHelper::class, 'renderView');
+        $reflection = new ReflectionMethod(ViewFactoryHelper::class, 'renderView');
         $requestParam = $reflection->getParameters()[2];
         $paramType = $requestParam->getType();
 
         self::assertTrue($requestParam->hasType());
         self::assertTrue($requestParam->allowsNull());
-        self::assertInstanceOf(\ReflectionNamedType::class, $paramType);
+        self::assertInstanceOf(ReflectionNamedType::class, $paramType);
         self::assertEquals(ServerRequestInterface::class, $paramType->getName());
     }
 }

@@ -3,31 +3,32 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
+ * This file is part of the "xima_typo3_internal_news" TYPO3 CMS extension.
  *
- * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
+ * (c) 2025-2026 Konrad Michalik <hej@konradmichalik.dev>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Xima\XimaTypo3InternalNews\Tests\Unit\Domain\Repository;
 
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionMethod;
+use ReflectionNamedType;
+use ReflectionUnionType;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
 use Xima\XimaTypo3InternalNews\Service\CacheService;
 
+/**
+ * NewsRepositoryTest.
+ *
+ * @author Konrad Michalik <hej@konradmichalik.dev>
+ * @license GPL-2.0-or-later
+ */
 final class NewsRepositoryTest extends TestCase
 {
     protected function setUp(): void
@@ -48,7 +49,7 @@ final class NewsRepositoryTest extends TestCase
     public function repositoryCanBeInstantiated(): void
     {
         // This tests the basic structure without full TYPO3 framework
-        $reflection = new \ReflectionClass(NewsRepository::class);
+        $reflection = new ReflectionClass(NewsRepository::class);
 
         self::assertTrue($reflection->isSubclassOf(\TYPO3\CMS\Extbase\Persistence\Repository::class));
     }
@@ -56,7 +57,7 @@ final class NewsRepositoryTest extends TestCase
     #[Test]
     public function repositoryHasDefaultOrderings(): void
     {
-        $reflection = new \ReflectionClass(NewsRepository::class);
+        $reflection = new ReflectionClass(NewsRepository::class);
         $property = $reflection->getProperty('defaultOrderings');
 
         self::assertTrue($property->isProtected());
@@ -65,7 +66,7 @@ final class NewsRepositoryTest extends TestCase
     #[Test]
     public function findAllByCurrentUserMethodExists(): void
     {
-        $reflection = new \ReflectionClass(NewsRepository::class);
+        $reflection = new ReflectionClass(NewsRepository::class);
 
         self::assertTrue($reflection->hasMethod('findAllByCurrentUser'));
 
@@ -82,15 +83,15 @@ final class NewsRepositoryTest extends TestCase
     #[Test]
     public function findAllByCurrentUserHasCorrectReturnType(): void
     {
-        $reflection = new \ReflectionMethod(NewsRepository::class, 'findAllByCurrentUser');
+        $reflection = new ReflectionMethod(NewsRepository::class, 'findAllByCurrentUser');
         $returnType = $reflection->getReturnType();
 
         self::assertNotNull($returnType);
 
         // Check if it's a union type or named type
-        if ($returnType instanceof \ReflectionUnionType) {
+        if ($returnType instanceof ReflectionUnionType) {
             $types = $returnType->getTypes();
-            $typeNames = array_map(fn($type) => $type->getName(), $types);
+            $typeNames = array_map(static fn ($type) => $type->getName(), $types);
 
             self::assertContains('array', $typeNames);
             self::assertContains('null', $typeNames);
@@ -103,7 +104,7 @@ final class NewsRepositoryTest extends TestCase
     #[Test]
     public function constructorAcceptsCacheService(): void
     {
-        $reflection = new \ReflectionClass(NewsRepository::class);
+        $reflection = new ReflectionClass(NewsRepository::class);
         $constructor = $reflection->getConstructor();
 
         self::assertNotNull($constructor);
@@ -113,14 +114,14 @@ final class NewsRepositoryTest extends TestCase
         self::assertEquals('cache', $parameters[0]->getName());
 
         $paramType = $parameters[0]->getType();
-        self::assertInstanceOf(\ReflectionNamedType::class, $paramType);
+        self::assertInstanceOf(ReflectionNamedType::class, $paramType);
         self::assertEquals(CacheService::class, $paramType->getName());
     }
 
     #[Test]
     public function repositoryExtendsBaseRepository(): void
     {
-        $reflection = new \ReflectionClass(NewsRepository::class);
+        $reflection = new ReflectionClass(NewsRepository::class);
         $parentClass = $reflection->getParentClass();
 
         self::assertNotFalse($parentClass);
@@ -130,7 +131,7 @@ final class NewsRepositoryTest extends TestCase
     #[Test]
     public function repositoryUsesCorrectNamespace(): void
     {
-        $reflection = new \ReflectionClass(NewsRepository::class);
+        $reflection = new ReflectionClass(NewsRepository::class);
 
         self::assertEquals('Xima\XimaTypo3InternalNews\Domain\Repository', $reflection->getNamespaceName());
         self::assertEquals('NewsRepository', $reflection->getShortName());
@@ -139,15 +140,117 @@ final class NewsRepositoryTest extends TestCase
     #[Test]
     public function repositoryIsNotFinal(): void
     {
-        $reflection = new \ReflectionClass(NewsRepository::class);
+        $reflection = new ReflectionClass(NewsRepository::class);
 
         self::assertFalse($reflection->isFinal());
         self::assertFalse($reflection->isAbstract());
     }
 
+    #[Test]
+    public function findAllByCurrentUserReturnsEmptyArrayWhenNoBackendUser(): void
+    {
+        unset($GLOBALS['BE_USER']);
+
+        $cacheMock = $this->createMock(\TYPO3\CMS\Core\Cache\Frontend\FrontendInterface::class);
+        $cacheService = new CacheService($cacheMock);
+
+        $reflection = new ReflectionClass(NewsRepository::class);
+        $repository = $reflection->newInstanceWithoutConstructor();
+
+        // Set the cache service via reflection
+        $cacheProperty = $reflection->getProperty('cache');
+        $cacheProperty->setValue($repository, $cacheService);
+
+        $result = $repository->findAllByCurrentUser();
+
+        self::assertSame([], $result);
+    }
+
+    #[Test]
+    public function findAllByCurrentUserReturnsEmptyArrayWhenBackendUserIsNotObject(): void
+    {
+        $GLOBALS['BE_USER'] = 'not-an-object';
+
+        $cacheMock = $this->createMock(\TYPO3\CMS\Core\Cache\Frontend\FrontendInterface::class);
+        $cacheService = new CacheService($cacheMock);
+
+        $reflection = new ReflectionClass(NewsRepository::class);
+        $repository = $reflection->newInstanceWithoutConstructor();
+
+        $cacheProperty = $reflection->getProperty('cache');
+        $cacheProperty->setValue($repository, $cacheService);
+
+        $result = $repository->findAllByCurrentUser();
+
+        self::assertSame([], $result);
+
+        $GLOBALS['BE_USER'] = $this->createMockBackendUser();
+    }
+
+    #[Test]
+    public function findAllByCurrentUserReturnsEmptyArrayWhenUserGroupsNotArray(): void
+    {
+        $GLOBALS['BE_USER'] = new class {
+            public $userGroups = 'not-an-array';
+
+            public function isAdmin(): bool
+            {
+                return false;
+            }
+        };
+
+        $cacheMock = $this->createMock(\TYPO3\CMS\Core\Cache\Frontend\FrontendInterface::class);
+        $cacheService = new CacheService($cacheMock);
+
+        $reflection = new ReflectionClass(NewsRepository::class);
+        $repository = $reflection->newInstanceWithoutConstructor();
+
+        $cacheProperty = $reflection->getProperty('cache');
+        $cacheProperty->setValue($repository, $cacheService);
+
+        $result = $repository->findAllByCurrentUser();
+
+        self::assertSame([], $result);
+
+        $GLOBALS['BE_USER'] = $this->createMockBackendUser();
+    }
+
+    #[Test]
+    public function findAllByCurrentUserReturnsCachedResultWhenCacheHit(): void
+    {
+        $GLOBALS['BE_USER'] = new class {
+            public array $userGroups = [1 => ['uid' => 1], 2 => ['uid' => 2]];
+
+            public function isAdmin(): bool
+            {
+                return false;
+            }
+        };
+
+        $cachedData = [new \Xima\XimaTypo3InternalNews\Domain\Model\News()];
+
+        /** @var CacheService&MockObject $cacheServiceMock */
+        $cacheServiceMock = $this->createMock(CacheService::class);
+        $cacheServiceMock->method('generateCacheIdentifier')->willReturn('test-cache-id');
+        $cacheServiceMock->expects(self::once())->method('has')->with('test-cache-id')->willReturn(true);
+        $cacheServiceMock->expects(self::once())->method('get')->with('test-cache-id')->willReturn($cachedData);
+
+        $reflection = new ReflectionClass(NewsRepository::class);
+        $repository = $reflection->newInstanceWithoutConstructor();
+
+        $cacheProperty = $reflection->getProperty('cache');
+        $cacheProperty->setValue($repository, $cacheServiceMock);
+
+        $result = $repository->findAllByCurrentUser();
+
+        self::assertSame($cachedData, $result);
+
+        $GLOBALS['BE_USER'] = $this->createMockBackendUser();
+    }
+
     private function createMockBackendUser(): object
     {
-        return new class () {
+        return new class {
             public function isAdmin(): bool
             {
                 return false;

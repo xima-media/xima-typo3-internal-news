@@ -1,0 +1,10 @@
+name: CGL
+on:
+  push:
+    branches:
+      - main
+  pull_request: ~
+
+jobs:
+  cgl:
+    uses: konradmichalik/reusable-github-actions/.github/workflows/cgl-test.yml@main
