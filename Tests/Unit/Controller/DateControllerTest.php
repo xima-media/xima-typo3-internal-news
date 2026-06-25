@@ -23,14 +23,12 @@ use Xima\XimaTypo3InternalNews\Controller\DateController;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
 use Xima\XimaTypo3InternalNews\Service\DateService;
 
-
 /**
  * DateControllerTest.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 final class DateControllerTest extends TestCase
 {
     private DateController $subject;
@@ -217,5 +215,78 @@ final class DateControllerTest extends TestCase
 
         self::assertCount(0, $notifiesAction->getParameters());
         self::assertCount(0, $newsAction->getParameters());
+    }
+
+    #[Test]
+    public function notifiesActionReturnsJsonResponse(): void
+    {
+        $this->newsRepositoryMock->method('findAllByCurrentUser')->willReturn([]);
+        $this->dateServiceMock->method('getNotifyDatesByNewsList')->willReturn([]);
+
+        $response = $this->subject->notifiesAction();
+
+        self::assertInstanceOf(\Psr\Http\Message\ResponseInterface::class, $response);
+    }
+
+    #[Test]
+    public function newsActionReturnsErrorResponseForMissingNewsId(): void
+    {
+        $requestMock = $this->createMock(\Psr\Http\Message\ServerRequestInterface::class);
+        $requestMock->method('getQueryParams')->willReturn([]);
+        $GLOBALS['TYPO3_REQUEST'] = $requestMock;
+
+        $response = $this->subject->newsAction();
+
+        self::assertInstanceOf(\Psr\Http\Message\ResponseInterface::class, $response);
+        self::assertSame(400, $response->getStatusCode());
+
+        unset($GLOBALS['TYPO3_REQUEST']);
+    }
+
+    #[Test]
+    public function newsActionReturnsErrorResponseForNonNumericNewsId(): void
+    {
+        $requestMock = $this->createMock(\Psr\Http\Message\ServerRequestInterface::class);
+        $requestMock->method('getQueryParams')->willReturn(['newsId' => 'invalid']);
+        $GLOBALS['TYPO3_REQUEST'] = $requestMock;
+
+        $response = $this->subject->newsAction();
+
+        self::assertInstanceOf(\Psr\Http\Message\ResponseInterface::class, $response);
+        self::assertSame(400, $response->getStatusCode());
+
+        unset($GLOBALS['TYPO3_REQUEST']);
+    }
+
+    #[Test]
+    public function newsActionReturnsErrorResponseForZeroNewsId(): void
+    {
+        $requestMock = $this->createMock(\Psr\Http\Message\ServerRequestInterface::class);
+        $requestMock->method('getQueryParams')->willReturn(['newsId' => '0']);
+        $GLOBALS['TYPO3_REQUEST'] = $requestMock;
+
+        $response = $this->subject->newsAction();
+
+        self::assertInstanceOf(\Psr\Http\Message\ResponseInterface::class, $response);
+        self::assertSame(400, $response->getStatusCode());
+
+        unset($GLOBALS['TYPO3_REQUEST']);
+    }
+
+    #[Test]
+    public function newsActionReturnsNotFoundResponseForMissingNews(): void
+    {
+        $requestMock = $this->createMock(\Psr\Http\Message\ServerRequestInterface::class);
+        $requestMock->method('getQueryParams')->willReturn(['newsId' => '99']);
+        $GLOBALS['TYPO3_REQUEST'] = $requestMock;
+
+        $this->newsRepositoryMock->method('findByUid')->with(99)->willReturn(null);
+
+        $response = $this->subject->newsAction();
+
+        self::assertInstanceOf(\Psr\Http\Message\ResponseInterface::class, $response);
+        self::assertSame(404, $response->getStatusCode());
+
+        unset($GLOBALS['TYPO3_REQUEST']);
     }
 }

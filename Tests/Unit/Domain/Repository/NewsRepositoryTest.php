@@ -22,14 +22,12 @@ use ReflectionUnionType;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
 use Xima\XimaTypo3InternalNews\Service\CacheService;
 
-
 /**
  * NewsRepositoryTest.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 final class NewsRepositoryTest extends TestCase
 {
     protected function setUp(): void
@@ -145,6 +143,107 @@ final class NewsRepositoryTest extends TestCase
 
         self::assertFalse($reflection->isFinal());
         self::assertFalse($reflection->isAbstract());
+    }
+
+    #[Test]
+    public function findAllByCurrentUserReturnsEmptyArrayWhenNoBackendUser(): void
+    {
+        unset($GLOBALS['BE_USER']);
+
+        $cacheMock = $this->createMock(\TYPO3\CMS\Core\Cache\Frontend\FrontendInterface::class);
+        $cacheService = new CacheService($cacheMock);
+
+        $reflection = new ReflectionClass(NewsRepository::class);
+        $repository = $reflection->newInstanceWithoutConstructor();
+
+        // Set the cache service via reflection
+        $cacheProperty = $reflection->getProperty('cache');
+        $cacheProperty->setValue($repository, $cacheService);
+
+        $result = $repository->findAllByCurrentUser();
+
+        self::assertSame([], $result);
+    }
+
+    #[Test]
+    public function findAllByCurrentUserReturnsEmptyArrayWhenBackendUserIsNotObject(): void
+    {
+        $GLOBALS['BE_USER'] = 'not-an-object';
+
+        $cacheMock = $this->createMock(\TYPO3\CMS\Core\Cache\Frontend\FrontendInterface::class);
+        $cacheService = new CacheService($cacheMock);
+
+        $reflection = new ReflectionClass(NewsRepository::class);
+        $repository = $reflection->newInstanceWithoutConstructor();
+
+        $cacheProperty = $reflection->getProperty('cache');
+        $cacheProperty->setValue($repository, $cacheService);
+
+        $result = $repository->findAllByCurrentUser();
+
+        self::assertSame([], $result);
+
+        $GLOBALS['BE_USER'] = $this->createMockBackendUser();
+    }
+
+    #[Test]
+    public function findAllByCurrentUserReturnsEmptyArrayWhenUserGroupsNotArray(): void
+    {
+        $GLOBALS['BE_USER'] = new class {
+            public $userGroups = 'not-an-array';
+
+            public function isAdmin(): bool
+            {
+                return false;
+            }
+        };
+
+        $cacheMock = $this->createMock(\TYPO3\CMS\Core\Cache\Frontend\FrontendInterface::class);
+        $cacheService = new CacheService($cacheMock);
+
+        $reflection = new ReflectionClass(NewsRepository::class);
+        $repository = $reflection->newInstanceWithoutConstructor();
+
+        $cacheProperty = $reflection->getProperty('cache');
+        $cacheProperty->setValue($repository, $cacheService);
+
+        $result = $repository->findAllByCurrentUser();
+
+        self::assertSame([], $result);
+
+        $GLOBALS['BE_USER'] = $this->createMockBackendUser();
+    }
+
+    #[Test]
+    public function findAllByCurrentUserReturnsCachedResultWhenCacheHit(): void
+    {
+        $GLOBALS['BE_USER'] = new class {
+            public array $userGroups = [1 => ['uid' => 1], 2 => ['uid' => 2]];
+
+            public function isAdmin(): bool
+            {
+                return false;
+            }
+        };
+
+        $cachedData = [new \Xima\XimaTypo3InternalNews\Domain\Model\News()];
+
+        $cacheServiceMock = $this->createMock(CacheService::class);
+        $cacheServiceMock->method('generateCacheIdentifier')->willReturn('test-cache-id');
+        $cacheServiceMock->method('has')->with('test-cache-id')->willReturn(true);
+        $cacheServiceMock->method('get')->with('test-cache-id')->willReturn($cachedData);
+
+        $reflection = new ReflectionClass(NewsRepository::class);
+        $repository = $reflection->newInstanceWithoutConstructor();
+
+        $cacheProperty = $reflection->getProperty('cache');
+        $cacheProperty->setValue($repository, $cacheServiceMock);
+
+        $result = $repository->findAllByCurrentUser();
+
+        self::assertSame($cachedData, $result);
+
+        $GLOBALS['BE_USER'] = $this->createMockBackendUser();
     }
 
     private function createMockBackendUser(): object

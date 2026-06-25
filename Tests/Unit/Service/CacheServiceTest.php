@@ -16,8 +16,10 @@ namespace Xima\XimaTypo3InternalNews\Tests\Unit\Service;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
+use Xima\XimaTypo3InternalNews\Domain\Model\News;
 use Xima\XimaTypo3InternalNews\Service\CacheService;
 
+use function in_array;
 
 /**
  * CacheServiceTest.
@@ -25,7 +27,6 @@ use Xima\XimaTypo3InternalNews\Service\CacheService;
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 final class CacheServiceTest extends TestCase
 {
     private CacheService $subject;
@@ -85,6 +86,68 @@ final class CacheServiceTest extends TestCase
         $result = $this->subject->generateCacheIdentifier([]);
 
         self::assertEquals('xima_typo3_internal_news--', $result);
+    }
+
+    #[Test]
+    public function hasReturnsTrueWhenCacheHasEntry(): void
+    {
+        $this->cacheMock->method('has')->with('test-identifier')->willReturn(true);
+
+        $result = $this->subject->has('test-identifier');
+
+        self::assertTrue($result);
+    }
+
+    #[Test]
+    public function hasReturnsFalseWhenCacheHasNoEntry(): void
+    {
+        $this->cacheMock->method('has')->with('test-identifier')->willReturn(false);
+
+        $result = $this->subject->has('test-identifier');
+
+        self::assertFalse($result);
+    }
+
+    #[Test]
+    public function getReturnsCacheEntry(): void
+    {
+        $data = ['some' => 'data'];
+        $this->cacheMock->method('get')->with('test-identifier')->willReturn($data);
+
+        $result = $this->subject->get('test-identifier');
+
+        self::assertSame($data, $result);
+    }
+
+    #[Test]
+    public function setStoresDataInCache(): void
+    {
+        $data = [];
+        $this->cacheMock->expects(self::once())
+            ->method('set')
+            ->with(
+                'test-identifier',
+                $data,
+                ['tx_ximatypo3internalnews_domain_model_news'],
+            );
+
+        $this->subject->set('test-identifier', $data);
+    }
+
+    #[Test]
+    public function setStoresDataWithNewsTags(): void
+    {
+        $news = new News();
+        $data = [$news];
+        $this->cacheMock->expects(self::once())
+            ->method('set')
+            ->with(
+                'test-identifier',
+                $data,
+                self::callback(static fn (array $tags): bool => in_array('tx_ximatypo3internalnews_domain_model_news', $tags, true)),
+            );
+
+        $this->subject->set('test-identifier', $data);
     }
 
     private function createMockBackendUser(): object

@@ -1,8 +1,8 @@
 {
 	"authors": [
 		{
-			"email": "hej@konradmichalik.dev",
 			"name": "Konrad Michalik",
+			"email": "hej@konradmichalik.dev",
 			"role": "Maintainer"
 		}
 	],

@@ -6,13 +6,17 @@
          displayDetailsOnSkippedTests="true"
          bootstrap="vendor/autoload.php"
          colors="true"
+         defaultTestSuite="Unit"
 >
     <php>
         <env name="COLUMNS" value="300" />
     </php>
     <testsuites>
-        <testsuite name="Tests">
+        <testsuite name="Unit">
             <directory>Tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Functional">
+            <directory>Tests/Functional</directory>
         </testsuite>
     </testsuites>
     <coverage>

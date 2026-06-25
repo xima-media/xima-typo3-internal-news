@@ -22,14 +22,12 @@ use Xima\XimaTypo3InternalNews\Utilities\BackendUserHelper;
 
 use function count;
 
-
 /**
  * BackendUserHelperTest.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 final class BackendUserHelperTest extends TestCase
 {
     private BackendUserHelper $backendUserHelper;
@@ -166,6 +164,16 @@ final class BackendUserHelperTest extends TestCase
 
         self::assertInstanceOf(ReflectionNamedType::class, $returnType);
         self::assertEquals('bool', $returnType->getName());
+    }
+
+    #[Test]
+    public function checkAndSetModuleDateReturnsFalseWhenNoBackendUser(): void
+    {
+        unset($GLOBALS['BE_USER']);
+
+        $result = $this->backendUserHelper->checkAndSetModuleDate('test_module', 123);
+
+        self::assertFalse($result);
     }
 
     private function createMockBackendUser(): object

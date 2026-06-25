@@ -15,10 +15,10 @@ namespace Xima\XimaTypo3InternalNews\Service;
 
 use DateTime;
 use DateTimeInterface;
+use DateTimeZone;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use Xima\XimaTypo3InternalNews\Configuration;
 use Xima\XimaTypo3InternalNews\Domain\Model\{Date, News};
-
 
 /**
  * DateService.
@@ -26,7 +26,6 @@ use Xima\XimaTypo3InternalNews\Domain\Model\{Date, News};
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class DateService
 {
     public function __construct(
@@ -93,7 +92,7 @@ class DateService
                     break;
                 }
                 $transformer = new \Recurr\Transformer\ArrayTransformer();
-                $rule = new \Recurr\Rule($date->getRecurrence(), $date->getSingleDate(), null, (new \DateTimeZone('Europe/Berlin'))->getName());
+                $rule = new \Recurr\Rule($date->getRecurrence(), $date->getSingleDate(), null, (new DateTimeZone('Europe/Berlin'))->getName());
                 foreach ($transformer->transform($rule) as $recurrence) {
                     if ($recurrence->getStart() > new DateTime() && (!$forceNotify || $this->checkNotifyIsReached($recurrence->getStart()))) {
                         $dates[] = $this->createDateEntry($news, $date, $recurrence->getStart(), $respectNotify);
