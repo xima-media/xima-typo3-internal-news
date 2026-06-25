@@ -1,6 +1,6 @@
 <div align="center">
 
-![Extension icon](Resources/Public/Icons/Extension.svg)
+![Extension](Resources/Public/Icons/Extension.png)
 
 # TYPO3 extension `xima_typo3_internal_news`
 
