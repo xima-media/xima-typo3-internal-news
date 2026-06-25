@@ -57,6 +57,9 @@
 		"sort-packages": true
 	},
 	"extra": {
+		"konradmichalik/php-cs-fixer-preset": {
+			"copyright": 2025
+		},
 		"typo3/cms": {
 			"cms-package-dir": "{$vendor-dir}/typo3/cms",
 			"extension-key": "xima_typo3_internal_news",
@@ -64,36 +67,14 @@
 		}
 	},
 	"scripts": {
-		"fix": [
-			"@fix:composer",
-			"@fix:editorconfig",
-			"@fix:php"
+		"post-install-cmd": [
+			"@cgl install"
 		],
-		"fix:composer": "@composer normalize",
-		"fix:editorconfig": "@lint:editorconfig --fix",
-		"fix:php": "php vendor/bin/php-cs-fixer --config=php-cs-fixer.php fix",
-		"lint": [
-			"@lint:composer",
-			"@lint:editorconfig",
-			"@lint:php",
-			"@lint:language",
-			"@lint:typoscript",
-			"@lint:yaml"
-		],
-		"lint:composer": "@fix:composer --dry-run",
-		"lint:editorconfig": "ec --git-only",
-		"lint:language": "@composer validate-translations ./Resources/Private/Language",
-		"lint:php": "@fix:php --dry-run",
-		"lint:typoscript": "typoscript-lint --fail-on-warnings",
-		"lint:yaml": "find ./ ! -path './vendor/*' ! -path '*/node_modules/*' ! -path './.Build/*' ! -path './xima_typo3_content_planner/*' \\( -name '*.yaml' -o -name '*.yml' \\) -exec yaml-lint {} +",
-		"migration": [
-			"@migration:rector"
-		],
-		"migration:rector": "rector process -c rector.php",
-		"sca": [
-			"@sca:php"
-		],
-		"sca:php": "phpstan analyse --memory-limit=2G",
+		"cgl": "@composer -d Tests/CGL --",
+		"fix": "@cgl fix",
+		"lint": "@cgl lint",
+		"migration": "@cgl migration",
+		"sca": "@cgl sca:php",
 		"test": "@test:coverage --no-coverage",
 		"test:coverage": "XDEBUG_MODE=coverage phpunit -c phpunit.xml"
 	}
