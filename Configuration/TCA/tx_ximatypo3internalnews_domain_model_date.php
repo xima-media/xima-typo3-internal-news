@@ -1,31 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
+ * This file is part of the "xima_typo3_internal_news" TYPO3 CMS extension.
  *
- * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
+ * (c) 2025-2026 Konrad Michalik <hej@konradmichalik.dev>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 use Xima\XimaTypo3InternalNews\Configuration;
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date',
+        'title' => 'LLL:EXT:'.Configuration::EXT_KEY.'/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date',
         'label' => 'title',
-        'label_userFunc' => \Xima\XimaTypo3InternalNews\Utilities\UserFunc::class . '->dateLabel',
+        'label_userFunc' => Xima\XimaTypo3InternalNews\Utilities\UserFunc::class.'->dateLabel',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'delete' => 'deleted',
@@ -57,7 +49,7 @@ return [
     ],
     'columns' => [
         'title' => [
-            'label' => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.title',
+            'label' => 'LLL:EXT:'.Configuration::EXT_KEY.'/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.title',
             'config' => [
                 'type' => 'input',
                 'size' => 40,
@@ -67,8 +59,8 @@ return [
             ],
         ],
         'type' => [
-            'label' => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.type',
-            'description' => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.type.description',
+            'label' => 'LLL:EXT:'.Configuration::EXT_KEY.'/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.type',
+            'description' => 'LLL:EXT:'.Configuration::EXT_KEY.'/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.type.description',
             'onChange' => 'reload',
             'config' => [
                 'type' => 'select',
@@ -87,8 +79,8 @@ return [
             ],
         ],
         'single_date' => [
-            'label' => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.single_date',
-            'description' => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.single_date.description',
+            'label' => 'LLL:EXT:'.Configuration::EXT_KEY.'/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.single_date',
+            'description' => 'LLL:EXT:'.Configuration::EXT_KEY.'/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.single_date.description',
             'config' => [
                 'type' => 'datetime',
                 'format' => 'datetime',
@@ -98,8 +90,8 @@ return [
             ],
         ],
         'recurrence' => [
-            'label' => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.recurrence',
-            'description' => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.recurrence.description',
+            'label' => 'LLL:EXT:'.Configuration::EXT_KEY.'/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.recurrence',
+            'description' => 'LLL:EXT:'.Configuration::EXT_KEY.'/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.recurrence.description',
             'exclude' => false,
             'config' => [
                 'type' => 'input',
@@ -111,8 +103,8 @@ return [
             'displayCond' => 'FIELD:type:=:recurrence',
         ],
         'notify' => [
-            'label' => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.notify',
-            'description' => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.notify.description',
+            'label' => 'LLL:EXT:'.Configuration::EXT_KEY.'/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.notify',
+            'description' => 'LLL:EXT:'.Configuration::EXT_KEY.'/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.notify.description',
             'exclude' => false,
             'onChange' => 'reload',
             'config' => [
@@ -121,8 +113,8 @@ return [
             ],
         ],
         'notify_type' => [
-            'label' => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.notify_type',
-            'description' => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.notify_type.description',
+            'label' => 'LLL:EXT:'.Configuration::EXT_KEY.'/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.notify_type',
+            'description' => 'LLL:EXT:'.Configuration::EXT_KEY.'/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.notify_type.description',
             'displayCond' => 'FIELD:notify:=:1',
             'config' => [
                 'type' => 'select',
@@ -153,8 +145,8 @@ return [
             ],
         ],
         'notify_message' => [
-            'label' => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.notify_message',
-            'description' => 'LLL:EXT:' . Configuration::EXT_KEY . '/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.notify_message.description',
+            'label' => 'LLL:EXT:'.Configuration::EXT_KEY.'/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.notify_message',
+            'description' => 'LLL:EXT:'.Configuration::EXT_KEY.'/Resources/Private/Language/locallang_db.xlf:tx_ximatypo3internalnews_domain_model_date.notify_message.description',
             'displayCond' => 'FIELD:notify:=:1',
             'config' => [
                 'type' => 'input',

@@ -3,38 +3,39 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
+ * This file is part of the "xima_typo3_internal_news" TYPO3 CMS extension.
  *
- * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
+ * (c) 2025-2026 Konrad Michalik <hej@konradmichalik.dev>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Xima\XimaTypo3InternalNews\Service;
 
+use DateTime;
+use DateTimeInterface;
+use DateTimeZone;
 use Recurr\Rule;
 use Recurr\Transformer\ArrayTransformer;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use Xima\XimaTypo3InternalNews\Configuration;
-use Xima\XimaTypo3InternalNews\Domain\Model\Date;
-use Xima\XimaTypo3InternalNews\Domain\Model\News;
+use Xima\XimaTypo3InternalNews\Domain\Model\{Date, News};
+
+
+/**
+ * DateService.
+ *
+ * @author Konrad Michalik <hej@konradmichalik.dev>
+ * @license GPL-2.0-or-later
+ */
 
 class DateService
 {
     public function __construct(
-        private readonly ExtensionConfiguration $extensionConfiguration
+        private readonly ExtensionConfiguration $extensionConfiguration,
     ) {}
+
     public function getNextDate(News $news): ?array
     {
         $nextDate = null;
@@ -55,7 +56,8 @@ class DateService
             // merge arrays
             $nextDates = array_merge($nextDates, $this->getDates($news, $date, true));
         }
-        usort($nextDates, fn(array $a, array $b) => $a['date'] <=> $b['date']);
+        usort($nextDates, static fn (array $a, array $b) => $a['date'] <=> $b['date']);
+
         return $nextDates;
     }
 
@@ -67,7 +69,8 @@ class DateService
                 $notifyDates = array_merge($notifyDates, $this->getDates($news, $date, true, true));
             }
         }
-        usort($notifyDates, fn(array $a, array $b) => $a['date'] <=> $b['date']);
+        usort($notifyDates, static fn (array $a, array $b) => $a['date'] <=> $b['date']);
+
         return $notifyDates;
     }
 
@@ -76,7 +79,7 @@ class DateService
         $dates = [];
         switch ($date->getType()) {
             case 'single_date':
-                if ($date->getSingleDate() > new \DateTime() && (!$forceNotify || $this->checkNotifyIsReached($date->getSingleDate()))) {
+                if ($date->getSingleDate() > new DateTime() && (!$forceNotify || $this->checkNotifyIsReached($date->getSingleDate()))) {
                     $dates[] = $this->createDateEntry($news, $date, $date->getSingleDate(), $respectNotify);
                     if ($onlyNextDate) {
                         break;
@@ -85,9 +88,9 @@ class DateService
                 break;
             case 'recurrence':
                 $transformer = new ArrayTransformer();
-                $rule = new Rule($date->getRecurrence(), $date->getSingleDate(), null, (new \DateTimeZone('Europe/Berlin'))->getName());
+                $rule = new Rule($date->getRecurrence(), $date->getSingleDate(), null, (new DateTimeZone('Europe/Berlin'))->getName());
                 foreach ($transformer->transform($rule) as $recurrence) {
-                    if ($recurrence->getStart() > new \DateTime() && (!$forceNotify || $this->checkNotifyIsReached($recurrence->getStart()))) {
+                    if ($recurrence->getStart() > new DateTime() && (!$forceNotify || $this->checkNotifyIsReached($recurrence->getStart()))) {
                         $dates[] = $this->createDateEntry($news, $date, $recurrence->getStart(), $respectNotify);
                         if ($onlyNextDate) {
                             break 2;
@@ -96,10 +99,11 @@ class DateService
                 }
                 break;
         }
+
         return $dates;
     }
 
-    private function createDateEntry(News $news, Date $date, \DateTimeInterface $startDate, bool $respectNotify): array
+    private function createDateEntry(News $news, Date $date, DateTimeInterface $startDate, bool $respectNotify): array
     {
         $newDate = [
             'id' => $date->getUid(),
@@ -110,13 +114,14 @@ class DateService
         ];
         if ($respectNotify && $date->isNotify() && $this->checkNotifyIsReached($startDate)) {
             $newDate['notify'] = true;
-            $newDate['notifyType'] = ($date->getNotifyType() !== '') ? $date->getNotifyType() : 'info';
-            $newDate['notifyMessage'] = (($date->getNotifyMessage() !== '') ? $date->getNotifyMessage() : $GLOBALS['LANG']->sL('LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:internal_news_notify_note')) . ' (' . $startDate->format('d.m.Y H:i') . ')';
+            $newDate['notifyType'] = ('' !== $date->getNotifyType()) ? $date->getNotifyType() : 'info';
+            $newDate['notifyMessage'] = (('' !== $date->getNotifyMessage()) ? $date->getNotifyMessage() : $GLOBALS['LANG']->sL('LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:internal_news_notify_note')).' ('.$startDate->format('d.m.Y H:i').')';
         }
+
         return $newDate;
     }
 
-    private function checkNotifyIsReached(\DateTimeInterface $date): bool
+    private function checkNotifyIsReached(DateTimeInterface $date): bool
     {
         $extensionConfiguration = $this->extensionConfiguration->get(Configuration::EXT_KEY);
         $threshold = $extensionConfiguration['notifyTimeThreshold'];
@@ -127,10 +132,11 @@ class DateService
             return false;
         }
 
-        $thresholdDate = $thresholdDate->modify('-' . $threshold . ' seconds');
-        if ($thresholdDate < new \DateTime()) {
+        $thresholdDate = $thresholdDate->modify('-'.$threshold.' seconds');
+        if ($thresholdDate < new DateTime()) {
             return true;
         }
+
         return false;
     }
 }

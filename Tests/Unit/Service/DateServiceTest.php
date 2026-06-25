@@ -3,34 +3,33 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS extension "xima_typo3_internal_news".
+ * This file is part of the "xima_typo3_internal_news" TYPO3 CMS extension.
  *
- * Copyright (C) 2025 Konrad Michalik <hej@konradmichalik.dev>
+ * (c) 2025-2026 Konrad Michalik <hej@konradmichalik.dev>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Xima\XimaTypo3InternalNews\Tests\Unit\Service;
 
+use DateTime;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use Xima\XimaTypo3InternalNews\Domain\Model\Date;
-use Xima\XimaTypo3InternalNews\Domain\Model\News;
+use Xima\XimaTypo3InternalNews\Domain\Model\{Date, News};
 use Xima\XimaTypo3InternalNews\Service\DateService;
+
+
+/**
+ * DateServiceTest.
+ *
+ * @author Konrad Michalik <hej@konradmichalik.dev>
+ * @license GPL-2.0-or-later
+ */
 
 final class DateServiceTest extends TestCase
 {
@@ -39,7 +38,7 @@ final class DateServiceTest extends TestCase
     protected function setUp(): void
     {
         // Mock GLOBALS for language service
-        $GLOBALS['LANG'] = new class () {
+        $GLOBALS['LANG'] = new class {
             public function sL(string $key): string
             {
                 return 'Notification message';
@@ -80,7 +79,7 @@ final class DateServiceTest extends TestCase
     #[Test]
     public function getNextDateMethodExists(): void
     {
-        $reflection = new \ReflectionClass(DateService::class);
+        $reflection = new ReflectionClass(DateService::class);
 
         self::assertTrue($reflection->hasMethod('getNextDate'));
 
@@ -102,8 +101,8 @@ final class DateServiceTest extends TestCase
     #[Test]
     public function getNextDatesSortsByDate(): void
     {
-        $date1 = $this->createDate('single_date', new \DateTime('+2 days'));
-        $date2 = $this->createDate('single_date', new \DateTime('+1 day'));
+        $date1 = $this->createDate('single_date', new DateTime('+2 days'));
+        $date2 = $this->createDate('single_date', new DateTime('+1 day'));
         $news = $this->createNewsWithDates([$date1, $date2]);
 
         $result = $this->dateService->getNextDates($news);
@@ -123,7 +122,7 @@ final class DateServiceTest extends TestCase
     #[Test]
     public function getNotifyDatesByNewsListMethodExists(): void
     {
-        $reflection = new \ReflectionClass(DateService::class);
+        $reflection = new ReflectionClass(DateService::class);
 
         self::assertTrue($reflection->hasMethod('getNotifyDatesByNewsList'));
 
@@ -135,7 +134,7 @@ final class DateServiceTest extends TestCase
     #[Test]
     public function getDatesReturnsEmptyArrayForPastSingleDate(): void
     {
-        $pastDate = new \DateTime('-1 day');
+        $pastDate = new DateTime('-1 day');
         $date = $this->createDate('single_date', $pastDate);
         $news = $this->createNewsWithDates([]);
 
@@ -147,7 +146,7 @@ final class DateServiceTest extends TestCase
     #[Test]
     public function getDatesHandlesSingleDateType(): void
     {
-        $futureDate = new \DateTime('+1 day');
+        $futureDate = new DateTime('+1 day');
         $date = $this->createDate('single_date', $futureDate);
         $news = $this->createNewsWithDates([]);
 
@@ -160,7 +159,7 @@ final class DateServiceTest extends TestCase
     #[Test]
     public function getDatesHandlesRecurrenceType(): void
     {
-        $startDate = new \DateTime('+1 day');
+        $startDate = new DateTime('+1 day');
         $date = $this->createDate('recurrence', $startDate, 'FREQ=DAILY;COUNT=3');
         $news = $this->createNewsWithDates([]);
 
@@ -184,7 +183,7 @@ final class DateServiceTest extends TestCase
         return $news;
     }
 
-    private function createDate(string $type, \DateTime $singleDate, string $recurrence = ''): Date
+    private function createDate(string $type, DateTime $singleDate, string $recurrence = ''): Date
     {
         $date = new Date();
         $date->setType($type);
