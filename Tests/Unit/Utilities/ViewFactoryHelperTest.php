@@ -74,18 +74,13 @@ final class ViewFactoryHelperTest extends TestCase
     }
 
     #[Test]
-    public function privateMethodsExistForBothTypo3Versions(): void
+    public function classHasOnlyRenderViewAsPublicMethod(): void
     {
         $reflection = new ReflectionClass(ViewFactoryHelper::class);
+        $publicMethods = $reflection->getMethods(\ReflectionMethod::IS_PUBLIC);
 
-        $renderView12 = $reflection->getMethod('renderView12');
-        $renderView13 = $reflection->getMethod('renderView13');
-
-        self::assertTrue($renderView12->isPrivate());
-        self::assertTrue($renderView12->isStatic());
-
-        self::assertTrue($renderView13->isPrivate());
-        self::assertTrue($renderView13->isStatic());
+        self::assertCount(1, $publicMethods);
+        self::assertEquals('renderView', $publicMethods[0]->getName());
     }
 
     #[Test]
