@@ -21,14 +21,12 @@ use TYPO3\CMS\Dashboard\Widgets\{AdditionalCssInterface, ButtonProviderInterface
 use Xima\XimaTypo3InternalNews\Configuration;
 use Xima\XimaTypo3InternalNews\Utilities\ViewFactoryHelper;
 
-
 /**
  * InternalNewsWidget.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class InternalNewsWidget implements WidgetInterface, AdditionalCssInterface, JavaScriptInterface
 {
     protected ServerRequestInterface $request;

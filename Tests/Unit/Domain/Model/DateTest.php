@@ -18,14 +18,12 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Xima\XimaTypo3InternalNews\Domain\Model\Date;
 
-
 /**
  * DateTest.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 final class DateTest extends TestCase
 {
     private Date $subject;

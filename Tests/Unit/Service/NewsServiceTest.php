@@ -15,6 +15,7 @@ namespace Xima\XimaTypo3InternalNews\Tests\Unit\Service;
 
 use DateTime;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use Xima\XimaTypo3InternalNews\Domain\Model\News;
@@ -30,8 +31,8 @@ use Xima\XimaTypo3InternalNews\Utilities\BackendUserHelper;
 final class NewsServiceTest extends TestCase
 {
     private NewsService $newsService;
-    private DateService $dateServiceMock;
-    private BackendUserHelper $backendUserHelperMock;
+    private DateService&MockObject $dateServiceMock;
+    private BackendUserHelper&MockObject $backendUserHelperMock;
 
     protected function setUp(): void
     {
@@ -47,6 +48,7 @@ final class NewsServiceTest extends TestCase
         $expected = ['date' => new DateTime('+1 day'), 'id' => 1, 'title' => 'Test', 'type' => 'single_date', 'newsId' => 0];
 
         $this->dateServiceMock
+            ->expects(self::once())
             ->method('getNextDate')
             ->with($news)
             ->willReturn($expected);
@@ -77,6 +79,7 @@ final class NewsServiceTest extends TestCase
         $expected = [['date' => new DateTime('+1 day'), 'id' => 1, 'title' => 'Test', 'type' => 'single_date', 'newsId' => 0]];
 
         $this->dateServiceMock
+            ->expects(self::once())
             ->method('getNextDates')
             ->with($news)
             ->willReturn($expected);

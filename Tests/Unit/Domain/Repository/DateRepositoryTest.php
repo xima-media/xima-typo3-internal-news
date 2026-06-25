@@ -18,14 +18,12 @@ use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use Xima\XimaTypo3InternalNews\Domain\Repository\DateRepository;
 
-
 /**
  * DateRepositoryTest.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 final class DateRepositoryTest extends TestCase
 {
     #[Test]

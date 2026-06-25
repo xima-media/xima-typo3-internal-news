@@ -19,14 +19,12 @@ use Xima\XimaTypo3InternalNews\Service\CacheService;
 use function is_array;
 use function is_object;
 
-
 /**
  * NewsRepository.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class NewsRepository extends Repository
 {
     protected $defaultOrderings = [

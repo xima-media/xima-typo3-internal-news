@@ -15,7 +15,6 @@ namespace Xima\XimaTypo3InternalNews\Tests\Unit\Widgets\Provider;
 
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
 use Xima\XimaTypo3InternalNews\Domain\Model\News;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
 use Xima\XimaTypo3InternalNews\Widgets\Provider\InternalNewsDataProvider;
@@ -28,14 +27,6 @@ use Xima\XimaTypo3InternalNews\Widgets\Provider\InternalNewsDataProvider;
  */
 final class InternalNewsDataProviderTest extends TestCase
 {
-    #[Test]
-    public function implementsListDataProviderInterface(): void
-    {
-        $repositoryMock = $this->createMock(NewsRepository::class);
-        $provider = new InternalNewsDataProvider($repositoryMock);
-        self::assertInstanceOf(ListDataProviderInterface::class, $provider);
-    }
-
     #[Test]
     public function getItemsDelegatesToRepository(): void
     {

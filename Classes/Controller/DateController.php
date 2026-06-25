@@ -25,14 +25,12 @@ use Xima\XimaTypo3InternalNews\Utilities\ViewFactoryHelper;
 
 use function array_key_exists;
 
-
 /**
  * DateController.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 #[AsController]
 final class DateController extends ActionController
 {

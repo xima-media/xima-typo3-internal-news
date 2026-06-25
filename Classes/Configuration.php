@@ -13,14 +13,12 @@ declare(strict_types=1);
 
 namespace Xima\XimaTypo3InternalNews;
 
-
 /**
  * Configuration.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class Configuration
 {
     final public const EXT_KEY = 'xima_typo3_internal_news';

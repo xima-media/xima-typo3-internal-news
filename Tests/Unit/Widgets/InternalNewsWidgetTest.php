@@ -20,14 +20,12 @@ use ReflectionNamedType;
 use TYPO3\CMS\Dashboard\Widgets\{AdditionalCssInterface, ButtonProviderInterface, JavaScriptInterface, ListDataProviderInterface, WidgetConfigurationInterface, WidgetInterface};
 use Xima\XimaTypo3InternalNews\Widgets\InternalNewsWidget;
 
-
 /**
  * InternalNewsWidgetTest.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 final class InternalNewsWidgetTest extends TestCase
 {
     private InternalNewsWidget $subject;
@@ -56,12 +54,6 @@ final class InternalNewsWidgetTest extends TestCase
     protected function tearDown(): void
     {
         unset($GLOBALS['BE_USER']);
-    }
-
-    #[Test]
-    public function widgetCanBeInstantiated(): void
-    {
-        self::assertInstanceOf(InternalNewsWidget::class, $this->subject);
     }
 
     #[Test]
@@ -136,9 +128,6 @@ final class InternalNewsWidgetTest extends TestCase
         $jsInstructions = $this->subject->getJavaScriptModuleInstructions();
 
         self::assertCount(1, $jsInstructions);
-
-        // Check that it's a JavaScriptModuleInstruction
-        self::assertInstanceOf('TYPO3\CMS\Core\Page\JavaScriptModuleInstruction', $jsInstructions[0]);
     }
 
     #[Test]

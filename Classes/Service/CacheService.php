@@ -16,14 +16,12 @@ namespace Xima\XimaTypo3InternalNews\Service;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 use Xima\XimaTypo3InternalNews\Configuration;
 
-
 /**
  * CacheService.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class CacheService
 {
     public function __construct(

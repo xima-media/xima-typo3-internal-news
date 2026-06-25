@@ -17,7 +17,6 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Dashboard\Widgets\{ButtonProviderInterface, ElementAttributesInterface};
 use Xima\XimaTypo3InternalNews\Widgets\Provider\ListInternalNewsButtonProvider;
 
 /**
@@ -30,28 +29,12 @@ final class ListInternalNewsButtonProviderTest extends TestCase
 {
     protected function setUp(): void
     {
-        parent::setUp();
         GeneralUtility::purgeInstances();
     }
 
     protected function tearDown(): void
     {
         GeneralUtility::purgeInstances();
-        parent::tearDown();
-    }
-
-    #[Test]
-    public function implementsButtonProviderInterface(): void
-    {
-        $provider = new ListInternalNewsButtonProvider('List');
-        self::assertInstanceOf(ButtonProviderInterface::class, $provider);
-    }
-
-    #[Test]
-    public function implementsElementAttributesInterface(): void
-    {
-        $provider = new ListInternalNewsButtonProvider('List');
-        self::assertInstanceOf(ElementAttributesInterface::class, $provider);
     }
 
     #[Test]

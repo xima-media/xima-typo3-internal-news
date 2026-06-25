@@ -20,14 +20,12 @@ use Xima\XimaTypo3InternalNews\Utilities\ViewFactoryHelper;
 
 use function count;
 
-
 /**
  * NewsItem.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class NewsItem implements ToolbarItemInterface
 {
     protected array $configuration;

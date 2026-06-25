@@ -15,12 +15,10 @@ namespace Xima\XimaTypo3InternalNews\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-
 /**
  * DateRepository.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class DateRepository extends Repository {}

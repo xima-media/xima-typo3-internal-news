@@ -33,14 +33,12 @@ final class UserFuncTest extends TestCase
 {
     protected function setUp(): void
     {
-        parent::setUp();
         GeneralUtility::purgeInstances();
     }
 
     protected function tearDown(): void
     {
         GeneralUtility::purgeInstances();
-        parent::tearDown();
     }
 
     #[Test]

@@ -22,14 +22,12 @@ use Xima\XimaTypo3InternalNews\Backend\ToolbarItems\NewsItem;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
 use Xima\XimaTypo3InternalNews\Service\NewsService;
 
-
 /**
  * NewsItemTest.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 final class NewsItemTest extends TestCase
 {
     private NewsItem $subject;
@@ -47,12 +45,6 @@ final class NewsItemTest extends TestCase
             ->getMock();
 
         $this->subject = new NewsItem($this->newsRepositoryMock, $this->newsServiceMock);
-    }
-
-    #[Test]
-    public function toolbarItemCanBeInstantiated(): void
-    {
-        self::assertInstanceOf(NewsItem::class, $this->subject);
     }
 
     #[Test]

@@ -26,6 +26,10 @@ $configuration
     ->addPathsToExclude([
         $rootPath.'/Tests/CGL',
     ])
+    ->ignoreUnknownClasses([
+        Recurr\Rule::class,
+        Recurr\Transformer\ArrayTransformer::class,
+    ])
 ;
 
 return $configuration;

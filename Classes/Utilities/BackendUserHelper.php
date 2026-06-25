@@ -17,14 +17,12 @@ use function in_array;
 use function is_array;
 use function is_object;
 
-
 /**
  * BackendUserHelper.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class BackendUserHelper
 {
     public function checkAndSetModuleDate(string $moduleName, mixed $value): bool

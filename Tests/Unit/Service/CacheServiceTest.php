@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Xima\XimaTypo3InternalNews\Tests\Unit\Service;
 
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 use Xima\XimaTypo3InternalNews\Domain\Model\News;
@@ -30,7 +31,7 @@ use function in_array;
 final class CacheServiceTest extends TestCase
 {
     private CacheService $subject;
-    private FrontendInterface $cacheMock;
+    private FrontendInterface&MockObject $cacheMock;
 
     protected function setUp(): void
     {
@@ -44,12 +45,6 @@ final class CacheServiceTest extends TestCase
     protected function tearDown(): void
     {
         unset($GLOBALS['BE_USER']);
-    }
-
-    #[Test]
-    public function canBeInstantiated(): void
-    {
-        self::assertInstanceOf(CacheService::class, $this->subject);
     }
 
     #[Test]
@@ -91,7 +86,7 @@ final class CacheServiceTest extends TestCase
     #[Test]
     public function hasReturnsTrueWhenCacheHasEntry(): void
     {
-        $this->cacheMock->method('has')->with('test-identifier')->willReturn(true);
+        $this->cacheMock->expects(self::once())->method('has')->with('test-identifier')->willReturn(true);
 
         $result = $this->subject->has('test-identifier');
 
@@ -101,7 +96,7 @@ final class CacheServiceTest extends TestCase
     #[Test]
     public function hasReturnsFalseWhenCacheHasNoEntry(): void
     {
-        $this->cacheMock->method('has')->with('test-identifier')->willReturn(false);
+        $this->cacheMock->expects(self::once())->method('has')->with('test-identifier')->willReturn(false);
 
         $result = $this->subject->has('test-identifier');
 
@@ -112,7 +107,7 @@ final class CacheServiceTest extends TestCase
     public function getReturnsCacheEntry(): void
     {
         $data = ['some' => 'data'];
-        $this->cacheMock->method('get')->with('test-identifier')->willReturn($data);
+        $this->cacheMock->expects(self::once())->method('get')->with('test-identifier')->willReturn($data);
 
         $result = $this->subject->get('test-identifier');
 

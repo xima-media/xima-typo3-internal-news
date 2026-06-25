@@ -15,6 +15,7 @@ namespace Xima\XimaTypo3InternalNews\Tests\Unit\ViewHelpers;
 
 use DateTime;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -32,14 +33,12 @@ final class NextDateViewHelperTest extends TestCase
 {
     protected function setUp(): void
     {
-        parent::setUp();
         GeneralUtility::purgeInstances();
     }
 
     protected function tearDown(): void
     {
         GeneralUtility::purgeInstances();
-        parent::tearDown();
     }
 
     #[Test]
@@ -49,8 +48,9 @@ final class NextDateViewHelperTest extends TestCase
         $news->setDates(new ObjectStorage());
         $expected = ['date' => new DateTime('+1 day'), 'id' => 1, 'title' => 'Test', 'type' => 'single_date', 'newsId' => 0];
 
+        /** @var NewsService&MockObject $newsServiceMock */
         $newsServiceMock = $this->createMock(NewsService::class);
-        $newsServiceMock->method('getNextDate')->with($news)->willReturn($expected);
+        $newsServiceMock->expects(self::once())->method('getNextDate')->with($news)->willReturn($expected);
         GeneralUtility::addInstance(NewsService::class, $newsServiceMock);
 
         $viewHelper = new NextDateViewHelper();
@@ -66,6 +66,7 @@ final class NextDateViewHelperTest extends TestCase
         $news = new News();
         $news->setDates(new ObjectStorage());
 
+        /** @var NewsService&MockObject $newsServiceMock */
         $newsServiceMock = $this->createMock(NewsService::class);
         $newsServiceMock->method('getNextDate')->willReturn(null);
         GeneralUtility::addInstance(NewsService::class, $newsServiceMock);

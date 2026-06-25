@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Xima\XimaTypo3InternalNews\Tests\Unit\Domain\Repository;
 
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use ReflectionMethod;
@@ -228,10 +229,11 @@ final class NewsRepositoryTest extends TestCase
 
         $cachedData = [new \Xima\XimaTypo3InternalNews\Domain\Model\News()];
 
+        /** @var CacheService&MockObject $cacheServiceMock */
         $cacheServiceMock = $this->createMock(CacheService::class);
         $cacheServiceMock->method('generateCacheIdentifier')->willReturn('test-cache-id');
-        $cacheServiceMock->method('has')->with('test-cache-id')->willReturn(true);
-        $cacheServiceMock->method('get')->with('test-cache-id')->willReturn($cachedData);
+        $cacheServiceMock->expects(self::once())->method('has')->with('test-cache-id')->willReturn(true);
+        $cacheServiceMock->expects(self::once())->method('get')->with('test-cache-id')->willReturn($cachedData);
 
         $reflection = new ReflectionClass(NewsRepository::class);
         $repository = $reflection->newInstanceWithoutConstructor();

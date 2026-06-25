@@ -17,14 +17,12 @@ use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\Widgets\{ButtonProviderInterface, ElementAttributesInterface};
 
-
 /**
  * CreateInternalNewsButtonProvider.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class CreateInternalNewsButtonProvider implements ButtonProviderInterface, ElementAttributesInterface
 {
     public function __construct(private readonly string $title, private readonly string $target = '') {}

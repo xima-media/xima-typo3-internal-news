@@ -18,14 +18,12 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use Xima\XimaTypo3InternalNews\Domain\Model\News;
 use Xima\XimaTypo3InternalNews\Service\NewsService;
 
-
 /**
  * NextDateViewHelper.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class NextDateViewHelper extends AbstractViewHelper
 {
     public function initializeArguments(): void

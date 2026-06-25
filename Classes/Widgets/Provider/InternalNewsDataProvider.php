@@ -16,14 +16,12 @@ namespace Xima\XimaTypo3InternalNews\Widgets\Provider;
 use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
 
-
 /**
  * InternalNewsDataProvider.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class InternalNewsDataProvider implements ListDataProviderInterface
 {
     public function __construct(protected NewsRepository $newsRepository) {}

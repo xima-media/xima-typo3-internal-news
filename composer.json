@@ -19,16 +19,13 @@
 		"typo3/cms-core": "^13.4 || ^14.0",
 		"typo3/cms-dashboard": "^13.4 || ^14.0",
 		"typo3/cms-extbase": "^13.4 || ^14.0",
-		"typo3/cms-fluid": "^13.4 || ^14.0",
 		"typo3fluid/fluid": "^4.2 || ^5.0"
 	},
 	"require-dev": {
 		"eliashaeussler/version-bumper": "^4.0",
-		"helhum/typo3-console": "^8.1",
 		"phpunit/phpunit": "^11.0 || ^12.0 || ^13.0",
 		"typo3/cms-base-distribution": "^13.4 || ^14.0",
-		"typo3/cms-lowlevel": "^13.4 || ^14.0",
-		"typo3/testing-framework": "^8.0 || ^9.0"
+		"typo3/cms-lowlevel": "^13.4 || ^14.0"
 	},
 	"suggest": {
 		"simshaun/recurr": "^5.0 || ^6.0 — Required for recurring date/reminder support"
@@ -46,6 +43,7 @@
 	"config": {
 		"allow-plugins": {
 			"eliashaeussler/version-bumper": true,
+			"ergebnis/composer-normalize": true,
 			"helhum/dotenv-connector": true,
 			"php-http/discovery": true,
 			"typo3/class-alias-loader": true,

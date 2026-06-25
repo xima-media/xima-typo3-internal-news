@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Xima\XimaTypo3InternalNews\Tests\Unit\Controller;
 
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use ReflectionNamedType;
@@ -32,9 +33,9 @@ use Xima\XimaTypo3InternalNews\Service\DateService;
 final class DateControllerTest extends TestCase
 {
     private DateController $subject;
-    private NewsRepository $newsRepositoryMock;
-    private ExtensionConfiguration $extensionConfigurationMock;
-    private DateService $dateServiceMock;
+    private NewsRepository&MockObject $newsRepositoryMock;
+    private ExtensionConfiguration&MockObject $extensionConfigurationMock;
+    private DateService&MockObject $dateServiceMock;
 
     protected function setUp(): void
     {
@@ -65,9 +66,18 @@ final class DateControllerTest extends TestCase
     }
 
     #[Test]
-    public function controllerCanBeInstantiated(): void
+    public function controllerConstructorAppliesExtensionConfiguration(): void
     {
-        self::assertInstanceOf(DateController::class, $this->subject);
+        $reflection = new ReflectionClass($this->subject);
+        $property = $reflection->getProperty('configuration');
+
+        self::assertSame(
+            [
+                'enableNotifySessionHide' => true,
+                'dateListCount' => 20,
+            ],
+            $property->getValue($this->subject),
+        );
     }
 
     #[Test]
@@ -225,7 +235,7 @@ final class DateControllerTest extends TestCase
 
         $response = $this->subject->notifiesAction();
 
-        self::assertInstanceOf(\Psr\Http\Message\ResponseInterface::class, $response);
+        self::assertSame(200, $response->getStatusCode());
     }
 
     #[Test]
@@ -237,7 +247,6 @@ final class DateControllerTest extends TestCase
 
         $response = $this->subject->newsAction();
 
-        self::assertInstanceOf(\Psr\Http\Message\ResponseInterface::class, $response);
         self::assertSame(400, $response->getStatusCode());
 
         unset($GLOBALS['TYPO3_REQUEST']);
@@ -252,7 +261,6 @@ final class DateControllerTest extends TestCase
 
         $response = $this->subject->newsAction();
 
-        self::assertInstanceOf(\Psr\Http\Message\ResponseInterface::class, $response);
         self::assertSame(400, $response->getStatusCode());
 
         unset($GLOBALS['TYPO3_REQUEST']);
@@ -267,7 +275,6 @@ final class DateControllerTest extends TestCase
 
         $response = $this->subject->newsAction();
 
-        self::assertInstanceOf(\Psr\Http\Message\ResponseInterface::class, $response);
         self::assertSame(400, $response->getStatusCode());
 
         unset($GLOBALS['TYPO3_REQUEST']);
@@ -280,11 +287,10 @@ final class DateControllerTest extends TestCase
         $requestMock->method('getQueryParams')->willReturn(['newsId' => '99']);
         $GLOBALS['TYPO3_REQUEST'] = $requestMock;
 
-        $this->newsRepositoryMock->method('findByUid')->with(99)->willReturn(null);
+        $this->newsRepositoryMock->expects(self::once())->method('findByUid')->with(99)->willReturn(null);
 
         $response = $this->subject->newsAction();
 
-        self::assertInstanceOf(\Psr\Http\Message\ResponseInterface::class, $response);
         self::assertSame(404, $response->getStatusCode());
 
         unset($GLOBALS['TYPO3_REQUEST']);

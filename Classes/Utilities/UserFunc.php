@@ -20,14 +20,12 @@ use Xima\XimaTypo3InternalNews\Service\DateService;
 
 use function array_key_exists;
 
-
 /**
  * UserFunc.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class UserFunc
 {
     public function dateLabel(array &$parameters): void

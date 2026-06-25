@@ -16,14 +16,12 @@ namespace Xima\XimaTypo3InternalNews\Service;
 use Xima\XimaTypo3InternalNews\Domain\Model\News;
 use Xima\XimaTypo3InternalNews\Utilities\BackendUserHelper;
 
-
 /**
  * NewsService.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class NewsService
 {
     public function __construct(

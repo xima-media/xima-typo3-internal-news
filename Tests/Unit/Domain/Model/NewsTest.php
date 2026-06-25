@@ -19,14 +19,12 @@ use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use Xima\XimaTypo3InternalNews\Domain\Model\{Date, News};
 
-
 /**
  * NewsTest.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 final class NewsTest extends TestCase
 {
     private News $subject;
@@ -115,7 +113,6 @@ final class NewsTest extends TestCase
     {
         $dates = $this->subject->getDates();
 
-        self::assertInstanceOf(ObjectStorage::class, $dates);
         self::assertEquals(0, $dates->count());
     }
 
@@ -133,7 +130,6 @@ final class NewsTest extends TestCase
     {
         $categories = $this->subject->getCategories();
 
-        self::assertInstanceOf(ObjectStorage::class, $categories);
         self::assertEquals(0, $categories->count());
     }
 

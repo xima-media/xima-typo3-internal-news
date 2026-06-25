@@ -16,14 +16,12 @@ namespace Xima\XimaTypo3InternalNews\Domain\Model;
 use DateTime;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-
 /**
  * Date.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class Date extends AbstractEntity
 {
     protected string $title = '';

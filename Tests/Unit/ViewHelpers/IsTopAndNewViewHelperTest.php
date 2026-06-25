@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Xima\XimaTypo3InternalNews\Tests\Unit\ViewHelpers;
 
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -31,14 +32,12 @@ final class IsTopAndNewViewHelperTest extends TestCase
 {
     protected function setUp(): void
     {
-        parent::setUp();
         GeneralUtility::purgeInstances();
     }
 
     protected function tearDown(): void
     {
         GeneralUtility::purgeInstances();
-        parent::tearDown();
     }
 
     #[Test]
@@ -48,8 +47,9 @@ final class IsTopAndNewViewHelperTest extends TestCase
         $news->setDates(new ObjectStorage());
         $news->setTop(true);
 
+        /** @var NewsService&MockObject $newsServiceMock */
         $newsServiceMock = $this->createMock(NewsService::class);
-        $newsServiceMock->method('isTopAndNew')->with($news)->willReturn(true);
+        $newsServiceMock->expects(self::once())->method('isTopAndNew')->with($news)->willReturn(true);
         GeneralUtility::addInstance(NewsService::class, $newsServiceMock);
 
         $viewHelper = new IsTopAndNewViewHelper();
@@ -66,6 +66,7 @@ final class IsTopAndNewViewHelperTest extends TestCase
         $news->setDates(new ObjectStorage());
         $news->setTop(false);
 
+        /** @var NewsService&MockObject $newsServiceMock */
         $newsServiceMock = $this->createMock(NewsService::class);
         $newsServiceMock->method('isTopAndNew')->willReturn(false);
         GeneralUtility::addInstance(NewsService::class, $newsServiceMock);

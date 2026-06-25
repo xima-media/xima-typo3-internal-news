@@ -15,14 +15,12 @@ namespace Xima\XimaTypo3InternalNews\Hooks;
 
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 
-
 /**
  * DataHandler.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class DataHandler
 {
     public function __construct(private readonly FrontendInterface $cache) {}

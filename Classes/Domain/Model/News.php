@@ -17,14 +17,12 @@ use TYPO3\CMS\Extbase\Domain\Model\{Category, FileReference};
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-
 /**
  * News.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class News extends AbstractEntity
 {
     protected string $title = '';

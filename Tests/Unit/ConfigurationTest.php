@@ -18,14 +18,12 @@ use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use Xima\XimaTypo3InternalNews\Configuration;
 
-
 /**
  * ConfigurationTest.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 final class ConfigurationTest extends TestCase
 {
     #[Test]
