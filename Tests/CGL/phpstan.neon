@@ -8,6 +8,7 @@ parameters:
   scanDirectories:
     - ../../vendor
     - ../../vendor/phpunit/phpunit/src
+    - ../../vendor/typo3/cms-fluid/Classes
 
   paths:
     - ../../Classes
