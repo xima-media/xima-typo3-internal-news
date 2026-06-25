@@ -18,14 +18,12 @@ use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\{GeneralUtility, PathUtility};
 use Xima\XimaTypo3InternalNews\Configuration;
 
-
 /**
  * ViewFactoryHelper.
  *
  * @author Konrad Michalik <hej@konradmichalik.dev>
  * @license GPL-2.0-or-later
  */
-
 class ViewFactoryHelper
 {
     /**
@@ -48,15 +46,15 @@ class ViewFactoryHelper
     private static function renderView12(string $template, array $values): string
     {
         /** @var \TYPO3\CMS\Fluid\View\StandaloneView $view */
-        $view = GeneralUtility::makeInstance(\TYPO3\CMS\Fluid\View\StandaloneView::class); // @phpstan-ignore classConstant.deprecatedClass
-        $view->setFormat('html'); // @phpstan-ignore method.deprecatedClass
-        $view->setTemplateRootPaths(['EXT:'.Configuration::EXT_KEY.'/Resources/Private/Templates/']); // @phpstan-ignore method.deprecatedClass
-        $view->setPartialRootPaths(['EXT:'.Configuration::EXT_KEY.'/Resources/Private/Partials/']); // @phpstan-ignore method.deprecatedClass
+        $view = GeneralUtility::makeInstance(\TYPO3\CMS\Fluid\View\StandaloneView::class);
+        $view->setFormat('html');
+        $view->setTemplateRootPaths(['EXT:'.Configuration::EXT_KEY.'/Resources/Private/Templates/']);
+        $view->setPartialRootPaths(['EXT:'.Configuration::EXT_KEY.'/Resources/Private/Partials/']);
         if (PathUtility::isExtensionPath($template)) {
             $template = GeneralUtility::getFileAbsFileName($template);
-            $view->setTemplatePathAndFilename($template); // @phpstan-ignore method.deprecatedClass
+            $view->setTemplatePathAndFilename($template);
         } else {
-            $view->setTemplate($template); // @phpstan-ignore method.deprecatedClass
+            $view->setTemplate($template);
         }
         $view->assignMultiple($values);
 
