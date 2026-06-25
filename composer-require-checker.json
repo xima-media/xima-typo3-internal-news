@@ -1,0 +1,6 @@
+{
+	"symbol-whitelist": [
+		"Recurr\\Rule",
+		"Recurr\\Transformer\\ArrayTransformer"
+	]
+}
