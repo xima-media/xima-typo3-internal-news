@@ -53,7 +53,33 @@ VALUES
     (4, 0, 1700003000, 1700003000, 0, 0,
         'Spring campaign kickoff (Marketing only)',
         '<p>This news item is only visible to members of the "Marketing" backend group.</p>',
-        0, 0, 0, '91');
+        0, 0, 0, '91'),
+    (5, 0, 1700004000, 1700004000, 0, 0,
+        'New backend dashboard (with image)',
+        '<p>This news item ships an attached image to showcase media rendering in the news modal and the list preview. The screenshot below highlights the redesigned dashboard widget.</p>',
+        0, 1, 0, '');
+
+-- Example media file attached to news #5 ------------------------------------
+-- The physical file is copied into fileadmin/ by the internal-news-media.sh
+-- fixture script; this sys_file row references it in the default storage (1).
+-- Hashes/size match Tests/Acceptance/Fixtures/files/internal-news-example.png.
+INSERT INTO sys_file
+    (uid, pid, tstamp, last_indexed, missing, storage, type, metadata, identifier, identifier_hash, folder_hash, extension, mime_type, name, sha1, size, creation_date, modification_date)
+VALUES
+    (1001, 0, 1700004000, 0, 0, 1, 2, 0,
+        '/internal-news-example.png',
+        '53ca324d3853757b5ad8e2228c3fc621ee36f3db',
+        '42099b4af021e53fd8fd4e056c2568d7c2e3ffa8',
+        'png', 'image/png', 'internal-news-example.png',
+        '014b4ea511a99faadbb70529a17703d717ffb7bb',
+        23506, 1700004000, 1700004000);
+
+-- File reference linking sys_file #1001 to the media field of news #5 --------
+INSERT INTO sys_file_reference
+    (uid, pid, tstamp, crdate, deleted, hidden, sorting_foreign, uid_local, uid_foreign, tablenames, fieldname)
+VALUES
+    (1001, 0, 1700004000, 1700004000, 0, 0, 1, 1001, 5,
+        'tx_ximatypo3internalnews_domain_model_news', 'media');
 
 -- Date attached to news #2 (single date, with a notification enabled) -------
 INSERT INTO tx_ximatypo3internalnews_domain_model_date
