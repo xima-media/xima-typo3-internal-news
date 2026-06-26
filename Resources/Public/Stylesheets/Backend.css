@@ -4,7 +4,7 @@
    accents reuse TYPO3 component variables with safe fallbacks.
    ========================================================================== */
 
-:where(.internal-news, .internal-news-detail, .dropdown-headline) {
+:root {
     --in-border: rgba(125, 125, 125, 0.2);
     --in-hover-bg: rgba(125, 125, 125, 0.12);
     --in-muted: rgba(125, 125, 125, 1);
@@ -184,7 +184,8 @@ ul.internal-news--list .internal-news:first-child {
     display: none;
 }
 
-small {
+.internal-news small,
+.internal-news-detail small {
     color: var(--in-muted);
 }
 
