@@ -12,25 +12,56 @@ class InternalNewsUtils {
       });
   }
 
+  fetchNewsList = () => {
+    new AjaxRequest(TYPO3.settings.ajaxUrls.internal_news_list)
+      .get()
+      .then(async (response) => {
+        const resolved = await response.resolve();
+        this.showInternalNewsList(TYPO3.lang !== undefined ? TYPO3.lang['internal_news.title'] : 'Internal News', resolved.result);
+      });
+  }
+
+  closeButton = () => ({
+    text: TYPO3.lang !== undefined ? TYPO3.lang['internal_news.close'] : 'Close',
+    name: 'close',
+    icon: 'actions-close',
+    active: true,
+    btnClass: 'btn-secondary',
+    trigger: (event, modal) => {
+      modal.hideModal();
+    }
+  })
+
   showInternalNews = (title, description) => {
     Modal.advanced({
       title: title,
       content: document.createRange()
         .createContextualFragment(description),
-      size: Modal.sizes.large,
+      size: {width: Modal.sizes.medium, height: Modal.sizes.default},
       staticBackdrop: true,
-      buttons: [
-        {
-          text: TYPO3.lang !== undefined ? TYPO3.lang['internal_news.close'] : 'Close',
-          name: 'close',
-          icon: 'actions-close',
-          active: true,
-          btnClass: 'btn-secondary',
-          trigger: function (event, modal) {
-            modal.hideModal();
-          }
-        }
-      ]
+      buttons: [this.closeButton()]
+    });
+  }
+
+  showInternalNewsList = (title, content) => {
+    Modal.advanced({
+      title: title,
+      content: document.createRange()
+        .createContextualFragment(content),
+      size: {width: Modal.sizes.medium, height: Modal.sizes.default},
+      staticBackdrop: true,
+      callback: (modal) => {
+        modal.querySelectorAll('.internal-news').forEach(item => {
+          const newsId = item.getAttribute('data-news-id');
+          item.querySelectorAll('a, button').forEach(element => {
+            element.addEventListener('click', e => {
+              e.preventDefault();
+              this.fetchNews(newsId);
+            });
+          });
+        });
+      },
+      buttons: [this.closeButton()]
     });
   }
 }

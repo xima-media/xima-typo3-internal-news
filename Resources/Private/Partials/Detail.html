@@ -2,6 +2,7 @@
     xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
     xmlns:xin="http://typo3.org/ns/Xima/XimaTypo3InternalNews/ViewHelpers">
 
+<div class="internal-news-detail">
 <h2>{record.title}</h2>
 <f:if condition="{record.top}">
     <span class="badge badge-danger internal-news--top">
@@ -27,16 +28,16 @@
         <div class="internal-news--media">
             <f:if condition="{record.media.originalResource.originalFile.properties.mime_type} == 'image/gif'">
                 <f:then>
-                    <img src="{record.media.originalResource.publicUrl}" alt="{record.title}" width="760px"/>
+                    <img src="{record.media.originalResource.publicUrl}" alt="{record.title}"/>
                 </f:then>
                 <f:else if="{record.media.originalResource.originalFile.properties.mime_type} == 'video/mp4' || {record.media.originalResource.originalFile.properties.mime_type} == 'video/webm' || {record.media.originalResource.originalFile.properties.mime_type} == 'video/ogg'">
-                    <video controls width="760px">
+                    <video controls>
                         <source src="{record.media.originalResource.publicUrl}" type="{record.media.originalResource.originalFile.properties.mime_type}">
                         Your browser does not support the video tag.
                     </video>
                 </f:else>
                 <f:else>
-                    <f:image image="{record.media}" alt="{record.title}" width="760px"/>
+                    <f:image image="{record.media}" alt="{record.title}" width="720"/>
                 </f:else>
             </f:if>
         </div>
@@ -65,3 +66,4 @@
         </f:for>
     </div>
 </f:if>
+</div>

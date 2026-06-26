@@ -8,7 +8,7 @@ CREATE TABLE tx_ximatypo3internalnews_domain_model_news
 	hidden        tinyint(4) unsigned DEFAULT '0' NOT NULL,
 
 	title       varchar(255)  DEFAULT '' NOT NULL,
-	description varchar(2000) DEFAULT '' NOT NULL,
+	description text          NOT NULL,
 	top         tinyint(4) unsigned DEFAULT 0 NOT NULL,
 	media       int (11) unsigned DEFAULT '0' NOT NULL,
 	dates       int(11) unsigned DEFAULT '0' NOT NULL,

@@ -86,7 +86,6 @@ return [
                 'enableRichtext' => true,
                 'rows' => 8,
                 'cols' => 40,
-                'max' => 2000,
                 'eval' => 'trim',
             ],
         ],

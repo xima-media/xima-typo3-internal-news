@@ -1,6 +1,4 @@
-<html data-namespace-typo3-fluid="true"
-    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
-    xmlns:xin="http://typo3.org/ns/Xima/XimaTypo3InternalNews/ViewHelpers">
+<html data-namespace-typo3-fluid="true">
 
 <p class="h3 dropdown-headline">
     <span class="internal-news--icon-round">
@@ -9,24 +7,23 @@
     <f:translate key="toolbaritem.title" extensionName="XimaTypo3InternalNews"/>
 </p>
 <p class="dropdown-item-text">
-    <f:format.raw>
-        <f:translate key="toolbaritem.description" extensionName="XimaTypo3InternalNews"
-                    arguments="{0: '{be:moduleLink(route:\'dashboard\')}'}"/>
-    </f:format.raw>
+    <f:translate key="toolbaritem.description" extensionName="XimaTypo3InternalNews"/>
 </p>
-<ul class="dropdown-list internal-news--toolbar">
-    <f:if condition="{data}">
-        <f:then>
-            <f:for each="{data}" as="record">
-                <f:render partial="Item" arguments="{record: record, top: '{xin:isTopAndNew(news: record)}'}"/>
-            </f:for>
-        </f:then>
-        <f:else>
-            <div class="internal-news--empty">
-                <p>
-                    <f:translate key="empty" extensionName="XimaTypo3InternalNews"/>
-                </p>
-            </div>
-        </f:else>
-    </f:if>
-</ul>
+<f:if condition="{data}">
+    <f:then>
+        <f:render partial="NewsList" arguments="{records: data, wrapperClass: 'dropdown-list internal-news--toolbar'}"/>
+    </f:then>
+    <f:else>
+        <div class="internal-news--empty">
+            <p>
+                <f:translate key="empty" extensionName="XimaTypo3InternalNews"/>
+            </p>
+        </div>
+    </f:else>
+</f:if>
+<div class="internal-news--dropdown-footer">
+    <button type="button" class="btn btn-default btn-sm internal-news--show-all">
+        <core:icon identifier="actions-list-alternative" size="small" alternativeMarkupIdentifier="inline"/>
+        <f:translate key="toolbaritem.showAll" extensionName="XimaTypo3InternalNews"/>
+    </button>
+</div>

@@ -1,0 +1,14 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+<f:if condition="{records}">
+    <f:then>
+        <f:render partial="NewsList" arguments="{records: records, wrapperClass: 'internal-news--list'}"/>
+    </f:then>
+    <f:else>
+        <div class="internal-news--empty">
+            <p><f:translate key="empty" extensionName="XimaTypo3InternalNews"/></p>
+        </div>
+    </f:else>
+</f:if>
+</html>

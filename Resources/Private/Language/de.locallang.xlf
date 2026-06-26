@@ -29,7 +29,11 @@
 			</trans-unit>
 			<trans-unit id="toolbaritem.description">
 				<source />
-				<target><![CDATA[Hier finden Sie die neuesten internen Nachrichten. Alle Neuigkeiten finden Sie im internen News-Widget auf Ihrem <a href="%s">Dashboard</a>.]]></target>
+				<target>Hier finden Sie die neuesten internen Nachrichten. Über "Alle News anzeigen" sehen Sie die vollständige Liste.</target>
+			</trans-unit>
+			<trans-unit id="toolbaritem.showAll">
+				<source />
+				<target>Alle News anzeigen</target>
 			</trans-unit>
 			<trans-unit id="empty">
 				<source />

@@ -20,4 +20,8 @@ return [
         'path' => '/internal-news/detail',
         'target' => Xima\XimaTypo3InternalNews\Controller\DateController::class.'::newsAction',
     ],
+    'internal_news_list' => [
+        'path' => '/internal-news/list',
+        'target' => Xima\XimaTypo3InternalNews\Controller\DateController::class.'::listAction',
+    ],
 ];

@@ -22,7 +22,10 @@
 				<source>Internal News</source>
 			</trans-unit>
 			<trans-unit id="toolbaritem.description">
-				<source><![CDATA[Here you can find the latest internal news. Find all news within the internal news widget on your <a href="%s">dashboard</a>.]]></source>
+				<source>Here you can find the latest internal news. Use "Show all news" to view the complete list.</source>
+			</trans-unit>
+			<trans-unit id="toolbaritem.showAll">
+				<source>Show all news</source>
 			</trans-unit>
 			<trans-unit id="empty">
 				<source>No internal news available</source>
