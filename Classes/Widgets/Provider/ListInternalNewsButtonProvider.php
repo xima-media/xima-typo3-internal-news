@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Xima\XimaTypo3InternalNews\Widgets\Provider;
 
 use TYPO3\CMS\Backend\Routing\UriBuilder;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\Widgets\{ButtonProviderInterface, ElementAttributesInterface};
 
@@ -35,13 +36,20 @@ class ListInternalNewsButtonProvider implements ButtonProviderInterface, Element
     public function getLink(): string
     {
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+
+        // TYPO3 v14 renamed the record list module to "records"; "web_list" only remains
+        // as an alias. UriBuilder generates the CSRF token for the passed route name, while
+        // RouteDispatcher validates it against the resolved identifier — passing the alias
+        // causes a token mismatch and bounces the user back to the start module (dashboard).
+        $listModuleIdentifier = (new Typo3Version())->getMajorVersion() >= 14 ? 'records' : 'web_list';
+
         $params = [
             'id' => 0,
             'table' => 'tx_ximatypo3internalnews_domain_model_news',
             'returnUrl' => (string) $uriBuilder->buildUriFromRoute('dashboard'),
         ];
 
-        return (string) $uriBuilder->buildUriFromRoute('web_list', $params);
+        return (string) $uriBuilder->buildUriFromRoute($listModuleIdentifier, $params);
     }
 
     public function getTarget(): string
