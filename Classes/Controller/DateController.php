@@ -55,6 +55,20 @@ final class DateController extends ActionController
         ]);
     }
 
+    public function listAction(): JsonResponse
+    {
+        return new JsonResponse(
+            [
+                'result' => ViewFactoryHelper::renderView(
+                    'Default/List.html',
+                    [
+                        'records' => $this->newsRepository->findAllByCurrentUser() ?? [],
+                    ],
+                ),
+            ],
+        );
+    }
+
     public function newsAction(): ResponseInterface
     {
         $queryParams = $GLOBALS['TYPO3_REQUEST']->getQueryParams();

@@ -19,6 +19,13 @@ class InternalNewsToolbar {
           });
         });
       });
+
+      document.querySelectorAll('.internal-news--show-all').forEach(element => {
+        element.addEventListener('click', e => {
+          e.preventDefault();
+          InternalNewsUtils.fetchNewsList();
+        });
+      });
     }
 }
 
