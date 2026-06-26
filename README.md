@@ -31,8 +31,9 @@ This extension provides an internal news system with custom access and notificat
 
 ### Requirements
 
-* TYPO3 >= 12.4 
-* PHP 8.1+
+* TYPO3 13.4 LTS or 14
+* PHP 8.2+
+* `simshaun/recurr` (optional) – required only for recurring dates/reminders
 
 ### Composer
 
