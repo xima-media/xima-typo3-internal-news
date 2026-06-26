@@ -88,6 +88,7 @@ small {
 
 .internal-news--top {
     margin-bottom: 1em;
+    align-self: flex-start;
 }
 
 .internal-news--next-dates {
