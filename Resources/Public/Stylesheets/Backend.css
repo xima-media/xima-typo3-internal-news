@@ -201,8 +201,7 @@ ul.internal-news--list .internal-news:first-child {
 /* --- News detail (modal) ------------------------------------------------- */
 
 .internal-news-detail {
-    max-width: 720px;
-    margin: 0 auto;
+    margin: 0;
 }
 
 .internal-news-detail h2 {

@@ -8,7 +8,7 @@ class InternalNewsUtils {
       .get()
       .then(async (response) => {
         const resolved = await response.resolve();
-        this.showInternalNews(TYPO3.lang !== undefined ? TYPO3.lang['internal_news.title'] : 'Internal News', resolved.result);
+        this.showInternalNews(this.title(resolved.labels), resolved.result, resolved.labels);
       });
   }
 
@@ -17,12 +17,14 @@ class InternalNewsUtils {
       .get()
       .then(async (response) => {
         const resolved = await response.resolve();
-        this.showInternalNewsList(TYPO3.lang !== undefined ? TYPO3.lang['internal_news.title'] : 'Internal News', resolved.result);
+        this.showInternalNewsList(this.title(resolved.labels), resolved.result, resolved.labels);
       });
   }
 
-  closeButton = () => ({
-    text: TYPO3.lang !== undefined ? TYPO3.lang['internal_news.close'] : 'Close',
+  title = (labels) => labels?.title ?? TYPO3.lang?.['internal_news.title'] ?? 'Internal News';
+
+  closeButton = (labels) => ({
+    text: labels?.close ?? TYPO3.lang?.['internal_news.close'] ?? 'Close',
     name: 'close',
     icon: 'actions-close',
     active: true,
@@ -32,18 +34,18 @@ class InternalNewsUtils {
     }
   })
 
-  showInternalNews = (title, description) => {
+  showInternalNews = (title, description, labels) => {
     Modal.advanced({
       title: title,
       content: document.createRange()
         .createContextualFragment(description),
       size: {width: Modal.sizes.medium, height: Modal.sizes.default},
       staticBackdrop: true,
-      buttons: [this.closeButton()]
+      buttons: [this.closeButton(labels)]
     });
   }
 
-  showInternalNewsList = (title, content) => {
+  showInternalNewsList = (title, content, labels) => {
     Modal.advanced({
       title: title,
       content: document.createRange()
@@ -61,7 +63,7 @@ class InternalNewsUtils {
           });
         });
       },
-      buttons: [this.closeButton()]
+      buttons: [this.closeButton(labels)]
     });
   }
 }
