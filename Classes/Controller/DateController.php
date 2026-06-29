@@ -18,6 +18,7 @@ use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Http\JsonResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use Xima\XimaTypo3InternalNews\Configuration;
 use Xima\XimaTypo3InternalNews\Domain\Repository\NewsRepository;
 use Xima\XimaTypo3InternalNews\Service\DateService;
@@ -65,6 +66,7 @@ final class DateController extends ActionController
                         'records' => $this->newsRepository->findAllByCurrentUser() ?? [],
                     ],
                 ),
+                'labels' => $this->getModalLabels(),
             ],
         );
     }
@@ -98,7 +100,22 @@ final class DateController extends ActionController
                         'dateListCount' => (array_key_exists('dateListCount', $this->configuration) ? (int) $this->configuration['dateListCount'] : 20),
                     ],
                 ),
+                'labels' => $this->getModalLabels(),
             ],
         );
+    }
+
+    /**
+     * Modal labels resolved server-side so they are available regardless of the
+     * (backend module / iframe) context the request runs in.
+     *
+     * @return array<string, string>
+     */
+    private function getModalLabels(): array
+    {
+        return [
+            'title' => (string) LocalizationUtility::translate('widget.title', 'XimaTypo3InternalNews'),
+            'close' => (string) LocalizationUtility::translate('button.close', 'XimaTypo3InternalNews'),
+        ];
     }
 }
