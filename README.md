@@ -31,8 +31,8 @@ This extension provides an internal news system with custom access and notificat
 
 ### Requirements
 
-* TYPO3 >= 12.4 
-* PHP 8.1+
+* TYPO3 >= 13.4 
+* PHP 8.2+
 
 ### Composer
 
@@ -79,9 +79,6 @@ The notification hint will be displayed by default within a time slot 6 hours be
 Please have a look at [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## 💎 Credits
-
-News icon by Rock Zombie from <a href="https://thenounproject.com/icon/news-3141439/" target="_blank" title="Icon">
-Noun Project</a> (CC BY 3.0)
 
 Date icon by Yudhi Restu Pebriyanto from <a href="https://thenounproject.com/icon/date-7203889/" target="_blank" title="Icon">
 Noun Project</a> (CC BY 3.0)
