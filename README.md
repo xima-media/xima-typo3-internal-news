@@ -5,7 +5,7 @@
 # TYPO3 extension `xima_typo3_internal_news`
 
 [![Latest Stable Version](https://typo3-badges.dev/badge/xima_typo3_internal_news/version/shields.svg)](https://extensions.typo3.org/extension/xima_typo3_internal_news)
-[![Supported TYPO3 versions](https://typo3-badges.dev/badge/xima_typo3_internal_news/typo3/shields.svg)](https://extensions.typo3.org/extension/xima_typo3_internal_news)
+![TYPO3](https://img.shields.io/badge/TYPO3-13.4%20%7C%2014.0-orange.svg)
 [![Coverage](https://img.shields.io/coverallsCoverage/github/xima-media/xima-typo3-internal-news?logo=coveralls)](https://coveralls.io/github/xima-media/xima-typo3-internal-news)
 [![CGL](https://img.shields.io/github/actions/workflow/status/xima-media/xima-typo3-internal-news/cgl.yml?label=cgl&logo=github)](https://github.com/xima-media/xima-typo3-internal-news/actions/workflows/cgl.yml)
 [![Tests](https://img.shields.io/github/actions/workflow/status/xima-media/xima-typo3-internal-news/tests.yml?label=tests&logo=github)](https://github.com/xima-media/xima-typo3-internal-news/actions/workflows/tests.yml)
