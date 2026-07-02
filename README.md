@@ -9,6 +9,7 @@
 [![Coverage](https://img.shields.io/coverallsCoverage/github/xima-media/xima-typo3-internal-news?logo=coveralls)](https://coveralls.io/github/xima-media/xima-typo3-internal-news)
 [![CGL](https://img.shields.io/github/actions/workflow/status/xima-media/xima-typo3-internal-news/cgl.yml?label=cgl&logo=github)](https://github.com/xima-media/xima-typo3-internal-news/actions/workflows/cgl.yml)
 [![Tests](https://img.shields.io/github/actions/workflow/status/xima-media/xima-typo3-internal-news/tests.yml?label=tests&logo=github)](https://github.com/xima-media/xima-typo3-internal-news/actions/workflows/tests.yml)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/xima-media/xima-typo3-internal-news/badge)](https://securityscorecards.dev/viewer/?uri=github.com/xima-media/xima-typo3-internal-news)
 [![License](https://poser.pugx.org/xima/xima-typo3-internal-news/license)](LICENSE.md)
 
 </div>
