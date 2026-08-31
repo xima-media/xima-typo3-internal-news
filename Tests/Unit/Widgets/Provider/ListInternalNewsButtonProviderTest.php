@@ -40,14 +40,14 @@ final class ListInternalNewsButtonProviderTest extends TestCase
     #[Test]
     public function getTitleReturnsConfiguredTitle(): void
     {
-        $provider = new ListInternalNewsButtonProvider('List All News');
+        $provider = new ListInternalNewsButtonProvider('List All News', '');
         self::assertSame('List All News', $provider->getTitle());
     }
 
     #[Test]
-    public function getTargetReturnsEmptyStringByDefault(): void
+    public function getTargetReturnsEmptyStringWhenConfiguredEmpty(): void
     {
-        $provider = new ListInternalNewsButtonProvider('List');
+        $provider = new ListInternalNewsButtonProvider('List', '');
         self::assertSame('', $provider->getTarget());
     }
 
@@ -61,7 +61,7 @@ final class ListInternalNewsButtonProviderTest extends TestCase
     #[Test]
     public function getElementAttributesReturnsEmptyArray(): void
     {
-        $provider = new ListInternalNewsButtonProvider('List');
+        $provider = new ListInternalNewsButtonProvider('List', '');
         self::assertSame([], $provider->getElementAttributes());
     }
 
@@ -72,7 +72,7 @@ final class ListInternalNewsButtonProviderTest extends TestCase
         $uriBuilderMock->method('buildUriFromRoute')->willReturn('/typo3/module/web/list');
         GeneralUtility::setSingletonInstance(UriBuilder::class, $uriBuilderMock);
 
-        $provider = new ListInternalNewsButtonProvider('List');
+        $provider = new ListInternalNewsButtonProvider('List', '');
         $link = $provider->getLink();
 
         self::assertNotEmpty($link);

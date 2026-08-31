@@ -30,15 +30,18 @@ services:
   Xima\XimaTypo3InternalNews\Widgets\Provider\CreateInternalNewsButtonProvider:
     arguments:
       $title: "LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:widgets.internalNews.news.button.create"
+      $target: ""
 
   Xima\XimaTypo3InternalNews\Widgets\Provider\ListInternalNewsButtonProvider:
     arguments:
       $title: "LLL:EXT:xima_typo3_internal_news/Resources/Private/Language/locallang.xlf:widgets.internalNews.news.button.list"
+      $target: ""
 
   dashboard.widget.InternalNews-news:
     class: 'Xima\XimaTypo3InternalNews\Widgets\InternalNewsWidget'
     arguments:
       $dataProvider: '@Xima\XimaTypo3InternalNews\Widgets\Provider\InternalNewsDataProvider'
+      $buttonProvider: null
       $buttons:
         - '@Xima\XimaTypo3InternalNews\Widgets\Provider\CreateInternalNewsButtonProvider'
         - '@Xima\XimaTypo3InternalNews\Widgets\Provider\ListInternalNewsButtonProvider'
