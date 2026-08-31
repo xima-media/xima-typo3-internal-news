@@ -34,9 +34,9 @@ class InternalNewsWidget implements WidgetInterface, AdditionalCssInterface, Jav
     public function __construct(
         protected readonly WidgetConfigurationInterface $configuration,
         protected readonly ListDataProviderInterface $dataProvider,
-        protected readonly ?ButtonProviderInterface $buttonProvider = null,
-        protected readonly array $buttons = [],
-        protected array $options = [],
+        protected readonly ?ButtonProviderInterface $buttonProvider,
+        protected readonly array $buttons,
+        protected array $options,
     ) {}
 
     public function renderWidgetContent(): string

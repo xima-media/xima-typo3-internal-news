@@ -79,6 +79,12 @@ parameters:
 			path: ../../Classes/Utilities/UserFunc.php
 
 		-
+			message: '#^Method Xima\\XimaTypo3InternalNews\\Utilities\\UserFunc\:\:dateLabel\(\) has parameter \$parameters that is passed by reference\.$#'
+			identifier: ergebnis.noParameterPassedByReference
+			count: 1
+			path: ../../Classes/Utilities/UserFunc.php
+
+		-
 			message: '#^Mixed variable in a `\$GLOBALS\[''BE_USER''\]\-\>\.\.\.\(\)` can skip important errors\. Make sure the type is known$#'
 			identifier: typePerfect.noMixedMethodCaller
 			count: 1

@@ -31,10 +31,11 @@ class ViewFactoryHelper
     public static function renderView(string $template, array $values, ?ServerRequestInterface $request = null): string
     {
         $viewFactoryData = new \TYPO3\CMS\Core\View\ViewFactoryData(
-            templateRootPaths: ['EXT:'.Configuration::EXT_KEY.'/Resources/Private/Templates/'],
-            partialRootPaths: ['EXT:'.Configuration::EXT_KEY.'/Resources/Private/Partials/'],
-            layoutRootPaths: ['EXT:'.Configuration::EXT_KEY.'/Resources/Private/Layouts/'],
-            request: $request,
+            ['EXT:'.Configuration::EXT_KEY.'/Resources/Private/Templates/'],
+            ['EXT:'.Configuration::EXT_KEY.'/Resources/Private/Partials/'],
+            ['EXT:'.Configuration::EXT_KEY.'/Resources/Private/Layouts/'],
+            null,
+            $request,
         );
 
         $viewFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Core\View\ViewFactoryInterface::class);

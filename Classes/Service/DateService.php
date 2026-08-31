@@ -78,30 +78,21 @@ class DateService
     public function getDates(News $news, Date $date, bool $respectNotify = false, bool $forceNotify = false, bool $onlyNextDate = false): array
     {
         $dates = [];
-        switch ($date->getType()) {
-            case 'single_date':
-                if ($date->getSingleDate() > new DateTime() && (!$forceNotify || $this->checkNotifyIsReached($date->getSingleDate()))) {
-                    $dates[] = $this->createDateEntry($news, $date, $date->getSingleDate(), $respectNotify);
+        if ('single_date' === $date->getType()) {
+            if ($date->getSingleDate() > new DateTime() && (!$forceNotify || $this->checkNotifyIsReached($date->getSingleDate()))) {
+                $dates[] = $this->createDateEntry($news, $date, $date->getSingleDate(), $respectNotify);
+            }
+        } elseif ('recurrence' === $date->getType() && $this->hasRecurrenceSupport()) {
+            $transformer = new \Recurr\Transformer\ArrayTransformer();
+            $rule = new \Recurr\Rule($date->getRecurrence(), $date->getSingleDate(), null, (new DateTimeZone('Europe/Berlin'))->getName());
+            foreach ($transformer->transform($rule) as $recurrence) {
+                if ($recurrence->getStart() > new DateTime() && (!$forceNotify || $this->checkNotifyIsReached($recurrence->getStart()))) {
+                    $dates[] = $this->createDateEntry($news, $date, $recurrence->getStart(), $respectNotify);
                     if ($onlyNextDate) {
                         break;
                     }
                 }
-                break;
-            case 'recurrence':
-                if (!$this->hasRecurrenceSupport()) {
-                    break;
-                }
-                $transformer = new \Recurr\Transformer\ArrayTransformer();
-                $rule = new \Recurr\Rule($date->getRecurrence(), $date->getSingleDate(), null, (new DateTimeZone('Europe/Berlin'))->getName());
-                foreach ($transformer->transform($rule) as $recurrence) {
-                    if ($recurrence->getStart() > new DateTime() && (!$forceNotify || $this->checkNotifyIsReached($recurrence->getStart()))) {
-                        $dates[] = $this->createDateEntry($news, $date, $recurrence->getStart(), $respectNotify);
-                        if ($onlyNextDate) {
-                            break 2;
-                        }
-                    }
-                }
-                break;
+            }
         }
 
         return $dates;

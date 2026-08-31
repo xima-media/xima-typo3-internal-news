@@ -40,14 +40,14 @@ final class CreateInternalNewsButtonProviderTest extends TestCase
     #[Test]
     public function getTitleReturnsConfiguredTitle(): void
     {
-        $provider = new CreateInternalNewsButtonProvider('Create New');
+        $provider = new CreateInternalNewsButtonProvider('Create New', '');
         self::assertSame('Create New', $provider->getTitle());
     }
 
     #[Test]
-    public function getTargetReturnsEmptyStringByDefault(): void
+    public function getTargetReturnsEmptyStringWhenConfiguredEmpty(): void
     {
-        $provider = new CreateInternalNewsButtonProvider('Create');
+        $provider = new CreateInternalNewsButtonProvider('Create', '');
         self::assertSame('', $provider->getTarget());
     }
 
@@ -61,7 +61,7 @@ final class CreateInternalNewsButtonProviderTest extends TestCase
     #[Test]
     public function getElementAttributesReturnsEmptyArray(): void
     {
-        $provider = new CreateInternalNewsButtonProvider('Create');
+        $provider = new CreateInternalNewsButtonProvider('Create', '');
         self::assertSame([], $provider->getElementAttributes());
     }
 
@@ -72,7 +72,7 @@ final class CreateInternalNewsButtonProviderTest extends TestCase
         $uriBuilderMock->method('buildUriFromRoute')->willReturn('/typo3/record/edit');
         GeneralUtility::setSingletonInstance(UriBuilder::class, $uriBuilderMock);
 
-        $provider = new CreateInternalNewsButtonProvider('Create');
+        $provider = new CreateInternalNewsButtonProvider('Create', '');
         $link = $provider->getLink();
 
         self::assertNotEmpty($link);
