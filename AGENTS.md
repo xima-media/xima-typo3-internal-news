@@ -22,7 +22,7 @@ Guidance for coding agents working in this repository.
 - `Configuration/`: TCA, backend routes, icons, JavaScript modules, services
 - `Resources/`: Fluid templates, XLIFF language files (EN and DE), CSS, JavaScript modules
 - `Tests/Unit/`: PHPUnit tests mirroring `Classes/`
-- `Tests/CGL/`: separate Composer project with code style and static analysis tools
+- `Tests/CGL/`: separate Composer project with code style and static analysis tools. Its `composer.lock` is committed and updated by Renovate, so tool releases only reach CI through a Renovate PR
 - `Documentation/`: TYPO3 documentation source
 - `.ddev/`: DDEV setup with TYPO3 13 and 14 instances
 
