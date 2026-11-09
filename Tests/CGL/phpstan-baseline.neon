@@ -37,7 +37,13 @@ parameters:
 			path: ../../Classes/Service/CacheService.php
 
 		-
-			message: '#^Cognitive complexity for "Xima\\XimaTypo3InternalNews\\Service\\DateService\:\:getDates\(\)" is \d+, keep it under 10$#'
+			message: '#^Call to method transform\(\) on an unknown class Recurr\\Transformer\\ArrayTransformer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: ../../Classes/Service/DateService.php
+
+		-
+			message: '#^Cognitive complexity for "Xima\\XimaTypo3InternalNews\\Service\\DateService\:\:getDates\(\)" is 18, keep it under 10$#'
 			identifier: complexity.functionLike
 			count: 1
 			path: ../../Classes/Service/DateService.php
@@ -50,12 +56,6 @@ parameters:
 
 		-
 			message: '#^Instantiated class Recurr\\Transformer\\ArrayTransformer not found\.$#'
-			identifier: class.notFound
-			count: 1
-			path: ../../Classes/Service/DateService.php
-
-		-
-			message: '#^Call to method transform\(\) on an unknown class Recurr\\Transformer\\ArrayTransformer\.$#'
 			identifier: class.notFound
 			count: 1
 			path: ../../Classes/Service/DateService.php
@@ -75,12 +75,6 @@ parameters:
 		-
 			message: '#^Mixed variable in a `\$date\[''date''\]\-\>\.\.\.\(\)` can skip important errors\. Make sure the type is known$#'
 			identifier: typePerfect.noMixedMethodCaller
-			count: 1
-			path: ../../Classes/Utilities/UserFunc.php
-
-		-
-			message: '#^Method Xima\\XimaTypo3InternalNews\\Utilities\\UserFunc\:\:dateLabel\(\) has parameter \$parameters that is passed by reference\.$#'
-			identifier: ergebnis.noParameterPassedByReference
 			count: 1
 			path: ../../Classes/Utilities/UserFunc.php
 
