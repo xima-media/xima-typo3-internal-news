@@ -19,4 +19,3 @@ parameters:
 		return: 100
 		param: 95
 		property: 95
-		constant: 0
