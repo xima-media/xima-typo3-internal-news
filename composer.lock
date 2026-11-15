@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1fba164026cdecd58928b223b5734fc1",
+    "content-hash": "4e2c0cfad96753c05e3e6343e79be19b",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1705,7 +1705,8 @@
                 "issues": "https://github.com/php-fig/container/issues",
                 "source": "https://github.com/php-fig/container/tree/2.0.2"
             },
-            "time": "2021-11-05T16:47:00+00:00"
+            "time": "2021-11-05T16:47:00+00:00",
+            "published-time": "2021-11-05T16:53:27+00:00"
         },
         {
             "name": "psr/event-dispatcher",
@@ -2561,7 +2562,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-24T08:56:14+00:00"
+            "time": "2026-05-24T08:56:14+00:00",
+            "published-time": "2026-05-27T08:45:18+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -2716,7 +2718,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-13T15:52:40+00:00"
+            "time": "2026-04-13T15:52:40+00:00",
+            "published-time": "2026-05-06T16:27:46+00:00"
         },
         {
             "name": "symfony/doctrine-messenger",
@@ -3029,16 +3032,16 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v7.4.11",
+            "version": "v7.4.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "d721ea61b4a5fba8c5b6e7c1feda19efea144b50"
+                "reference": "53d609da66578dad5a39fe290e8f924ec8f05e93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/d721ea61b4a5fba8c5b6e7c1feda19efea144b50",
-                "reference": "d721ea61b4a5fba8c5b6e7c1feda19efea144b50",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/53d609da66578dad5a39fe290e8f924ec8f05e93",
+                "reference": "53d609da66578dad5a39fe290e8f924ec8f05e93",
                 "shasum": ""
             },
             "require": {
@@ -3075,7 +3078,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v7.4.11"
+                "source": "https://github.com/symfony/filesystem/tree/v7.4.23"
             },
             "funding": [
                 {
@@ -3095,7 +3098,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-11T16:38:44+00:00"
+            "time": "2026-11-04T08:27:22+00:00",
+            "published-time": "2026-11-04T11:28:00+00:00"
         },
         {
             "name": "symfony/finder",
@@ -3163,7 +3167,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-03-24T13:12:05+00:00"
+            "time": "2026-03-24T13:12:05+00:00",
+            "published-time": "2026-03-31T21:11:52+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -3583,7 +3588,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-03-24T13:12:05+00:00"
+            "time": "2026-03-24T13:12:05+00:00",
+            "published-time": "2026-03-31T21:09:43+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -3666,7 +3672,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-10T16:19:22+00:00"
+            "time": "2026-04-10T16:19:22+00:00",
+            "published-time": "2026-04-26T14:44:50+00:00"
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
@@ -3748,7 +3755,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-26T05:58:03+00:00"
+            "time": "2026-05-26T05:58:03+00:00",
+            "published-time": "2026-05-26T13:40:30+00:00"
         },
         {
             "name": "symfony/polyfill-intl-idn",
@@ -3920,7 +3928,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-25T13:48:31+00:00"
+            "time": "2026-05-25T13:48:31+00:00",
+            "published-time": "2026-05-25T15:14:58+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -4005,7 +4014,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-27T06:59:30+00:00"
+            "time": "2026-05-27T06:59:30+00:00",
+            "published-time": "2026-06-09T06:07:20+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
@@ -4089,7 +4099,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-10T16:19:22+00:00"
+            "time": "2026-04-10T16:19:22+00:00",
+            "published-time": "2026-04-26T14:44:45+00:00"
         },
         {
             "name": "symfony/polyfill-php83",
@@ -4317,7 +4328,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-23T16:05:06+00:00"
+            "time": "2026-05-23T16:05:06+00:00",
+            "published-time": "2026-05-27T08:45:03+00:00"
         },
         {
             "name": "symfony/property-access",
@@ -4734,7 +4746,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-03-28T09:44:51+00:00"
+            "time": "2026-03-28T09:44:51+00:00",
+            "published-time": "2026-05-06T16:27:50+00:00"
         },
         {
             "name": "symfony/string",
@@ -4825,7 +4838,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-23T15:23:29+00:00"
+            "time": "2026-05-23T15:23:29+00:00",
+            "published-time": "2026-05-27T08:45:04+00:00"
         },
         {
             "name": "symfony/translation",
@@ -5357,16 +5371,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v7.4.13",
+            "version": "v7.4.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "a7ec3b1156faf8815db7683ec7c1e7338e6f977c"
+                "reference": "1e601207ffe627a2e621faa9d661f1d32dcf1cec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/a7ec3b1156faf8815db7683ec7c1e7338e6f977c",
-                "reference": "a7ec3b1156faf8815db7683ec7c1e7338e6f977c",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/1e601207ffe627a2e621faa9d661f1d32dcf1cec",
+                "reference": "1e601207ffe627a2e621faa9d661f1d32dcf1cec",
                 "shasum": ""
             },
             "require": {
@@ -5409,7 +5423,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v7.4.13"
+                "source": "https://github.com/symfony/yaml/tree/v7.4.23"
             },
             "funding": [
                 {
@@ -5429,7 +5443,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-25T06:06:12+00:00"
+            "time": "2026-11-04T08:27:22+00:00",
+            "published-time": "2026-11-04T11:28:41+00:00"
         },
         {
             "name": "typo3/class-alias-loader",
@@ -6415,7 +6430,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-23T17:38:05+00:00"
+            "time": "2026-03-23T17:38:05+00:00",
+            "published-time": "2026-03-23T17:40:47+00:00"
         },
         {
             "name": "cypresslab/gitelephant",
@@ -6478,7 +6494,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-26T16:23:11+00:00"
+            "time": "2024-11-26T16:23:11+00:00",
+            "published-time": "2024-11-26T16:24:57+00:00"
         },
         {
             "name": "eliashaeussler/task-runner",
@@ -6533,26 +6550,27 @@
                 "issues": "https://github.com/eliashaeussler/task-runner/issues",
                 "source": "https://github.com/eliashaeussler/task-runner/tree/1.2.3"
             },
-            "time": "2026-06-18T18:59:00+00:00"
+            "time": "2026-06-18T18:59:00+00:00",
+            "published-time": "2026-06-18T18:59:18+00:00"
         },
         {
             "name": "eliashaeussler/version-bumper",
-            "version": "4.1.2",
+            "version": "4.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eliashaeussler/version-bumper.git",
-                "reference": "5a942f60ff67a795fd1de0a1f02522a8c14ec81a"
+                "reference": "36133b8da82898ecd691bb062d1164a0291047f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eliashaeussler/version-bumper/zipball/5a942f60ff67a795fd1de0a1f02522a8c14ec81a",
-                "reference": "5a942f60ff67a795fd1de0a1f02522a8c14ec81a",
+                "url": "https://api.github.com/repos/eliashaeussler/version-bumper/zipball/36133b8da82898ecd691bb062d1164a0291047f9",
+                "reference": "36133b8da82898ecd691bb062d1164a0291047f9",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^2.0",
                 "cuyz/valinor": "^2.0",
-                "cypresslab/gitelephant": "^4.5",
+                "cypresslab/gitelephant": "^4.5 || ^5.0",
                 "eliashaeussler/task-runner": "^1.2",
                 "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
                 "symfony/console": "^5.4 || ^6.4 || ^7.0 || ^8.0",
@@ -6566,15 +6584,15 @@
             },
             "require-dev": {
                 "armin/editorconfig-cli": "^2.0",
-                "composer/composer": "~2.2.28 || ~2.10.0",
+                "composer/composer": "~2.2.28 || ~2.11.0",
                 "eliashaeussler/php-cs-fixer-config": "^3.0",
                 "eliashaeussler/phpstan-config": "^4.0",
-                "eliashaeussler/rector-config": "^4.0",
                 "ergebnis/composer-normalize": "^2.47",
                 "phpstan/extension-installer": "^1.3",
                 "phpstan/phpstan-phpunit": "^2.0",
                 "phpstan/phpstan-symfony": "^2.0",
                 "phpunit/phpunit": "^11.0 || ^12.0 || ^13.0",
+                "rector/rector": "^2.8",
                 "shipmonk/composer-dependency-analyser": "^1.8",
                 "symfony/deprecation-contracts": "^2.5 || ^3.0"
             },
@@ -6602,9 +6620,10 @@
             "description": "Composer plugin to bump project versions during release preparations",
             "support": {
                 "issues": "https://github.com/eliashaeussler/version-bumper/issues",
-                "source": "https://github.com/eliashaeussler/version-bumper/tree/4.1.2"
+                "source": "https://github.com/eliashaeussler/version-bumper/tree/4.1.3"
             },
-            "time": "2026-09-17T06:18:06+00:00"
+            "time": "2026-11-14T20:46:51+00:00",
+            "published-time": "2026-11-14T20:48:04+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -6915,7 +6934,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-27T19:41:33+00:00"
+            "time": "2025-12-27T19:41:33+00:00",
+            "published-time": "2025-12-27T19:42:20+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -9832,5 +9852,5 @@
     "platform-overrides": {
         "php": "8.2"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.11.0"
 }
